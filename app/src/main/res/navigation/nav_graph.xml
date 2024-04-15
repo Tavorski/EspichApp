@@ -3,9 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/locationsListFragment2">
+    app:startDestination="@id/locationsListFragment">
     <fragment
-        android:id="@+id/locationsListFragment2"
+        android:id="@+id/locationsListFragment"
         android:name="es.uniovi.espichapp.ui.LocationsListFragment"
-        android:label="LocationsListFragment" />
+        android:label="LocationsListFragment"
+        tools:layout="@layout/fragment_locations_list"
+        />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="es.uniovi.espichapp.ui.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
 </navigation>

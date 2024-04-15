@@ -47,16 +47,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0e366a8-33e4-400d-b1f2-b90f84644c75" name="Changes" comment="No sé, cosas&#10;Empecé la view del detail y hay que averiguar que se hace con los viewmodels y que tipo de dato manejan">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/domain/DetailViewModel.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/ui/DetailFragment.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_detail.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/xml/fragment_detail_scene.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/data/ApiResult.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/status/AppStatus.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/ui/LocationsUIState.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/adapters/LocationListAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/adapters/LocationListAdapter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/adapters/LocationViewHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/adapters/LocationViewHolder.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/data/LocationRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/data/LocationRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/domain/LocationViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/domain/LocationListViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/model/Location.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/model/Location.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/model/LocationDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/model/LocationDAO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/model/LocationList.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/model/LocationList.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/network/WebService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/network/WebService.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/ui/LocationsListFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/ui/LocationsListFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/util/Utils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/util/Utils.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_locations_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_locations_list.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -67,7 +75,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\Propietario\.android\avd\Nexus_5X_API_24.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[fc7afa301120]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -115,13 +123,27 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="resourceFile" />
-        <option value="Kotlin Class" />
         <option value="layoutResourceFile" />
+        <option value="Kotlin Enum" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="29b94481-1d27-4bfb-b82e-b41f7474ffee" />
+        <option name="url" value="https://github.com/Tavorski/EspichApp.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -129,9 +151,9 @@
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2f5eGx6hW0Wt33r6d6nnzRZAmTg" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -142,19 +164,19 @@
     <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/tavorski/AndroidStudioProjects/EspichApp/app/src/main/java/es/uniovi/espichapp&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.editor&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/tavorski/AndroidStudioProjects/EspichApp/app/src/main/java/es/uniovi/espichapp",
+    "settings.editor.selected.configurable": "preferences.editor"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\java\es\uniovi\espichapp" />

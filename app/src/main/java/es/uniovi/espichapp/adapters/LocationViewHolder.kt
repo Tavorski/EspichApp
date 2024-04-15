@@ -7,8 +7,7 @@ import es.uniovi.espichapp.model.Location
 
 class LocationViewHolder(val listItemBinding: ItemViewBinding) : RecyclerView.ViewHolder(listItemBinding.root) {
 
-    fun bind(itemName: Location) {
-        item =
+    fun bind(item: Location) {
         with(listItemBinding) {
             tvName.text = item.name
             tvCouncil.text = item.council
@@ -36,15 +35,15 @@ class LocationViewHolder(val listItemBinding: ItemViewBinding) : RecyclerView.Vi
                     || contains("vino",true)
         }
         with(item.shortDescription) {
-            ret = ret || contains("bodega",true)
-                    || contains("vino",true)
+            ret = ret || this?.contains("bodega",true) ?: false
+                    || this?.contains("vino",true) ?: false
         }
         with(item.description) {
-            ret = ret || contains("bodega",true)
-                    || contains("vino",true)
+            ret = ret || this?.contains("bodega",true) ?: false
+                    || this?.contains("vino",true) ?: false
         }
         with(item.products) {
-            ret = ret || contains("vino",true)
+            ret = ret || this?.contains("vino",true) ?: false
         }
         return ret;
     }
@@ -61,17 +60,17 @@ class LocationViewHolder(val listItemBinding: ItemViewBinding) : RecyclerView.Vi
                     || contains("pomarada",true)
         }
         with(item.shortDescription) {
-            ret = ret || contains("sidra",true)
-                    || contains("llagar",true)
-                    || contains("pomarada",true)
+            ret = ret || this?.contains("sidra",true) ?: false
+                    || this?.contains("llagar",true) ?: false
+                    || this?.contains("pomarada",true) ?: false
         }
         with(item.description) {
-            ret = ret || contains("sidra",true)
-                    || contains("llagar",true)
-                    || contains("pomarada",true)
+            ret = ret || this?.contains("sidra",true) ?: false
+                    || this?.contains("llagar",true) ?: false
+                    || this?.contains("pomarada",true) ?: false
         }
         with(item.products) {
-            ret = ret || contains("sidra",true)
+            ret = ret || this?.contains("sidra",true) ?: false
         }
         return ret;
     }
@@ -87,15 +86,15 @@ class LocationViewHolder(val listItemBinding: ItemViewBinding) : RecyclerView.Vi
                     || contains("quesería",true)
         }
         with(item.shortDescription) {
-            ret = ret || contains("queso",true)
-                    || contains("quesería",true)
+            ret = ret || this?.contains("queso",true) ?: false
+                    || this?.contains("quesería",true) ?: false
         }
         with(item.description) {
-            ret = ret || contains("queso",true)
-                    || contains("quesería",true)
+            ret = ret || this?.contains("queso",true) ?: false
+                    || this?.contains("quesería",true) ?: false
         }
         with(item.products) {
-            ret = ret || contains("queso",true)
+            ret = ret || this?.contains("queso",true) ?: false
         }
         return ret;
     }

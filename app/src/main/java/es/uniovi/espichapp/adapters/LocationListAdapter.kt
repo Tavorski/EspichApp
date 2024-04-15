@@ -7,7 +7,7 @@ import es.uniovi.arqui.util.Utils
 import es.uniovi.espichapp.databinding.ItemViewBinding
 import es.uniovi.espichapp.model.Location
 
-class LocationListAdapter() : ListAdapter<String, LocationViewHolder>(Utils) {
+class LocationListAdapter() : ListAdapter<Location, LocationViewHolder>(Utils.DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationViewHolder {
         val listItemBinding = ItemViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return LocationViewHolder(listItemBinding)
