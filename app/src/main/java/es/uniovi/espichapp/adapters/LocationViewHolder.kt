@@ -7,8 +7,8 @@ import es.uniovi.espichapp.model.Location
 
 class LocationViewHolder(val listItemBinding: ItemViewBinding) : RecyclerView.ViewHolder(listItemBinding.root) {
 
-    fun bind(itemName: String) {
-        item
+    fun bind(itemName: Location) {
+        item =
         with(listItemBinding) {
             tvName.text = item.name
             tvCouncil.text = item.council

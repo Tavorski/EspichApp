@@ -24,6 +24,13 @@ class LocationsListFragment : Fragment() {
     }
     private val adapter: LocationListAdapter = LocationListAdapter()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        locationVM.locationNames.observe(viewLifecycleOwner) { names ->
+            names.let { adapter.submitList(names.toMutableList()) }
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,11 +45,6 @@ class LocationsListFragment : Fragment() {
        /* binding.buttonFirst.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }*/
-
-
-        locationVM.locationNames.observe(viewLifecycleOwner) { names ->
-            names.let { adapter.submitList(names.toMutableList()) }
-        }
     }
 
     override fun onDestroyView() {
