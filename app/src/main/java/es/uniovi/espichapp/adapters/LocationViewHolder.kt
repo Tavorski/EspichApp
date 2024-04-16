@@ -1,16 +1,11 @@
 package es.uniovi.arqui.adapters
 
-import android.graphics.BitmapFactory
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
+import es.uniovi.espichapp.R
 import es.uniovi.espichapp.databinding.ItemViewBinding
 import es.uniovi.espichapp.model.Location
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import java.io.InputStream
-import java.net.URL
-import java.net.URLStreamHandler
 
 class LocationViewHolder(val listItemBinding: ItemViewBinding) : RecyclerView.ViewHolder(listItemBinding.root) {
 
@@ -27,19 +22,18 @@ class LocationViewHolder(val listItemBinding: ItemViewBinding) : RecyclerView.Vi
             iconCider.isVisible = isLlagar(item)
             iconCheese.isVisible = isQueseria(item)
 
-            setSlideFromUrl(item.Slide)
-
-        }
-    }
-    fun setSlideFromUrl(slidePath: String?) {
-        CoroutineScope(Dispatchers.Default).launch {
-            try {
-                val inputStream: InputStream = URL("https://www.turismoasturias.es/$slidePath").openStream()
-                listItemBinding.imageLocation.setImageBitmap(BitmapFactory.decodeStream(inputStream))
-            }
-            catch (_: Exception) {
-
-            }
+            // Descargamos con Picasso el slide
+            Picasso
+                .get()
+                .load("https://www.turismoasturias.es/${item.Slide}")
+                .placeholder(R.drawable.image_placeholder2)
+                .into(imageLocation)
+            // Descargamos con Picasso el slide
+            Picasso
+                .get()
+                .load(R.drawable.bg_itemview_woodplank)
+                .placeholder(R.drawable.bg_itemview_woodplank)
+                .into(imageBackground)
         }
     }
 
