@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import es.uniovi.arqui.adapters.LocationListAdapter
 import es.uniovi.arqui.domain.LocationListViewModel
@@ -26,17 +27,10 @@ class LocationsListFragment : Fragment() {
     }
     private val adapter: LocationListAdapter = LocationListAdapter()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        locationVM.locationList.observe(viewLifecycleOwner) { locList ->
-            locList.let { adapter.submitList(locList) }
-        }
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentLocationsListBinding.inflate(inflater, container, false)
         Log.d("DEBUG","Se ha creado el binding del listfragment")
         return binding.root
@@ -44,6 +38,21 @@ class LocationsListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Hacemos que se observe la lista y que se le pasen datos al adapter
+        // cuando haya cambios
+        locationVM.locationList.observe(viewLifecycleOwner) { locList ->
+            locList.let { adapter.submitList(locList) }
+        }
+
+
+        // Asignamos un LayoutManager al recyclerView
+        binding.rvLocationList.layoutManager = LinearLayoutManager(this.context)
+        // Inicializacion del combo adapter-recyclerview
+        binding.rvLocationList.adapter = adapter
+        // El recycler tiene tamaño fijo, luego activamos esta propiedad
+        binding.rvLocationList.setHasFixedSize(true)
+
         binding.btActualizar.setOnClickListener {
             locationVM.getLocationsList()
         }
@@ -51,7 +60,7 @@ class LocationsListFragment : Fragment() {
             when (result) {
                 is LocationsUIState.Success -> {
                     adapter.submitList(result.datos)
-                    Log.d("DEBUG","Acceso realizado con exito")
+                    Log.d("DEBUG - LLFragment","Acceso realizado con exito")
                     Snackbar.make(view, "Se han observado cambios", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
                 }

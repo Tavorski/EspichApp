@@ -1,5 +1,6 @@
 package es.uniovi.arqui.domain
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,7 +9,6 @@ import androidx.lifecycle.viewModelScope
 import es.uniovi.espichapp.data.ApiResult
 import es.uniovi.espichapp.data.LocationRepository
 import es.uniovi.espichapp.model.Location
-import es.uniovi.espichapp.model.LocationList
 import es.uniovi.espichapp.ui.LocationsUIState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -48,16 +48,18 @@ class LocationListViewModel(val Repository: LocationRepository): ViewModel() {
            "Ejemplo",
            "Ejemplo",
            "Ejemplo",
-           "Ejemplo",
-           "Ejemplo"))
+           "Ejemplo",))
    }
 
     fun getLocationsList() {
         viewModelScope.launch {
-            Repository.updateBusStatusData().map { result ->
+            Repository.updateLocationsData().map { result ->
                 when (result) {
-                    is ApiResult.Success -> LocationsUIState.Success(result.data?.locations!!)
-                    is ApiResult.Error -> LocationsUIState.Error("Error en la petición a la API")
+                    is ApiResult.Success -> LocationsUIState.Success(result.data?.items!!)
+                    is ApiResult.Error -> {
+                        Log.d("DEBUG - LLVM",result.message!!)
+                        LocationsUIState.Error("Error en la petición a la API")
+                    }
                 }
             }.collect {
                 _locationsUIStateObservable.value = it

@@ -24,15 +24,15 @@ class LocationRepository(private val locationDAO: LocationDAO) {
     }
 
 
-    fun updateBusStatusData() =
+    fun updateLocationsData() =
         // Se crea un flujo
         flow {
             // Se realiza la petición al servicio
             try {
                 // Respuesta correcta
-                val busStatus = RestApi.retrofitService.getStatusInfo()
+                val locations = RestApi.retrofitService.getLocationsInfo()
                 // Se emite el estado Succes y se incluyen los datos recibidos
-                emit(ApiResult.Success(busStatus))
+                emit(ApiResult.Success(locations))
             } catch (e: Exception) {
                 // Error en la red
                 // Se emite el estado de Error con el mensaje que lo explica

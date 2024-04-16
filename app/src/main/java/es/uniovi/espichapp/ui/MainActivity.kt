@@ -27,17 +27,12 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
         */
-        binding.fab.setOnClickListener { view ->
+        /*binding.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
-        }
+        }*/
 
-        binding.content.rvLocationList.adapter = LocationListAdapter()
 
-        // asignamos un LayoutManager al recyclerView
-        binding.content.rvLocationList.layoutManager = LinearLayoutManager(this)
-        // El recycler tiene tamaño fijo, luego activamos esta propiedad
-        //binding.content.rvLocationList.setHasFixedSize(true)
 
 
     }

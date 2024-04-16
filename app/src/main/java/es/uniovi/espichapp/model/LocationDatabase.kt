@@ -1,6 +1,7 @@
 package es.uniovi.espichapp.model
 
 import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -25,6 +26,7 @@ abstract class LocationDatabase: RoomDatabase() {
                         LocationDatabase::class.java, "location.db"
                     )
                         .addCallback(CALLBACK)
+                        .fallbackToDestructiveMigration()
                         .build()
                 }
             }

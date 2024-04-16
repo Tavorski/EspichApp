@@ -1,16 +1,23 @@
 package es.uniovi.arqui.adapters
 
+import android.graphics.BitmapFactory
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import es.uniovi.espichapp.databinding.ItemViewBinding
 import es.uniovi.espichapp.model.Location
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.io.InputStream
+import java.net.URL
+import java.net.URLStreamHandler
 
 class LocationViewHolder(val listItemBinding: ItemViewBinding) : RecyclerView.ViewHolder(listItemBinding.root) {
 
     fun bind(item: Location) {
         with(listItemBinding) {
-            tvName.text = item.name
-            tvCouncil.text = item.council
+            tvName.text = item.Nombre
+            tvCouncil.text = item.Concejo
 
             /*
             Las categorías "Bodega", "Llagar" y "Quesería" no son excluyentes, se considera que podría
@@ -20,7 +27,19 @@ class LocationViewHolder(val listItemBinding: ItemViewBinding) : RecyclerView.Vi
             iconCider.isVisible = isLlagar(item)
             iconCheese.isVisible = isQueseria(item)
 
-            TODO("Hay que conectar aquí con la página web de turismo del principado para obtener el slideshow")
+            setSlideFromUrl(item.Slide)
+
+        }
+    }
+    fun setSlideFromUrl(slidePath: String?) {
+        CoroutineScope(Dispatchers.Default).launch {
+            try {
+                val inputStream: InputStream = URL("https://www.turismoasturias.es/$slidePath").openStream()
+                listItemBinding.imageLocation.setImageBitmap(BitmapFactory.decodeStream(inputStream))
+            }
+            catch (_: Exception) {
+
+            }
         }
     }
 
@@ -30,19 +49,18 @@ class LocationViewHolder(val listItemBinding: ItemViewBinding) : RecyclerView.Vi
      */
     fun isBodega(item: Location): Boolean {
         var ret: Boolean
-        with(item.name) {
+        with(item.Nombre) {
             ret = contains("bodega",true)
                     || contains("vino",true)
         }
-        with(item.shortDescription) {
+        with(item.BreveDescripcion) {
             ret = ret || this?.contains("bodega",true) ?: false
                     || this?.contains("vino",true) ?: false
         }
-        with(item.description) {
-            ret = ret || this?.contains("bodega",true) ?: false
-                    || this?.contains("vino",true) ?: false
+        with(item.Descripcion) {
+            ret = ret || this?.contains("vino",true) ?: false
         }
-        with(item.products) {
+        with(item.Productos) {
             ret = ret || this?.contains("vino",true) ?: false
         }
         return ret;
@@ -54,22 +72,22 @@ class LocationViewHolder(val listItemBinding: ItemViewBinding) : RecyclerView.Vi
      */
     fun isLlagar(item: Location): Boolean {
         var ret: Boolean
-        with(item.name) {
+        with(item.Nombre) {
             ret = contains("sidra",true)
                     || contains("llagar",true)
                     || contains("pomarada",true)
         }
-        with(item.shortDescription) {
+        with(item.BreveDescripcion) {
             ret = ret || this?.contains("sidra",true) ?: false
                     || this?.contains("llagar",true) ?: false
                     || this?.contains("pomarada",true) ?: false
         }
-        with(item.description) {
+        with(item.Descripcion) {
             ret = ret || this?.contains("sidra",true) ?: false
                     || this?.contains("llagar",true) ?: false
                     || this?.contains("pomarada",true) ?: false
         }
-        with(item.products) {
+        with(item.Productos) {
             ret = ret || this?.contains("sidra",true) ?: false
         }
         return ret;
@@ -81,19 +99,19 @@ class LocationViewHolder(val listItemBinding: ItemViewBinding) : RecyclerView.Vi
      */
     fun isQueseria(item: Location): Boolean {
         var ret: Boolean
-        with(item.name) {
+        with(item.Nombre) {
             ret = contains("queso",true)
                     || contains("quesería",true)
         }
-        with(item.shortDescription) {
+        with(item.BreveDescripcion) {
             ret = ret || this?.contains("queso",true) ?: false
                     || this?.contains("quesería",true) ?: false
         }
-        with(item.description) {
+        with(item.Descripcion) {
             ret = ret || this?.contains("queso",true) ?: false
                     || this?.contains("quesería",true) ?: false
         }
-        with(item.products) {
+        with(item.Productos) {
             ret = ret || this?.contains("queso",true) ?: false
         }
         return ret;

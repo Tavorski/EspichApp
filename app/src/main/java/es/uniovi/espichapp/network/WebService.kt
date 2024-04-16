@@ -8,7 +8,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 
 // URL base del servidor
-private val BASE_URL = "http://orion.edv.uniovi.es/"
+private val BASE_URL = "http://orion.edv.uniovi.es"
 
 // Obejto MOSHI para convertir los datos entrantes en formato JSON a objetos Kotlin
 private val moshi = Moshi.Builder()
@@ -21,8 +21,8 @@ private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
     .build()
 interface RestApiService {
-    @GET("~arias/json/BodegasLlagaresQueserias.json")
-    suspend fun getStatusInfo(): LocationList
+    @GET("/~arias/json/BodegasLlagaresQueserias.json")
+    suspend fun getLocationsInfo(): LocationList
 }
 object RestApi {
     val retrofitService: RestApiService by lazy {

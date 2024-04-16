@@ -14,30 +14,30 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="111dp"
             android:background="#2196F3">
 
             <TextView
                 android:id="@+id/tvName"
-                android:layout_width="258dp"
-                android:layout_height="40dp"
+                android:layout_width="248dp"
+                android:layout_height="49dp"
                 android:text="TextView"
                 android:textAlignment="viewStart"
                 android:textColor="#FFFFFF"
-                android:textSize="24sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.36"
+                app:layout_constraintHorizontal_bias="0.226"
                 app:layout_constraintStart_toEndOf="@+id/imageLocation"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.079"
+                app:layout_constraintVertical_bias="0.258"
                 tools:text="Nombre" />
 
             <TextView
                 android:id="@+id/tvCouncil"
-                android:layout_width="258dp"
-                android:layout_height="34dp"
+                android:layout_width="160dp"
+                android:layout_height="37dp"
                 android:text="Concejo"
                 android:textAlignment="viewStart"
                 android:textColor="#FFFFFF"
@@ -45,7 +45,7 @@
                 android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.36"
+                app:layout_constraintHorizontal_bias="0.085"
                 app:layout_constraintStart_toEndOf="@+id/imageLocation"
                 app:layout_constraintTop_toBottomOf="@+id/tvName"
                 app:layout_constraintVertical_bias="0.0"
@@ -54,8 +54,8 @@
 
             <ImageView
                 android:id="@+id/imageLocation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="110dp"
+                android:layout_height="112dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -69,10 +69,10 @@
                 android:layout_height="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.798"
+                app:layout_constraintHorizontal_bias="0.8"
                 app:layout_constraintStart_toEndOf="@+id/imageLocation"
                 app:layout_constraintTop_toBottomOf="@+id/tvCouncil"
-                app:layout_constraintVertical_bias="0.407"
+                app:layout_constraintVertical_bias="0.937"
                 app:srcCompat="@drawable/icon_cask" />
 
             <ImageView
@@ -84,7 +84,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/iconCask"
                 app:layout_constraintTop_toBottomOf="@+id/tvCouncil"
-                app:layout_constraintVertical_bias="0.407"
+                app:layout_constraintVertical_bias="0.937"
                 app:srcCompat="@drawable/icon_cider" />
 
             <ImageView
@@ -96,7 +96,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/iconCider"
                 app:layout_constraintTop_toBottomOf="@+id/tvCouncil"
-                app:layout_constraintVertical_bias="0.407"
+                app:layout_constraintVertical_bias="0.937"
                 app:srcCompat="@drawable/icon_cheese" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
