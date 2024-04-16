@@ -31,24 +31,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a39f9d9c-d858-4fdf-ad09-115de5a17dd6" name="Changes" comment="Te estabas pegando con muchas cosas, entre otras:&#10;-Adapter y holder&#10;-REST API (AppStatus, Moshi, Retrofit)&#10;-Conectar repo con base de datos y rest&#10;Falta:&#10;-Internacionalizar&#10;-Detalle de los items&#10;-Preferencias&#10;-Búsquedas&#10;-Filtros&#10;-Puede que algo más">
+    <list default="true" id="a39f9d9c-d858-4fdf-ad09-115de5a17dd6" name="Changes" comment="Te estabas pegando con muchas cosas, entre otras:&#10;-Conectar repo con base de datos y rest&#10;-Obtener de forma correcta las slides&#10;Falta:&#10;-Internacionalizar&#10;-Detalle de los items&#10;-Preferencias&#10;-Búsquedas&#10;-Filtros&#10;-Puede que algo más">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/adapters/LocationViewHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/adapters/LocationViewHolder.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/data/LocationRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/data/LocationRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/domain/LocationListViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/domain/LocationListViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/model/Location.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/model/Location.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/model/LocationDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/model/LocationDAO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/model/LocationDatabase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/model/LocationDatabase.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/model/LocationList.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/model/LocationList.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/network/WebService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/network/WebService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/ui/LocationsListFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/ui/LocationsListFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/ui/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/ui/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/util/Utils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/util/Utils.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_view.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/network_security_config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/xml/network_security_config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_detail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_detail.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -171,10 +156,31 @@
       <option name="presentableId" value="Default" />
       <updated>1713257816443</updated>
     </task>
+    <task id="LOCAL-00001" summary="Te estabas pegando con muchas cosas, entre otras:&#10;-Conectar repo con base de datos y rest&#10;-Obtener de forma correcta las slides&#10;Falta:&#10;-Internacionalizar&#10;-Detalle de los items&#10;-Preferencias&#10;-Búsquedas&#10;-Filtros&#10;-Puede que algo más">
+      <option name="closed" value="true" />
+      <created>1713269638510</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1713269638510</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Te estabas pegando con muchas cosas, entre otras:&#10;-Adapter y holder&#10;-REST API (AppStatus, Moshi, Retrofit)&#10;-Conectar repo con base de datos y rest&#10;Falta:&#10;-Internacionalizar&#10;-Detalle de los items&#10;-Preferencias&#10;-Búsquedas&#10;-Filtros&#10;-Puede que algo más" />
-    <option name="LAST_COMMIT_MESSAGE" value="Te estabas pegando con muchas cosas, entre otras:&#10;-Adapter y holder&#10;-REST API (AppStatus, Moshi, Retrofit)&#10;-Conectar repo con base de datos y rest&#10;Falta:&#10;-Internacionalizar&#10;-Detalle de los items&#10;-Preferencias&#10;-Búsquedas&#10;-Filtros&#10;-Puede que algo más" />
+    <MESSAGE value="Te estabas pegando con muchas cosas, entre otras:&#10;-Conectar repo con base de datos y rest&#10;-Obtener de forma correcta las slides&#10;Falta:&#10;-Internacionalizar&#10;-Detalle de los items&#10;-Preferencias&#10;-Búsquedas&#10;-Filtros&#10;-Puede que algo más" />
+    <option name="LAST_COMMIT_MESSAGE" value="Te estabas pegando con muchas cosas, entre otras:&#10;-Conectar repo con base de datos y rest&#10;-Obtener de forma correcta las slides&#10;Falta:&#10;-Internacionalizar&#10;-Detalle de los items&#10;-Preferencias&#10;-Búsquedas&#10;-Filtros&#10;-Puede que algo más" />
   </component>
 </project>
