@@ -15,20 +15,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
-class LocationListViewModel(val Repository: LocationRepository): ViewModel() {
+class LocationListViewModel(val repository: LocationRepository): ViewModel() {
 
-    val locationList: LiveData<List<Location>> = Repository.getLocations().asLiveData()
+    val locationList: LiveData<List<Location>> = repository.getLocations().asLiveData()
     private val _locationsUIStateObservable = MutableLiveData<LocationsUIState>()
     val locationsUIStateObservable: LiveData<LocationsUIState> get() = _locationsUIStateObservable
 
-    fun insertLocation(l: Location) {
-        CoroutineScope(Dispatchers.Default).launch {
-            Repository.insertLocation(l)
-        }
-    }
-   init {
+    init {
        getLocationsList()
-       insertLocation(Location("Ejemplo",
+       /*insertLocation(Location("Ejemplo",
            "Ejemplo",
            "Ejemplo",
            "Ejemplo",
@@ -48,12 +43,12 @@ class LocationListViewModel(val Repository: LocationRepository): ViewModel() {
            "Ejemplo",
            "Ejemplo",
            "Ejemplo",
-           "Ejemplo",))
+           "Ejemplo",))*/
    }
 
     fun getLocationsList() {
         viewModelScope.launch {
-            Repository.updateLocationsData().map { result ->
+            repository.updateLocationsData().map { result ->
                 when (result) {
                     is ApiResult.Success -> LocationsUIState.Success(result.data?.items!!)
                     is ApiResult.Error -> {
