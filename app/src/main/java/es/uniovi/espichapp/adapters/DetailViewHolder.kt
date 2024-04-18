@@ -1,31 +1,18 @@
 package es.uniovi.arqui.adapters
 
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import es.uniovi.espichapp.R
+import es.uniovi.espichapp.databinding.FragmentDetailBinding
 import es.uniovi.espichapp.databinding.ItemViewBinding
 import es.uniovi.espichapp.model.Location
 
-class LocationViewHolder(
-    val itemViewBinding: ItemViewBinding,
-    val listener: LocationListAdapter.RecyclerViewEvent
-) : RecyclerView.ViewHolder(itemViewBinding.root), View.OnClickListener{
-
-    init {
-        itemViewBinding.root.setOnClickListener(this)
-    }
-    override fun onClick(v: View?) {
-        val position = adapterPosition
-        if (position != RecyclerView.NO_POSITION) {
-            listener.onItemClick(position)
-        }
-    }
+class DetailViewHolder(val detailBinding: FragmentDetailBinding) : RecyclerView.ViewHolder(detailBinding.root) {
 
     fun bind(item: Location) {
-        with(itemViewBinding) {
-            tvName.text = item.Nombre
+        with(detailBinding) {
+            /*tvName.text = item.Nombre
             tvCouncil.text = item.Concejo
 
             /*
@@ -37,26 +24,19 @@ class LocationViewHolder(
             iconCheese.isVisible = isQueseria(item)
 
             // Descargamos con Picasso el slide
-            try {
-                Picasso
-                    .get()
-                    .load("https://www.turismoasturias.es/${item.Slide}")
-                    .placeholder(R.drawable.image_placeholder2)
-                    .into(imageLocation)
-            }
-            catch (_: Exception){
-
-            }
+            Picasso
+                .get()
+                .load("https://www.turismoasturias.es/${item.Slide}")
+                .placeholder(R.drawable.image_placeholder2)
+                .into(imageLocation)
+            // Descargamos con Picasso el slide
             Picasso
                 .get()
                 .load(R.drawable.bg_itemview_woodplank)
                 .placeholder(R.drawable.bg_itemview_woodplank)
-                .into(imageBackground)
-
+                .into(imageBackground)*/
         }
-
-        }
-}
+    }
 
     /*
     isBodega() hace un barrido rápido de los datos del establecimiento para determinar si puede ser
@@ -131,3 +111,4 @@ class LocationViewHolder(
         }
         return ret;
     }
+}

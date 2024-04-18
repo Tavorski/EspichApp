@@ -8,6 +8,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:cardBackgroundColor="#00FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -18,14 +19,17 @@
 
             <ImageView
                 android:id="@+id/imageBackground"
-                android:layout_width="520dp"
-                android:layout_height="183dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:scaleType="fitXY"
+                android:scaleX="1.125"
+                android:scaleY="1.7"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.733"
-                app:layout_constraintStart_toStartOf="@+id/imageLocation"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
                 tools:srcCompat="@drawable/bg_itemview_woodplank" />
 
             <TextView
@@ -39,7 +43,7 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.433"
+                app:layout_constraintHorizontal_bias="0.106"
                 app:layout_constraintStart_toEndOf="@+id/imageLocation"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.258"
@@ -56,7 +60,7 @@
                 android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.177"
+                app:layout_constraintHorizontal_bias="0.085"
                 app:layout_constraintStart_toEndOf="@+id/imageLocation"
                 app:layout_constraintTop_toBottomOf="@+id/tvName"
                 app:layout_constraintVertical_bias="0.0"
@@ -65,49 +69,54 @@
 
             <ImageView
                 android:id="@+id/imageLocation"
-                android:layout_width="110dp"
-                android:layout_height="112dp"
+                android:layout_width="120dp"
+                android:layout_height="98dp"
+                android:scaleType="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.023"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/avatars[3]" />
 
             <ImageView
                 android:id="@+id/iconCask"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.8"
+                app:layout_constraintHorizontal_bias="0.673"
                 app:layout_constraintStart_toEndOf="@+id/imageLocation"
-                app:layout_constraintTop_toBottomOf="@+id/tvCouncil"
-                app:layout_constraintVertical_bias="0.937"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.888"
                 app:srcCompat="@drawable/icon_cask" />
 
             <ImageView
                 android:id="@+id/iconCider"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleX="1.2"
+                android:scaleY="1.2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/iconCask"
-                app:layout_constraintTop_toBottomOf="@+id/tvCouncil"
-                app:layout_constraintVertical_bias="0.937"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.888"
                 app:srcCompat="@drawable/icon_cider" />
 
             <ImageView
                 android:id="@+id/iconCheese"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleX="1.2"
+                android:scaleY="1.2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/iconCider"
-                app:layout_constraintTop_toBottomOf="@+id/tvCouncil"
-                app:layout_constraintVertical_bias="0.937"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.888"
                 app:srcCompat="@drawable/icon_cheese" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

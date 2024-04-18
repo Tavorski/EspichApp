@@ -17,13 +17,13 @@ class LocationRepository(private val locationDAO: LocationDAO) {
 
     fun getLocations() = locationDAO.getLocations()
 
-    fun getLocationByName(locationname: String): Flow<Location> {
+    suspend fun getLocationByName(locationname: String): Location {
         return locationDAO.getLocationByName(locationname)
     }
 
     suspend fun insertLocation(location: Location) {
         locationDAO.insertLocation(location)
-        Log.d("DEBUG-Repo","INSERT ${location.Nombre}")
+        Log.d("DEBUG-Repo","INSERT '${location.Nombre}'")
     }
 
 
@@ -31,22 +31,24 @@ class LocationRepository(private val locationDAO: LocationDAO) {
         // Se crea un flujo
         flow {
             // Se realiza la petición al servicio
-            var locations: LocationList? = null
             try {
                 // Respuesta correcta
-                locations = RestApi.retrofitService.getLocationsInfo()
+                val locations = RestApi.retrofitService.getLocationsInfo()
+                // Se guardan los nuevos datos en la base de datos
+                CoroutineScope(Dispatchers.IO).launch {
+                    locations.items.map {
+                        insertLocation(it)
+                    }
+                }
                 // Se emite el estado Succes y se incluyen los datos recibidos
                 emit(ApiResult.Success(locations))
+
             } catch (e: Exception) {
                 // Error en la red
                 // Se emite el estado de Error con el mensaje que lo explica
                 emit(ApiResult.Error(e.toString()))
             }
-            CoroutineScope(Dispatchers.IO).launch {
-                locations!!.items.map {
-                    insertLocation(it)
-                }
-            }
+
             // El flujo se ejecuta en el hilo I/O
         }.flowOn(Dispatchers.IO)
 }

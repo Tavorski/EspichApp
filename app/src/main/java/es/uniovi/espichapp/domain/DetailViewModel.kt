@@ -1,21 +1,26 @@
 package es.uniovi.espichapp.domain
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import es.uniovi.espichapp.data.LocationRepository
 import es.uniovi.espichapp.model.Location
-import es.uniovi.espichapp.ui.LocationsUIState
 
 class DetailViewModel(val repository: LocationRepository) : ViewModel() {
 
-    val locationName: String
-    val location: LiveData<Location> by lazy {
-        repository.getLocationByName(locationName).asLiveData()
+    // CAMPOS
+    lateinit var loc: Location
+
+    // MÉTODOS
+    suspend fun setLocation(name: String) {
+        Log.d("DEBUG-DVM", "Buscando lugar '$name'")
+        loc = repository.getLocationByName(name)
+        Log.d("DEBUG-DVM", "Se ha encontrad $name")
     }
-    private val _locationsUIStateObservable = MutableLiveData<LocationsUIState>()
-    val locationsUIStateObservable: LiveData<LocationsUIState> get() = _locationsUIStateObservable
+
+    fun getLocation(): Location {
+        return loc
+    }
 
 
 }

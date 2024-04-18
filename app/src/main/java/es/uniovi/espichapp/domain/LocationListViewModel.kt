@@ -10,6 +10,7 @@ import es.uniovi.espichapp.data.ApiResult
 import es.uniovi.espichapp.data.LocationRepository
 import es.uniovi.espichapp.model.Location
 import es.uniovi.espichapp.ui.LocationsUIState
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
@@ -22,43 +23,26 @@ class LocationListViewModel(val repository: LocationRepository): ViewModel() {
     val locationsUIStateObservable: LiveData<LocationsUIState> get() = _locationsUIStateObservable
 
     init {
-       getLocationsList()
-       /*insertLocation(Location("Ejemplo",
-           "Ejemplo",
-           "Ejemplo",
-           "Ejemplo",
-           "Ejemplo",
-           "Ejemplo",
-           "Ejemplo",
-           "Ejemplo",
-           "Ejemplo",
-           "Ejemplo",
-           "Ejemplo",
-           "Ejemplo",
-           "Ejemplo",
-           "Ejemplo",
-           "Ejemplo",
-           "Ejemplo",
-           "Ejemplo",
-           "Ejemplo",
-           "Ejemplo",
-           "Ejemplo",
-           "Ejemplo",))*/
-   }
+        //getLocationsList()
+    }
 
     fun getLocationsList() {
-        viewModelScope.launch {
-            repository.updateLocationsData().map { result ->
-                when (result) {
-                    is ApiResult.Success -> LocationsUIState.Success(result.data?.items!!)
-                    is ApiResult.Error -> {
-                        Log.d("DEBUG - LLVM",result.message!!)
-                        LocationsUIState.Error("Error en la petición a la API")
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                repository.updateLocationsData().map { result ->
+                    when (result) {
+                        is ApiResult.Success -> LocationsUIState.Success(result.data?.items!!)
+                        is ApiResult.Error -> {
+                            Log.d("DEBUG - LLVM", result.message!!)
+                            LocationsUIState.Error("Error en la petición a la API")
+                        }
                     }
+                }.collect {
+                    _locationsUIStateObservable.value = it
                 }
-            }.collect {
-                _locationsUIStateObservable.value = it
-            }
+            } catch (ce: CancellationException) {
+                throw ce
+            } catch (_: Exception) {}
         }
     }
 

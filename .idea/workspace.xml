@@ -37,20 +37,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0e366a8-33e4-400d-b1f2-b90f84644c75" name="Changes" comment="No sé, cosas&#10;Empecé la view del detail y hay que averiguar que se hace con los viewmodels y que tipo de dato manejan">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bg_detail_woodpost.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bg_itemview_woodplank.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/icon_email.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/icon_facebook.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/icon_phone.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/icon_webpage.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image_placeholder1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image_placeholder2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/adapters/DetailAdapter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/adapters/DetailViewHolder.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bg_detail_woodpost_2.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/adapters/LocationListAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/adapters/LocationListAdapter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/adapters/LocationViewHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/adapters/LocationViewHolder.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/data/LocationRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/data/LocationRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/domain/DetailViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/domain/DetailViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/model/LocationDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/model/LocationDAO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/ui/DetailFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/ui/DetailFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/ui/LocationsListFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/ui/LocationsListFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/util/Utils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/util/Utils.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_detail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_detail.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_locations_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_locations_list.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_view.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +72,21 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/app">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -76,6 +96,20 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Tavorski&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="b7b034de-c9fc-4ca4-807d-d958df766d06" />
+        <option name="url" value="https://github.com/Tavorski/EspichApp.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -99,19 +133,27 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/uo270569/AndroidStudioProjects/EspichApp/app/src/main/res/drawable"
+    "last_opened_file_path": "C:/Users/tavorski/AndroidStudioProjects/EspichApp/app/src/main/res/drawable",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.17",
+    "project.structure.side.proportion": "0.2"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\res\drawable" />
+      <recent name="C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\java\es\uniovi\espichapp\adapters" />
       <recent name="C:\Users\uo270569\AndroidStudioProjects\EspichApp\app\src\main\res\drawable" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\uo270569\AndroidStudioProjects\EspichApp\app\src\main\res\drawable" />
       <recent name="C:\Users\uo270569\AndroidStudioProjects\EspichApp\app\src\main\res\drawable\icons" />
     </key>
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="es.uniovi.espichapp.adapters" />
+    </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Android App.app">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
       <module name="EspichApp.app.main" />
       <option name="DEPLOY" value="true" />
@@ -179,11 +221,62 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="EspichApp:app [testDebugUnitTest]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/app" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="testDebugUnitTest" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="build.gradle.kts (1)" type="KotlinStandaloneScriptRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <module name="EspichApp" />
+      <option name="filePath" value="$PROJECT_DIR$/build.gradle.kts" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="build.gradle.kts" type="KotlinStandaloneScriptRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <module name="EspichApp" />
+      <option name="filePath" value="$PROJECT_DIR$/app/build.gradle.kts" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="settings.gradle.kts" type="KotlinStandaloneScriptRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <module name="EspichApp" />
+      <option name="filePath" value="$PROJECT_DIR$/settings.gradle.kts" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Kotlin script (Beta).settings.gradle.kts" />
+        <item itemvalue="Kotlin script (Beta).build.gradle.kts (1)" />
+        <item itemvalue="Kotlin script (Beta).build.gradle.kts" />
+        <item itemvalue="Gradle.EspichApp:app [testDebugUnitTest]" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a39f9d9c-d858-4fdf-ad09-115de5a17dd6" name="Changes" comment="Te estabas pegando con muchas cosas, entre otras:&#10;-Adapter y holder&#10;-REST API (AppStatus, Moshi, Retrofit)&#10;-Conectar repo con base de datos y rest&#10;Falta:&#10;-Internacionalizar&#10;-Detalle de los items&#10;-Preferencias&#10;-Búsquedas&#10;-Filtros&#10;-Puede que algo más" />
+      <changelist id="b0e366a8-33e4-400d-b1f2-b90f84644c75" name="Changes" comment="No sé, cosas&#10;Empecé la view del detail y hay que averiguar que se hace con los viewmodels y que tipo de dato manejan" />
       <created>1713257816443</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -204,6 +297,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="No sé, cosas&#10;Empecé la view del detail y hay que averiguar que se hace con los viewmodels y que tipo de dato manejan" />
-    <option name="LAST_COMMIT_MESSAGE" value="No sé, cosas&#10;Empecé la view del detail y hay que averiguar que se hace con los viewmodels y que tipo de dato manejan" />
+    <MESSAGE value="Te estabas pegando con muchas cosas, entre otras:&#10;-Conectar repo con base de datos y rest&#10;-Obtener de forma correcta las slides&#10;Falta:&#10;-Internacionalizar&#10;-Detalle de los items&#10;-Preferencias&#10;-Búsquedas&#10;-Filtros&#10;-Puede que algo más" />
+    <option name="LAST_COMMIT_MESSAGE" value="Te estabas pegando con muchas cosas, entre otras:&#10;-Conectar repo con base de datos y rest&#10;-Obtener de forma correcta las slides&#10;Falta:&#10;-Internacionalizar&#10;-Detalle de los items&#10;-Preferencias&#10;-Búsquedas&#10;-Filtros&#10;-Puede que algo más" />
   </component>
 </project>

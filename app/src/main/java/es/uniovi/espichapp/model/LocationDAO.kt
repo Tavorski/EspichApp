@@ -18,7 +18,7 @@ interface LocationDAO {
     suspend fun deleteLocation(name: String)
 
     @Query("SELECT * FROM location_table WHERE Nombre LIKE :name")
-    fun getLocationByName(name: String): Flow<Location>
+    fun getLocationByName(name: String): Location
 
     @Query("SELECT * FROM location_table")
     fun getLocations(): Flow<List<Location>>
