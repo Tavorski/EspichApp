@@ -25,6 +25,16 @@
           <theme>@style/Theme.EspichApp</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/slide_view.xml">
+        <config>
+          <theme>@style/Theme.EspichApp</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/menu/menu_main.xml">
+        <config>
+          <theme>@style/Theme.EspichApp</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml">
         <config>
           <theme>@style/Theme.EspichApp</theme>
@@ -36,26 +46,17 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b0e366a8-33e4-400d-b1f2-b90f84644c75" name="Changes" comment="No sé, cosas&#10;Empecé la view del detail y hay que averiguar que se hace con los viewmodels y que tipo de dato manejan">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/adapters/DetailAdapter.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/adapters/DetailViewHolder.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bg_detail_woodpost_2.png" afterDir="false" />
+    <list default="true" id="b0e366a8-33e4-400d-b1f2-b90f84644c75" name="Changes" comment="tenemos swipe refresh, ahora hay que:&#10;preferencias&#10;internacionalizar&#10;adapterslide">
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/slide_view.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/adapters/DetailAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/adapters/SlideAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/adapters/DetailViewHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/adapters/SlideViewHolder.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/adapters/LocationListAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/adapters/LocationListAdapter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/adapters/LocationViewHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/adapters/LocationViewHolder.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/data/LocationRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/data/LocationRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/domain/DetailViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/domain/DetailViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/model/LocationDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/model/LocationDAO.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/ui/DetailFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/ui/DetailFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/ui/LocationsListFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/ui/LocationsListFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/util/Utils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/uniovi/espichapp/util/Utils.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_detail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_detail.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_locations_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_locations_list.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_view.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,6 +92,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="resourceFile" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>
@@ -125,20 +127,20 @@
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/tavorski/AndroidStudioProjects/EspichApp/app/src/main/res/drawable",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.17",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/tavorski/AndroidStudioProjects/EspichApp/app/src/main/res/drawable&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\res\drawable" />
@@ -266,9 +268,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Kotlin script (Beta).build.gradle.kts" />
         <item itemvalue="Kotlin script (Beta).settings.gradle.kts" />
         <item itemvalue="Kotlin script (Beta).build.gradle.kts (1)" />
-        <item itemvalue="Kotlin script (Beta).build.gradle.kts" />
         <item itemvalue="Gradle.EspichApp:app [testDebugUnitTest]" />
       </list>
     </recent_temporary>
@@ -282,6 +284,15 @@
       <option name="presentableId" value="Default" />
       <updated>1713257816443</updated>
     </task>
+    <task id="LOCAL-00001" summary="tenemos swipe refresh, ahora hay que:&#10;preferencias&#10;internacionalizar&#10;adapterslide">
+      <option name="closed" value="true" />
+      <created>1713470629049</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1713470629049</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -296,8 +307,10 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <MESSAGE value="No sé, cosas&#10;Empecé la view del detail y hay que averiguar que se hace con los viewmodels y que tipo de dato manejan" />
     <MESSAGE value="Te estabas pegando con muchas cosas, entre otras:&#10;-Conectar repo con base de datos y rest&#10;-Obtener de forma correcta las slides&#10;Falta:&#10;-Internacionalizar&#10;-Detalle de los items&#10;-Preferencias&#10;-Búsquedas&#10;-Filtros&#10;-Puede que algo más" />
-    <option name="LAST_COMMIT_MESSAGE" value="Te estabas pegando con muchas cosas, entre otras:&#10;-Conectar repo con base de datos y rest&#10;-Obtener de forma correcta las slides&#10;Falta:&#10;-Internacionalizar&#10;-Detalle de los items&#10;-Preferencias&#10;-Búsquedas&#10;-Filtros&#10;-Puede que algo más" />
+    <MESSAGE value="tenemos swipe refresh, ahora hay que:&#10;preferencias&#10;internacionalizar&#10;adapterslide" />
+    <option name="LAST_COMMIT_MESSAGE" value="tenemos swipe refresh, ahora hay que:&#10;preferencias&#10;internacionalizar&#10;adapterslide" />
   </component>
 </project>

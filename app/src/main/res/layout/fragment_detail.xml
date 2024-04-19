@@ -23,7 +23,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="100dp"
                 android:layout_marginBottom="100dp">
 
@@ -44,17 +44,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_begin="277dp" />
+                    app:layout_constraintGuide_begin="347dp" />
 
-                <ImageView
-                    android:id="@+id/ivDetailSlide"
-                    android:layout_width="301dp"
-                    android:layout_height="168dp"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvDetailSlide"
+                    android:layout_width="379dp"
+                    android:layout_height="203dp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvDetailName"
                     app:layout_constraintVertical_bias="0.123"
+                    tools:layout="@layout/slide_view"
                     tools:srcCompat="@tools:sample/avatars" />
 
                 <TextView
@@ -64,36 +65,37 @@
                     android:text="Nombre"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/guideline"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.06" />
+                    app:layout_constraintVertical_bias="0.012" />
 
                 <TextView
                     android:id="@+id/tvDetailCouncil"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="55dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="30dp"
                     android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="56dp"
                     android:text="Concejo"
                     android:textColor="#FFFFFF"
                     app:layout_constraintBottom_toTopOf="@+id/guideline"
                     app:layout_constraintEnd_toStartOf="@+id/guideline3"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ivDetailSlide"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintTop_toBottomOf="@+id/rvDetailSlide"
+                    app:layout_constraintVertical_bias="0.615" />
 
                 <TextView
                     android:id="@+id/tvDetailAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="55dp"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="4dp"
                     android:text="Dirección"

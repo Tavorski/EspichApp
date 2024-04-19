@@ -33,12 +33,4 @@ class Utils {
         }
     }
 
-    companion object DIFF_CALLBACK: DiffUtil.ItemCallback<Location>() {
-        override fun areItemsTheSame(oldItem: Location, newItem: Location): Boolean {
-            return oldItem.Nombre == newItem.Nombre
-        }
-        override fun areContentsTheSame(oldItem: Location, newItem: Location): Boolean {
-            return oldItem == newItem
-        }
-    }
 }

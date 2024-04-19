@@ -2,16 +2,15 @@ package es.uniovi.arqui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.Navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import es.uniovi.arqui.util.Utils
 import es.uniovi.espichapp.databinding.ItemViewBinding
 import es.uniovi.espichapp.model.Location
 
 class LocationListAdapter(
     val listener: RecyclerViewEvent
-) : ListAdapter<Location, LocationViewHolder>(Utils.DIFF_CALLBACK) {
+) : ListAdapter<Location, LocationViewHolder>(DIFF_CALLBACK_LIST) {
 
 
     interface RecyclerViewEvent {
@@ -24,7 +23,16 @@ class LocationListAdapter(
     }
 
     override fun onBindViewHolder(holder: LocationViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position)) // aqui se pasa al holder el establecimiento
+    }
+
+    companion object DIFF_CALLBACK_LIST: DiffUtil.ItemCallback<Location>() {
+        override fun areItemsTheSame(oldItem: Location, newItem: Location): Boolean {
+            return oldItem.Nombre == newItem.Nombre
+        }
+        override fun areContentsTheSame(oldItem: Location, newItem: Location): Boolean {
+            return oldItem == newItem
+        }
     }
 
 }

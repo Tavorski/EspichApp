@@ -1,16 +1,12 @@
 package es.uniovi.espichapp.ui
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.os.Parcelable
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,7 +17,6 @@ import es.uniovi.arqui.domain.LocationListViewModel
 import es.uniovi.arqui.util.Utils
 import es.uniovi.espichapp.EspichApp
 import es.uniovi.espichapp.databinding.FragmentLocationsListBinding
-import es.uniovi.espichapp.model.Location
 
 
 class LocationsListFragment : Fragment(), LocationListAdapter.RecyclerViewEvent, SwipeRefreshLayout.OnRefreshListener {
@@ -33,7 +28,7 @@ class LocationsListFragment : Fragment(), LocationListAdapter.RecyclerViewEvent,
     private val locationVM: LocationListViewModel by viewModels {
         Utils.LocationViewModelFactory((activity?.application as EspichApp).repository)
     }
-    lateinit var recyclerView: RecyclerView
+    lateinit var rvlist: RecyclerView
     private val adapterList: LocationListAdapter = LocationListAdapter(this)
 
     // para actualizar al scrollear hacia arriba
@@ -54,26 +49,25 @@ class LocationsListFragment : Fragment(), LocationListAdapter.RecyclerViewEvent,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Hacemos que se observe la lista y que se le pasen datos al adapter
-        // cuando haya cambios
+        // Hacemos que se observen elementos en la base de datos que se puedan presentar, se cargen en el adapter
         locationVM.locationList.observe(viewLifecycleOwner) { locList ->
             locList.let { adapterList.submitList(locList) }
         }
 
         // Asignamos un LayoutManager al recyclerView
-        recyclerView = binding.rvLocationList
-        recyclerView.layoutManager = LinearLayoutManager(this.context)
+        rvlist = binding.rvLocationList
+        rvlist.layoutManager = LinearLayoutManager(this.context)
         // Inicializacion del combo adapter-recyclerview
-        recyclerView.adapter = adapterList
+        rvlist.adapter = adapterList
         // El recycler tiene tamaño fijo, luego activamos esta propiedad
-        recyclerView.setHasFixedSize(true)
+        rvlist.setHasFixedSize(true)
         swipeRefreshLayout = binding.srLayout
         swipeRefreshLayout.setOnRefreshListener(this)
 
         /*binding.btActualizar.setOnClickListener {
             locationVM.getLocationsList()
         }*/
-        locationVM.locationsUIStateObservable.observe(viewLifecycleOwner) { result ->
+        /*locationVM.locationsUIStateObservable.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is LocationsUIState.Success -> {
                     adapterList.submitList(result.datos)
@@ -86,7 +80,7 @@ class LocationsListFragment : Fragment(), LocationListAdapter.RecyclerViewEvent,
                         .setAction("Action", null).show()
                 }
             }
-        }
+        }*/
 
     }
 

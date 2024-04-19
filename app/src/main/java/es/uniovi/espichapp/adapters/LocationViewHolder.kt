@@ -37,16 +37,15 @@ class LocationViewHolder(
             iconCheese.isVisible = isQueseria(item)
 
             // Descargamos con Picasso el slide
-            try {
-                Picasso
-                    .get()
-                    .load("https://www.turismoasturias.es/${item.Slide}")
-                    .placeholder(R.drawable.image_placeholder2)
-                    .into(imageLocation)
-            }
-            catch (_: Exception){
 
-            }
+            Picasso
+                .get()
+                .load("https://www.turismoasturias.es/${item.Slide}")
+                .placeholder(R.drawable.image_placeholder2)
+                .into(imageLocation)
+
+
+
             Picasso
                 .get()
                 .load(R.drawable.bg_itemview_woodplank)
@@ -55,13 +54,12 @@ class LocationViewHolder(
 
         }
 
-        }
-}
+    }
 
     /*
-    isBodega() hace un barrido rápido de los datos del establecimiento para determinar si puede ser
-    un lugar dedicado a la elaboración de vinos
-     */
+   isBodega() hace un barrido rápido de los datos del establecimiento para determinar si puede ser
+   un lugar dedicado a la elaboración de vinos
+    */
     fun isBodega(item: Location): Boolean {
         var ret: Boolean
         with(item.Nombre) {
@@ -131,3 +129,7 @@ class LocationViewHolder(
         }
         return ret;
     }
+
+}
+
+

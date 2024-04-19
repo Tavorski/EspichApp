@@ -9,6 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import es.uniovi.arqui.adapters.LocationListAdapter
+import es.uniovi.arqui.adapters.SlideAdapter
 import es.uniovi.arqui.util.Utils
 import es.uniovi.espichapp.EspichApp
 import es.uniovi.espichapp.R
@@ -30,12 +34,17 @@ class DetailFragment : Fragment() {
     private val detailVM: DetailViewModel by viewModels() {
         Utils.DetailViewModelFactory((activity?.application as EspichApp).repository)
     }
+    lateinit var rvSlide: RecyclerView
+    lateinit var adapterSlide: SlideAdapter
+
 
     // OVERRIDES
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val location: Location = detailVM.getLocation()
+
+        val slides: List<String>? = location.Slide?.split(",")
 
         with(binding) {
             tvDetailName.text = location.Nombre
@@ -49,14 +58,25 @@ class DetailFragment : Fragment() {
             linkFacebook.text = location.Facebook
             linkInstagram.text = location.Instagram
 
+            iconEmail.isEnabled = !location.Email.isNullOrBlank()
+            iconPhone.isEnabled = !location.Telefono.isNullOrBlank()
+            iconWeb.isEnabled = !location.Web.isNullOrBlank()
+            iconFacebook.isEnabled = !location.Facebook.isNullOrBlank()
+            iconInstagram.isEnabled = !location.Instagram.isNullOrBlank()
 
-            iconEmail.setEnabled(!location.Email.isNullOrBlank())
-            iconPhone.setEnabled(!location.Telefono.isNullOrBlank())
-            iconWeb.setEnabled(!location.Web.isNullOrBlank())
-            iconFacebook.setEnabled(!location.Facebook.isNullOrBlank())
-            iconInstagram.setEnabled(!location.Instagram.isNullOrBlank())
-
+            rvSlide = rvDetailSlide
         }
+        // Asignamos un layout lineal horizontal
+        Log.d("DEBUG - DF", "Asignado LLM")
+        rvSlide.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false);
+
+        // Asignamos un adapter y cargamos las imagenes del establecimiento
+        Log.d("DEBUG - DF", "Instanciado SlideAdapter")
+        adapterSlide = SlideAdapter(slides)
+        rvSlide.adapter = adapterSlide
+
+
+
     }
 
     override fun onCreateView(
