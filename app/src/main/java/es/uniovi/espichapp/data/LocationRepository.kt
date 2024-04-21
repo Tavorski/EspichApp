@@ -3,11 +3,9 @@ package es.uniovi.espichapp.data
 import android.util.Log
 import es.uniovi.arqui.model.LocationDAO
 import es.uniovi.espichapp.model.Location
-import es.uniovi.espichapp.model.LocationList
 import es.uniovi.espichapp.network.RestApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
@@ -15,17 +13,20 @@ import kotlinx.coroutines.launch
 class LocationRepository(private val locationDAO: LocationDAO) {
 
 
-    fun getLocations() = locationDAO.getLocations()
+    fun getLocationsFlow() = locationDAO.getLocationsFlow()
 
-    suspend fun getLocationByName(locationname: String): Location {
-        return locationDAO.getLocationByName(locationname)
+    suspend fun getLocationByName(locationName: String): Location {
+        return locationDAO.getLocationByName(locationName)
+    }
+
+    suspend fun searchLocationsByName(locationName: String): List<Location> {
+        return locationDAO.searchLocationsByName(locationName)
     }
 
     suspend fun insertLocation(location: Location) {
         locationDAO.insertLocation(location)
         Log.d("DEBUG-Repo","INSERT '${location.Nombre}'")
     }
-
 
     fun updateLocationsData() =
         // Se crea un flujo

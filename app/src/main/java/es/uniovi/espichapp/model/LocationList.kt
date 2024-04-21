@@ -1,5 +1,7 @@
 package es.uniovi.espichapp.model
 
+import androidx.room.Embedded
+
 /*
 Copyright (c) 2024 Kotlin Data Classes Generated from JSON powered by http://www.json2kotlin.com
 
@@ -13,6 +15,5 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 
 data class LocationList (
-
 	val items: List<Location>
 )

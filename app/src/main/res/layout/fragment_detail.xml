@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#00FFFFFF">
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -25,7 +26,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="100dp"
-                android:layout_marginBottom="100dp">
+                android:layout_marginBottom="100dp"
+                android:background="#E43409"
+                android:backgroundTint="#61782F12">
 
                 <ImageView
                     android:id="@+id/bgDetail"
@@ -43,6 +46,7 @@
                     android:id="@+id/guideline"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:foregroundTint="#A13B3B"
                     android:orientation="horizontal"
                     app:layout_constraintGuide_begin="347dp" />
 
@@ -78,11 +82,13 @@
                     android:id="@+id/tvDetailCouncil"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
+                    android:layout_marginStart="40dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="56dp"
                     android:text="Concejo"
                     android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold|italic"
                     app:layout_constraintBottom_toTopOf="@+id/guideline"
                     app:layout_constraintEnd_toStartOf="@+id/guideline3"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -94,7 +100,7 @@
                     android:id="@+id/tvDetailAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
+                    android:layout_marginStart="40dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="4dp"

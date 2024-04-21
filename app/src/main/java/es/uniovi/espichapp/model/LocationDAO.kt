@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import es.uniovi.espichapp.model.Location
-import es.uniovi.espichapp.model.LocationList
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -18,8 +17,11 @@ interface LocationDAO {
     suspend fun deleteLocation(name: String)
 
     @Query("SELECT * FROM location_table WHERE Nombre LIKE :name")
+    fun searchLocationsByName(name: String): List<Location>
+
+    @Query("SELECT * FROM location_table WHERE Nombre == :name")
     fun getLocationByName(name: String): Location
 
     @Query("SELECT * FROM location_table")
-    fun getLocations(): Flow<List<Location>>
+    fun getLocationsFlow(): Flow<List<Location>>
 }

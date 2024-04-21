@@ -42,9 +42,29 @@ abstract class LocationDatabase: RoomDatabase() {
                 super.onCreate(db)
 
                 CoroutineScope(Dispatchers.IO).launch {
-                    /*INSTANCE!!.locationDao().insertCourse(
-                        //Location("Informática Móvil", "Jose Ramón Arias", "Android y eso")
-                    )*/
+                    INSTANCE!!.locationDao().insertLocation(
+                        Location("Ejemplo",
+                            "Ejemplo",
+                            "Ejemplo",
+                            "Ejemplo",
+                            "Ejemplo",
+                            "Ejemplo",
+                            "Ejemplo",
+                            "Ejemplo",
+                            "Ejemplo",
+                            "Ejemplo",
+                            "Ejemplo",
+                            "Ejemplo",
+                            "Ejemplo",
+                            "Ejemplo",
+                            "Ejemplo",
+                            "Ejemplo",
+                            "Ejemplo",
+                            "Ejemplo",
+                            "Ejemplo",
+                            "Ejemplo",
+                            "Ejemplo")
+                    )
                 }
             }
         }

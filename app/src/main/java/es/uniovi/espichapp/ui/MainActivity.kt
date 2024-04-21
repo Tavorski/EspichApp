@@ -1,29 +1,56 @@
 package es.uniovi.espichapp.ui
 
+import android.content.SharedPreferences
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import androidx.recyclerview.widget.LinearLayoutManager
-import es.uniovi.arqui.adapters.LocationListAdapter
+import android.widget.SearchView
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
+import androidx.preference.PreferenceManager
 import es.uniovi.espichapp.R
 import es.uniovi.espichapp.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity :
+    AppCompatActivity(),
+    SharedPreferences.OnSharedPreferenceChangeListener,
+    SearchView.OnQueryTextListener {
 
     //private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navHostFragment: NavHostFragment
+    private lateinit var navController: NavController
+    lateinit var sharedPreferences: SharedPreferences
+
+    override fun onStart() {
+        super.onStart()
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+    }
+    override fun onPause() {
+        super.onPause()
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.toolbar)
-/*
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
+
+        // init de las referencias al navHostFragment
+        navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHostFragment) as NavHostFragment
+        navController = navHostFragment.navController
+
+        // CONFIGURACION DE LAS PREFERENCIAS
+        // Valor por defecto en la primera ejecución
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false)
+
+        /*
+
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
         */
@@ -33,13 +60,20 @@ class MainActivity : AppCompatActivity() {
         }*/
 
 
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
+        var mi: MenuItem? = menu.findItem(R.id.searchView)
+        var sv: SearchView = mi?.actionView as SearchView
+        sv.queryHint = "Escribe aquí para buscar..."
+
+        // La idea es usar MainActivity como listener para que cada vez que se escriba
+        // o se modifique la busqueda en el searchview, se modifiquen las preferencias
+        // y que LocationListFragment capture el evento de cambio en las preferencias
+        sv.setOnQueryTextListener(this)
+
         return true
     }
 
@@ -48,10 +82,27 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.settings -> NavigationUI.onNavDestinationSelected(item, navController)
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    // no queremos que haga falta hacer submit de la busqueda
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return false
+    }
+
+    // con escribir en el searchview es suficiente
+    override fun onQueryTextChange(newText: String?): Boolean {
+        sharedPreferences
+            .edit()
+            .putString("query", newText)
+            .apply()
+        return true
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) { }
+
 
     /*override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
@@ -59,3 +110,4 @@ class MainActivity : AppCompatActivity() {
                 || super.onSupportNavigateUp()
     }*/
 }
+

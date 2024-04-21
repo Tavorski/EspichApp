@@ -6,11 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import es.uniovi.espichapp.R
 import es.uniovi.espichapp.databinding.ItemViewBinding
+import es.uniovi.espichapp.interfaces.LocationListEvent
 import es.uniovi.espichapp.model.Location
 
-class LocationViewHolder(
+class LocationListViewHolder(
     val itemViewBinding: ItemViewBinding,
-    val listener: LocationListAdapter.RecyclerViewEvent
+    val listener: LocationListEvent
 ) : RecyclerView.ViewHolder(itemViewBinding.root), View.OnClickListener{
 
     init {

@@ -6,6 +6,6 @@ import es.uniovi.espichapp.status.AppStatus
 
 
 sealed class LocationsUIState (val state: AppStatus) {
-    data class Success(val datos: List<Location>): LocationsUIState(AppStatus.SUCCESS)
+    data class Success(val datos: LocationList): LocationsUIState(AppStatus.SUCCESS)
     data class Error (val message:String): LocationsUIState(AppStatus.ERROR)
 }

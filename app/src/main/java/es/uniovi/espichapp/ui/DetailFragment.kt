@@ -42,9 +42,11 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         val location: Location = detailVM.getLocation()
 
         val slides: List<String>? = location.Slide?.split(",")
+        val titles: List<String>? = location.SlideTitulo?.split(",")
 
         with(binding) {
             tvDetailName.text = location.Nombre
@@ -72,7 +74,7 @@ class DetailFragment : Fragment() {
 
         // Asignamos un adapter y cargamos las imagenes del establecimiento
         Log.d("DEBUG - DF", "Instanciado SlideAdapter")
-        adapterSlide = SlideAdapter(slides)
+        adapterSlide = SlideAdapter(slides,titles)
         rvSlide.adapter = adapterSlide
 
 
