@@ -6,6 +6,7 @@ import es.uniovi.espichapp.model.Location
 import es.uniovi.espichapp.network.RestApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
@@ -19,7 +20,7 @@ class LocationRepository(private val locationDAO: LocationDAO) {
         return locationDAO.getLocationByName(locationName)
     }
 
-    suspend fun searchLocationsByName(locationName: String): List<Location> {
+    fun searchLocationsByName(locationName: String): Flow<List<Location>> {
         return locationDAO.searchLocationsByName(locationName)
     }
 

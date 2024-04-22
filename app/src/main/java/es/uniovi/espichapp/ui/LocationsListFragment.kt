@@ -21,6 +21,7 @@ import es.uniovi.espichapp.EspichApp
 import es.uniovi.espichapp.R
 import es.uniovi.espichapp.databinding.FragmentLocationsListBinding
 import es.uniovi.espichapp.interfaces.LocationListEvent
+import es.uniovi.espichapp.model.Location
 
 
 class LocationsListFragment :
@@ -49,13 +50,18 @@ class LocationsListFragment :
 
 
     // OVERRIDES
+    override fun onPause() {
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
+        super.onPause()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
         _binding = FragmentLocationsListBinding.inflate(inflater, container, false)
-        Log.d("DEBUG","Se ha creado el binding del listfragment")
+        Log.d("DEBUG - LLF","Se ha creado el binding del listfragment")
         return binding.root
     }
 
@@ -73,20 +79,23 @@ class LocationsListFragment :
         swipeRefreshLayout = binding.swipeRefreshLayout
         swipeRefreshLayout.setOnRefreshListener(this)
 
-        // CONFIGURACION DE LAS PREFERENCIAS
-        // Valor por defecto en la primera ejecución
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        PreferenceManager.setDefaultValues(this.context, R.xml.preferences, false)
+        // CONFIGURACION DE LAS PREFERENCIAS Y REGISTRO DEL LISTENER
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(binding.root.context)
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+
+
 
         // Hacemos que se observen elementos en la base de datos que se puedan presentar, se cargen en el adapter
         locationsListVM.locationsFromDB.observe(viewLifecycleOwner) { locList ->
+            Log.d("DEBUG - LLF", "Se han observado cambios en locationsFromDB")
             locList.let { adapterList.submitList(locList) }
+
             // hacemos que se quite la animacion circular de carga
             swipeRefreshLayout.isRefreshing = false
 
             // No necesitamos que se observe esta lista más, realmente solo interesa observar
             // el observable con estados
-            //locationVM.locationsFromDB.removeObservers(viewLifecycleOwner)
+            locationsListVM.locationsFromDB.removeObservers(viewLifecycleOwner)
         }
 
         // Una vez inicializada por primera vez la lista de establecimientos, será este observable
@@ -94,13 +103,15 @@ class LocationsListFragment :
         locationsListVM.locationsUIStateObservable.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is LocationsUIState.Success -> {
-                    Log.d("DEBUG - LLFragment","Se va submitear desde UIState")
-                    locationsListVM.locationsFromDB.value = result.datos.items
-                    Log.d("DEBUG - LLFragment","Se ha submiteado desde UIState")
+
+                    adapterList.submitList(result.datos.items)
+                    //locationsListVM.searchList = adapterList.currentList
+
                     Snackbar.make(view, "Se han observado cambios", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show()
                 }
                 is LocationsUIState.Error -> {
+
                     Snackbar.make(view, result.message, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show()
                 }
@@ -117,7 +128,6 @@ class LocationsListFragment :
 
 
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -140,15 +150,17 @@ class LocationsListFragment :
 
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-        when(key) {
+        Log.d("DEBUG - LLF", "Se han cambiado las preferencias '${key}'")
+        when (key) {
             "query" -> {
                 if (sharedPreferences != null) {
-                    locationsListVM.query = sharedPreferences.getString(key,"").toString()
+                    locationsListVM.query = sharedPreferences.getString(key, "").toString()
                 }
             }
         }
-        adapterList.submitList(locationsListVM.search())
+        locationsListVM.search()
     }
+
 
 
 

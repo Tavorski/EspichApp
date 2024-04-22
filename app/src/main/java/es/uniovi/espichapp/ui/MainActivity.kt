@@ -1,7 +1,9 @@
 package es.uniovi.espichapp.ui
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
@@ -46,9 +48,8 @@ class MainActivity :
 
         // CONFIGURACION DE LAS PREFERENCIAS
         // Valor por defecto en la primera ejecución
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        PreferenceManager.setDefaultValues(this, R.xml.preferences, false)
-
+        sharedPreferences = getSharedPreferences("prefs", Context.MODE_PRIVATE)
+        PreferenceManager.setDefaultValues(this,"prefs",Context.MODE_PRIVATE,R.xml.preferences,false)
         /*
 
         appBarConfiguration = AppBarConfiguration(navController.graph)
@@ -67,7 +68,7 @@ class MainActivity :
         menuInflater.inflate(R.menu.menu_main, menu)
         var mi: MenuItem? = menu.findItem(R.id.searchView)
         var sv: SearchView = mi?.actionView as SearchView
-        sv.queryHint = "Escribe aquí para buscar..."
+        sv.queryHint = getString(R.string.action_search_hint)
 
         // La idea es usar MainActivity como listener para que cada vez que se escriba
         // o se modifique la busqueda en el searchview, se modifiquen las preferencias
@@ -94,6 +95,8 @@ class MainActivity :
 
     // con escribir en el searchview es suficiente
     override fun onQueryTextChange(newText: String?): Boolean {
+        Log.d("DEBUG - MA", "Se han observado cambios en el searchview")
+
         sharedPreferences
             .edit()
             .putString("query", newText)

@@ -20,7 +20,8 @@ class LocationListViewModel(val repository: LocationRepository): ViewModel() {
     // CAMPOS
     lateinit var query: String // para guardar la cadena por la que se está buscando en el searchview
 
-    val locationsFromDB: MutableLiveData<List<Location>> = repository.getLocationsFlow().asLiveData() as MutableLiveData<List<Location>>
+    lateinit var filteredList: List<Location>
+    var locationsFromDB: LiveData<List<Location>> = repository.getLocationsFlow().asLiveData()
     private val _locationsUIStateObservable = MutableLiveData<LocationsUIState>()
     val locationsUIStateObservable: LiveData<LocationsUIState> get() = _locationsUIStateObservable
 
@@ -32,8 +33,9 @@ class LocationListViewModel(val repository: LocationRepository): ViewModel() {
 
 
     // MÉTODOS
-    fun search() {//} List<Location> {
-        return
+    fun search() {
+        //locationsFromDB = repository.searchLocationsByName(query).asLiveData()
+
     }
 
     fun getLocationsList() {
