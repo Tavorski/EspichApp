@@ -17,13 +17,10 @@ import es.uniovi.espichapp.databinding.ActivityMainBinding
 
 class MainActivity :
     AppCompatActivity(),
-    SharedPreferences.OnSharedPreferenceChangeListener,
-    SearchView.OnQueryTextListener {
+    SharedPreferences.OnSharedPreferenceChangeListener {
 
     //private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    private lateinit var navHostFragment: NavHostFragment
-    private lateinit var navController: NavController
     lateinit var sharedPreferences: SharedPreferences
 
     override fun onStart() {
@@ -37,14 +34,8 @@ class MainActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setSupportActionBar(binding.toolbar)
-
-        // init de las referencias al navHostFragment
-        navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHostFragment) as NavHostFragment
-        navController = navHostFragment.navController
 
         // CONFIGURACION DE LAS PREFERENCIAS
         // Valor por defecto en la primera ejecución
@@ -63,17 +54,12 @@ class MainActivity :
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    /*override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
         var mi: MenuItem? = menu.findItem(R.id.searchView)
         var sv: SearchView = mi?.actionView as SearchView
         sv.queryHint = getString(R.string.action_search_hint)
-
-        // La idea es usar MainActivity como listener para que cada vez que se escriba
-        // o se modifique la busqueda en el searchview, se modifiquen las preferencias
-        // y que LocationListFragment capture el evento de cambio en las preferencias
-        sv.setOnQueryTextListener(this)
 
         return true
     }
@@ -86,23 +72,9 @@ class MainActivity :
             R.id.settings -> NavigationUI.onNavDestinationSelected(item, navController)
             else -> super.onOptionsItemSelected(item)
         }
-    }
+    }*/
 
-    // no queremos que haga falta hacer submit de la busqueda
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        return false
-    }
 
-    // con escribir en el searchview es suficiente
-    override fun onQueryTextChange(newText: String?): Boolean {
-        Log.d("DEBUG - MA", "Se han observado cambios en el searchview")
-
-        sharedPreferences
-            .edit()
-            .putString("query", newText)
-            .apply()
-        return true
-    }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) { }
 

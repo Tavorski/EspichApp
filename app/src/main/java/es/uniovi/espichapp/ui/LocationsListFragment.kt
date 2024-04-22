@@ -5,10 +5,19 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,13 +37,20 @@ class LocationsListFragment :
     Fragment(),
     LocationListEvent,
     SharedPreferences.OnSharedPreferenceChangeListener,
-    SwipeRefreshLayout.OnRefreshListener {
+    SwipeRefreshLayout.OnRefreshListener,
+    SearchView.OnQueryTextListener {
 
     // CAMPOS
 
+    // Referencia a la actividad
     // Binding
+    private lateinit var mainActivity: MainActivity
     private var _binding: FragmentLocationsListBinding? = null
     private val binding get() = _binding!!
+
+    // Para la navegacion entre fragmentos
+    private lateinit var navHostFragment: NavHostFragment
+    private lateinit var navController: NavController
 
     // RecyclerView, Adapter, ViewModel
     lateinit var rvlist: RecyclerView
@@ -49,6 +65,14 @@ class LocationsListFragment :
     lateinit var sharedPreferences: SharedPreferences
 
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+
+        // init de las referencias al navHostFragment
+        navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.mainNavHostFragment) as NavHostFragment
+        navController = navHostFragment.navController
+    }
     // OVERRIDES
     override fun onPause() {
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
@@ -67,6 +91,34 @@ class LocationsListFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mainActivity = requireActivity() as MainActivity
+        mainActivity.setSupportActionBar(binding.toolbar)
+        // Modificamos la toolbar según las necesidades de esta vista
+        mainActivity.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                // Add menu items here
+                menuInflater.inflate(R.menu.menu_main, menu)
+                var mi: MenuItem? = menu.findItem(R.id.searchView)
+                var sv: SearchView = mi?.actionView as SearchView
+                sv.queryHint = getString(R.string.action_search_hint)
+
+                // La idea es usar MainActivity como listener para que cada vez que se escriba
+                // o se modifique la busqueda en el searchview, se modifiquen las preferencias
+                // y que LocationListFragment capture el evento de cambio en las preferencias
+                sv.setOnQueryTextListener(this@LocationsListFragment)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                // Handle the menu selection
+                return when (menuItem.itemId) {
+                    R.id.settings -> {
+                        NavigationUI.onNavDestinationSelected(menuItem, navController)
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
 
         // Asignamos un LayoutManager al recyclerView
         rvlist = binding.rvLocationList
@@ -93,9 +145,6 @@ class LocationsListFragment :
             // hacemos que se quite la animacion circular de carga
             swipeRefreshLayout.isRefreshing = false
 
-            // No necesitamos que se observe esta lista más, realmente solo interesa observar
-            // el observable con estados
-            locationsListVM.locationsFromDB.removeObservers(viewLifecycleOwner)
         }
 
         // Una vez inicializada por primera vez la lista de establecimientos, será este observable
@@ -152,13 +201,26 @@ class LocationsListFragment :
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
         Log.d("DEBUG - LLF", "Se han cambiado las preferencias '${key}'")
         when (key) {
-            "query" -> {
-                if (sharedPreferences != null) {
-                    locationsListVM.query = sharedPreferences.getString(key, "").toString()
-                }
-            }
+
         }
-        locationsListVM.search()
+    }
+
+
+    // no queremos que haga falta hacer submit de la busqueda
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return false
+    }
+    // con escribir en el searchview es suficiente
+    override fun onQueryTextChange(newText: String?): Boolean {
+        Log.d("DEBUG - MA", "Se han observado cambios en el searchview")
+
+        if (newText != null) {
+            locationsListVM.repository.query = newText
+        }
+        else locationsListVM.repository.query = ""
+        locationsListVM.loadLocationsList()
+
+        return true
     }
 
 

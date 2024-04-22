@@ -17,25 +17,28 @@ import kotlinx.coroutines.launch
 
 class LocationListViewModel(val repository: LocationRepository): ViewModel() {
 
-    // CAMPOS
-    lateinit var query: String // para guardar la cadena por la que se está buscando en el searchview
 
-    lateinit var filteredList: List<Location>
-    var locationsFromDB: LiveData<List<Location>> = repository.getLocationsFlow().asLiveData()
-    private val _locationsUIStateObservable = MutableLiveData<LocationsUIState>()
+    val locationsFromDB: LiveData<List<Location>> get() = _locationsFromDB
+    private val _locationsFromDB = MutableLiveData<List<Location>>()
+
     val locationsUIStateObservable: LiveData<LocationsUIState> get() = _locationsUIStateObservable
+    private val _locationsUIStateObservable = MutableLiveData<LocationsUIState>()
 
     init {
-        //getLocationsList()
+        loadLocationsList()
     }
 
 
-
-
     // MÉTODOS
-    fun search() {
-        //locationsFromDB = repository.searchLocationsByName(query).asLiveData()
-
+    fun loadLocationsList() {
+        viewModelScope.launch {
+            repository.loadList().collect {
+                if (it != null) {
+                    Log.d("DEBUG - LLVM","Tamaño de la lista en LOAD: ${it.size}")
+                }
+                _locationsFromDB.value = it
+            }
+        }
     }
 
     fun getLocationsList() {
@@ -47,6 +50,7 @@ class LocationListViewModel(val repository: LocationRepository): ViewModel() {
                             Log.d("DEBUG - LLVM", "ApiResult es Success")
                             LocationsUIState.Success(result.data!!)
                         }
+
                         is ApiResult.Error -> {
                             Log.d("DEBUG - LLVM", result.message!!)
                             LocationsUIState.Error("Error en la petición a la API")
@@ -57,7 +61,8 @@ class LocationListViewModel(val repository: LocationRepository): ViewModel() {
                 }
             } catch (ce: CancellationException) {
                 throw ce
-            } catch (_: Exception) {}
+            } catch (_: Exception) {
+            }
         }
     }
 
