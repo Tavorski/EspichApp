@@ -1,0 +1,176 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="es.uniovi.espichapp"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="34" />
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\AndroidManifest.xml:5:5-66
+11-->C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\AndroidManifest.xml:5:22-64
+12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+12-->C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\AndroidManifest.xml:6:5-78
+12-->C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\AndroidManifest.xml:6:22-76
+13
+14    <permission
+14-->[androidx.core:core:1.12.0] C:\Users\tavorski\.gradle\caches\transforms-3\f880587da8bfdf46b7bf8b37f5a0734c\transformed\core-1.12.0\AndroidManifest.xml:22:5-24:47
+15        android:name="es.uniovi.espichapp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+15-->[androidx.core:core:1.12.0] C:\Users\tavorski\.gradle\caches\transforms-3\f880587da8bfdf46b7bf8b37f5a0734c\transformed\core-1.12.0\AndroidManifest.xml:23:9-81
+16        android:protectionLevel="signature" />
+16-->[androidx.core:core:1.12.0] C:\Users\tavorski\.gradle\caches\transforms-3\f880587da8bfdf46b7bf8b37f5a0734c\transformed\core-1.12.0\AndroidManifest.xml:24:9-44
+17
+18    <uses-permission android:name="es.uniovi.espichapp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+18-->[androidx.core:core:1.12.0] C:\Users\tavorski\.gradle\caches\transforms-3\f880587da8bfdf46b7bf8b37f5a0734c\transformed\core-1.12.0\AndroidManifest.xml:26:5-97
+18-->[androidx.core:core:1.12.0] C:\Users\tavorski\.gradle\caches\transforms-3\f880587da8bfdf46b7bf8b37f5a0734c\transformed\core-1.12.0\AndroidManifest.xml:26:22-94
+19
+20    <application
+20-->C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\AndroidManifest.xml:8:5-31:19
+21        android:name="es.uniovi.espichapp.EspichApp"
+21-->C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\AndroidManifest.xml:9:9-34
+22        android:allowBackup="true"
+22-->C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\AndroidManifest.xml:11:9-35
+23        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+23-->[androidx.core:core:1.12.0] C:\Users\tavorski\.gradle\caches\transforms-3\f880587da8bfdf46b7bf8b37f5a0734c\transformed\core-1.12.0\AndroidManifest.xml:28:18-86
+24        android:dataExtractionRules="@xml/data_extraction_rules"
+24-->C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\AndroidManifest.xml:12:9-65
+25        android:debuggable="true"
+26        android:extractNativeLibs="false"
+27        android:fullBackupContent="@xml/backup_rules"
+27-->C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\AndroidManifest.xml:13:9-54
+28        android:icon="@mipmap/ic_launcher"
+28-->C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\AndroidManifest.xml:14:9-43
+29        android:label="@string/app_name"
+29-->C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\AndroidManifest.xml:15:9-41
+30        android:networkSecurityConfig="@xml/network_security_config"
+30-->C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\AndroidManifest.xml:10:9-69
+31        android:roundIcon="@mipmap/ic_launcher_round"
+31-->C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\AndroidManifest.xml:16:9-54
+32        android:supportsRtl="true"
+32-->C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\AndroidManifest.xml:17:9-35
+33        android:testOnly="true"
+34        android:theme="@style/Theme.EspichApp" >
+34-->C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\AndroidManifest.xml:18:9-47
+35        <activity
+35-->C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\AndroidManifest.xml:20:9-30:20
+36            android:name="es.uniovi.espichapp.ui.MainActivity"
+36-->C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\AndroidManifest.xml:21:13-44
+37            android:exported="true"
+37-->C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\AndroidManifest.xml:22:13-36
+38            android:label="@string/app_name"
+38-->C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\AndroidManifest.xml:23:13-45
+39            android:theme="@style/Theme.EspichApp" >
+39-->C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\AndroidManifest.xml:24:13-51
+40            <intent-filter>
+40-->C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\AndroidManifest.xml:25:13-29:29
+41                <action android:name="android.intent.action.MAIN" />
+41-->C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\AndroidManifest.xml:26:17-69
+41-->C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\AndroidManifest.xml:26:25-66
+42
+43                <category android:name="android.intent.category.LAUNCHER" />
+43-->C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\AndroidManifest.xml:28:17-77
+43-->C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\src\main\AndroidManifest.xml:28:27-74
+44            </intent-filter>
+45        </activity>
+46
+47        <provider
+47-->[androidx.emoji2:emoji2:1.2.0] C:\Users\tavorski\.gradle\caches\transforms-3\d0dd3da2c098b489f03952d36f442b7d\transformed\emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+48            android:name="androidx.startup.InitializationProvider"
+48-->[androidx.emoji2:emoji2:1.2.0] C:\Users\tavorski\.gradle\caches\transforms-3\d0dd3da2c098b489f03952d36f442b7d\transformed\emoji2-1.2.0\AndroidManifest.xml:25:13-67
+49            android:authorities="es.uniovi.espichapp.androidx-startup"
+49-->[androidx.emoji2:emoji2:1.2.0] C:\Users\tavorski\.gradle\caches\transforms-3\d0dd3da2c098b489f03952d36f442b7d\transformed\emoji2-1.2.0\AndroidManifest.xml:26:13-68
+50            android:exported="false" >
+50-->[androidx.emoji2:emoji2:1.2.0] C:\Users\tavorski\.gradle\caches\transforms-3\d0dd3da2c098b489f03952d36f442b7d\transformed\emoji2-1.2.0\AndroidManifest.xml:27:13-37
+51            <meta-data
+51-->[androidx.emoji2:emoji2:1.2.0] C:\Users\tavorski\.gradle\caches\transforms-3\d0dd3da2c098b489f03952d36f442b7d\transformed\emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+52                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+52-->[androidx.emoji2:emoji2:1.2.0] C:\Users\tavorski\.gradle\caches\transforms-3\d0dd3da2c098b489f03952d36f442b7d\transformed\emoji2-1.2.0\AndroidManifest.xml:30:17-75
+53                android:value="androidx.startup" />
+53-->[androidx.emoji2:emoji2:1.2.0] C:\Users\tavorski\.gradle\caches\transforms-3\d0dd3da2c098b489f03952d36f442b7d\transformed\emoji2-1.2.0\AndroidManifest.xml:31:17-49
+54            <meta-data
+54-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\tavorski\.gradle\caches\transforms-3\a7ceddcc895dbf972a2f8d2d3f81ea5e\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:29:13-31:52
+55                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+55-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\tavorski\.gradle\caches\transforms-3\a7ceddcc895dbf972a2f8d2d3f81ea5e\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:30:17-78
+56                android:value="androidx.startup" />
+56-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\tavorski\.gradle\caches\transforms-3\a7ceddcc895dbf972a2f8d2d3f81ea5e\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:31:17-49
+57            <meta-data
+57-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\tavorski\.gradle\caches\transforms-3\d3b8f16da2c056ec1ae2024f560d33a5\transformed\profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
+58                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+58-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\tavorski\.gradle\caches\transforms-3\d3b8f16da2c056ec1ae2024f560d33a5\transformed\profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
+59                android:value="androidx.startup" />
+59-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\tavorski\.gradle\caches\transforms-3\d3b8f16da2c056ec1ae2024f560d33a5\transformed\profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
+60        </provider>
+61
+62        <uses-library
+62-->[androidx.window:window:1.0.0] C:\Users\tavorski\.gradle\caches\transforms-3\08b5a58d1c987d91333fd62076c885ee\transformed\window-1.0.0\AndroidManifest.xml:25:9-27:40
+63            android:name="androidx.window.extensions"
+63-->[androidx.window:window:1.0.0] C:\Users\tavorski\.gradle\caches\transforms-3\08b5a58d1c987d91333fd62076c885ee\transformed\window-1.0.0\AndroidManifest.xml:26:13-54
+64            android:required="false" />
+64-->[androidx.window:window:1.0.0] C:\Users\tavorski\.gradle\caches\transforms-3\08b5a58d1c987d91333fd62076c885ee\transformed\window-1.0.0\AndroidManifest.xml:27:13-37
+65        <uses-library
+65-->[androidx.window:window:1.0.0] C:\Users\tavorski\.gradle\caches\transforms-3\08b5a58d1c987d91333fd62076c885ee\transformed\window-1.0.0\AndroidManifest.xml:28:9-30:40
+66            android:name="androidx.window.sidecar"
+66-->[androidx.window:window:1.0.0] C:\Users\tavorski\.gradle\caches\transforms-3\08b5a58d1c987d91333fd62076c885ee\transformed\window-1.0.0\AndroidManifest.xml:29:13-51
+67            android:required="false" />
+67-->[androidx.window:window:1.0.0] C:\Users\tavorski\.gradle\caches\transforms-3\08b5a58d1c987d91333fd62076c885ee\transformed\window-1.0.0\AndroidManifest.xml:30:13-37
+68
+69        <service
+69-->[androidx.room:room-runtime:2.6.1] C:\Users\tavorski\.gradle\caches\transforms-3\827c1ec2532005d40662cb956c56b17c\transformed\room-runtime-2.6.1\AndroidManifest.xml:24:9-28:63
+70            android:name="androidx.room.MultiInstanceInvalidationService"
+70-->[androidx.room:room-runtime:2.6.1] C:\Users\tavorski\.gradle\caches\transforms-3\827c1ec2532005d40662cb956c56b17c\transformed\room-runtime-2.6.1\AndroidManifest.xml:25:13-74
+71            android:directBootAware="true"
+71-->[androidx.room:room-runtime:2.6.1] C:\Users\tavorski\.gradle\caches\transforms-3\827c1ec2532005d40662cb956c56b17c\transformed\room-runtime-2.6.1\AndroidManifest.xml:26:13-43
+72            android:exported="false" />
+72-->[androidx.room:room-runtime:2.6.1] C:\Users\tavorski\.gradle\caches\transforms-3\827c1ec2532005d40662cb956c56b17c\transformed\room-runtime-2.6.1\AndroidManifest.xml:27:13-37
+73
+74        <provider
+74-->[com.squareup.picasso:picasso:2.71828] C:\Users\tavorski\.gradle\caches\transforms-3\04ac6425c2f0579051d373cc49788cca\transformed\picasso-2.71828\AndroidManifest.xml:8:9-11:40
+75            android:name="com.squareup.picasso.PicassoProvider"
+75-->[com.squareup.picasso:picasso:2.71828] C:\Users\tavorski\.gradle\caches\transforms-3\04ac6425c2f0579051d373cc49788cca\transformed\picasso-2.71828\AndroidManifest.xml:9:13-64
+76            android:authorities="es.uniovi.espichapp.com.squareup.picasso"
+76-->[com.squareup.picasso:picasso:2.71828] C:\Users\tavorski\.gradle\caches\transforms-3\04ac6425c2f0579051d373cc49788cca\transformed\picasso-2.71828\AndroidManifest.xml:10:13-72
+77            android:exported="false" />
+77-->[com.squareup.picasso:picasso:2.71828] C:\Users\tavorski\.gradle\caches\transforms-3\04ac6425c2f0579051d373cc49788cca\transformed\picasso-2.71828\AndroidManifest.xml:11:13-37
+78
+79        <receiver
+79-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\tavorski\.gradle\caches\transforms-3\d3b8f16da2c056ec1ae2024f560d33a5\transformed\profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
+80            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+80-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\tavorski\.gradle\caches\transforms-3\d3b8f16da2c056ec1ae2024f560d33a5\transformed\profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
+81            android:directBootAware="false"
+81-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\tavorski\.gradle\caches\transforms-3\d3b8f16da2c056ec1ae2024f560d33a5\transformed\profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
+82            android:enabled="true"
+82-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\tavorski\.gradle\caches\transforms-3\d3b8f16da2c056ec1ae2024f560d33a5\transformed\profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
+83            android:exported="true"
+83-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\tavorski\.gradle\caches\transforms-3\d3b8f16da2c056ec1ae2024f560d33a5\transformed\profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
+84            android:permission="android.permission.DUMP" >
+84-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\tavorski\.gradle\caches\transforms-3\d3b8f16da2c056ec1ae2024f560d33a5\transformed\profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
+85            <intent-filter>
+85-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\tavorski\.gradle\caches\transforms-3\d3b8f16da2c056ec1ae2024f560d33a5\transformed\profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
+86                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+86-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\tavorski\.gradle\caches\transforms-3\d3b8f16da2c056ec1ae2024f560d33a5\transformed\profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
+86-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\tavorski\.gradle\caches\transforms-3\d3b8f16da2c056ec1ae2024f560d33a5\transformed\profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
+87            </intent-filter>
+88            <intent-filter>
+88-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\tavorski\.gradle\caches\transforms-3\d3b8f16da2c056ec1ae2024f560d33a5\transformed\profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
+89                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+89-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\tavorski\.gradle\caches\transforms-3\d3b8f16da2c056ec1ae2024f560d33a5\transformed\profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
+89-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\tavorski\.gradle\caches\transforms-3\d3b8f16da2c056ec1ae2024f560d33a5\transformed\profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
+90            </intent-filter>
+91            <intent-filter>
+91-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\tavorski\.gradle\caches\transforms-3\d3b8f16da2c056ec1ae2024f560d33a5\transformed\profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
+92                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+92-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\tavorski\.gradle\caches\transforms-3\d3b8f16da2c056ec1ae2024f560d33a5\transformed\profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
+92-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\tavorski\.gradle\caches\transforms-3\d3b8f16da2c056ec1ae2024f560d33a5\transformed\profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
+93            </intent-filter>
+94            <intent-filter>
+94-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\tavorski\.gradle\caches\transforms-3\d3b8f16da2c056ec1ae2024f560d33a5\transformed\profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
+95                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+95-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\tavorski\.gradle\caches\transforms-3\d3b8f16da2c056ec1ae2024f560d33a5\transformed\profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
+95-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\tavorski\.gradle\caches\transforms-3\d3b8f16da2c056ec1ae2024f560d33a5\transformed\profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
+96            </intent-filter>
+97        </receiver>
+98    </application>
+99
+100</manifest>

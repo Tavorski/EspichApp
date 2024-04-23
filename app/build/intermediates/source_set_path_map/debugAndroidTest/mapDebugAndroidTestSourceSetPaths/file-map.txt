@@ -1,0 +1,6 @@
+es.uniovi.espichapp.test.app-annotation-experimental-1.3.0-0 C:\Users\tavorski\.gradle\caches\transforms-3\817bb2d4e37c5f3419f1e7e07a0bef93\transformed\annotation-experimental-1.3.0\res
+es.uniovi.espichapp.test.app-core-1.5.0-1 C:\Users\tavorski\.gradle\caches\transforms-3\df93ed788124ff7a82f647f9ec60ef6c\transformed\core-1.5.0\res
+es.uniovi.espichapp.test.app-androidTest-2 C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\build\generated\res\resValues\androidTest\debug
+es.uniovi.espichapp.test.app-mergeDebugAndroidTestResources-3 C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
+es.uniovi.espichapp.test.app-mergeDebugAndroidTestResources-4 C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
+es.uniovi.espichapp.test.app-debugAndroidTest-5 C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources
