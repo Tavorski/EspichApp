@@ -13,7 +13,7 @@
         <action
             android:id="@+id/action_locationsListFragment_to_detailFragment"
             app:destination="@id/detailFragment"
-            app:enterAnim="@android:anim/slide_in_left"
+            app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
@@ -30,7 +30,7 @@
         <action
             android:id="@+id/action_detailFragment_to_locationsListFragment"
             app:destination="@id/locationsListFragment"
-            app:enterAnim="@android:anim/slide_out_right"
+            app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />

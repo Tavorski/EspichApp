@@ -7,54 +7,47 @@ import es.uniovi.espichapp.model.Location
 import es.uniovi.espichapp.network.RestApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 
 class LocationRepository(private val locationDAO: LocationDAO) {
 
-    var query: String = ""
-
-    suspend fun getLocationByName(locationName: String): Location {
-        return locationDAO.getLocationByName(locationName)
+    // Funciones de acceso a la base de datos ROOM
+    fun getLocations() = locationDAO.getLocations()
+    fun searchLocationsByName(query: String) = locationDAO.searchLocationsByName(query)
+    fun getLocationByName(locationName: String) = locationDAO.getLocationByName(locationName)
+    suspend fun deleteLocations() {
+        CoroutineScope(Dispatchers.IO).launch {
+            locationDAO.deleteLocations()
+        }
+        Log.d("DEBUG-Repo","DELETE locations_table")
     }
-
-    fun searchLocationsByName(locationName: String): Flow<List<Location>> {
-        return locationDAO.searchLocationsByName("%${locationName}%")
-    }
-
     suspend fun insertLocation(location: Location) {
-        locationDAO.insertLocation(location)
+        CoroutineScope(Dispatchers.IO).launch {
+            locationDAO.insertLocation(location)
+        }
         Log.d("DEBUG-Repo","INSERT '${location.Nombre}'")
     }
 
-    fun loadList() =
-        flow {
-            if (query == "") {
-                Log.d("DEBUG - REPO", "Query: '$query'. Se va a emitir toda la lista")
-                emit(locationDAO.getLocationsFlow().asLiveData().value)
-            }
-            else {
-                Log.d("DEBUG - REPO", "Query: '$query'")
-                emit(locationDAO.searchLocationsByName("%${query}%").asLiveData().value)
-            }
-        }.flowOn(Dispatchers.IO)
-
-
+    // Función de acceso al servicio REST
     fun updateLocationsData() =
         // Se crea un flujo
         flow {
             // Se realiza la petición al servicio
-            try {
-                // Respuesta correcta
+            try {// Respuesta correcta
+
+                // Petición al servicio
                 val locations = RestApi.retrofitService.getLocationsInfo()
+
+                // Limpiamos la base de datos
+                // La funcion delete tiene que estar despues de la llamada a la api o borraría los datos obsoletos
+                // incluso cuando no puede actualizarlos
+                deleteLocations()
+
                 // Se guardan los nuevos datos en la base de datos
-                CoroutineScope(Dispatchers.IO).launch {
-                    locations.items.map {
-                        insertLocation(it)
-                    }
-                }
+                locations.items.map { insertLocation(it) }
+
                 // Se emite el estado Succes y se incluyen los datos recibidos
                 emit(ApiResult.Success(locations))
 

@@ -30,7 +30,6 @@ import es.uniovi.espichapp.EspichApp
 import es.uniovi.espichapp.R
 import es.uniovi.espichapp.databinding.FragmentLocationsListBinding
 import es.uniovi.espichapp.interfaces.LocationListEvent
-import es.uniovi.espichapp.model.Location
 
 
 class LocationsListFragment :
@@ -42,9 +41,7 @@ class LocationsListFragment :
 
     // CAMPOS
 
-    // Referencia a la actividad
     // Binding
-    private lateinit var mainActivity: MainActivity
     private var _binding: FragmentLocationsListBinding? = null
     private val binding get() = _binding!!
 
@@ -68,7 +65,6 @@ class LocationsListFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         // init de las referencias al navHostFragment
         navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.mainNavHostFragment) as NavHostFragment
         navController = navHostFragment.navController
@@ -91,9 +87,10 @@ class LocationsListFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainActivity = requireActivity() as MainActivity
-        mainActivity.setSupportActionBar(binding.toolbar)
+
         // Modificamos la toolbar según las necesidades de esta vista
+        val mainActivity: MainActivity = requireActivity() as MainActivity
+        mainActivity.setSupportActionBar(binding.toolbar)
         mainActivity.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 // Add menu items here
@@ -107,7 +104,6 @@ class LocationsListFragment :
                 // y que LocationListFragment capture el evento de cambio en las preferencias
                 sv.setOnQueryTextListener(this@LocationsListFragment)
             }
-
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 // Handle the menu selection
                 return when (menuItem.itemId) {
@@ -118,7 +114,6 @@ class LocationsListFragment :
                 }
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-
 
         // Asignamos un LayoutManager al recyclerView
         rvlist = binding.rvLocationList
@@ -135,16 +130,15 @@ class LocationsListFragment :
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(binding.root.context)
         sharedPreferences.registerOnSharedPreferenceChangeListener(this)
 
-
-
         // Hacemos que se observen elementos en la base de datos que se puedan presentar, se cargen en el adapter
-        locationsListVM.locationsFromDB.observe(viewLifecycleOwner) { locList ->
-            Log.d("DEBUG - LLF", "Se han observado cambios en locationsFromDB")
-            locList.let { adapterList.submitList(locList) }
+        locationsListVM.locations.observe(viewLifecycleOwner) { locList ->
+            Log.d("DEBUG - LLF", "Se han observado cambios en locations")
+            adapterList.submitList(locList)
 
-            // hacemos que se quite la animacion circular de carga
-            swipeRefreshLayout.isRefreshing = false
-
+        }
+        locationsListVM.locationsByName.observe(viewLifecycleOwner) { locList ->
+            Log.d("DEBUG - LLF", "Se han observado cambios en locationsByName")
+            adapterList.submitList(locList)
         }
 
         // Una vez inicializada por primera vez la lista de establecimientos, será este observable
@@ -153,7 +147,7 @@ class LocationsListFragment :
             when (result) {
                 is LocationsUIState.Success -> {
 
-                    adapterList.submitList(result.datos.items)
+                    //adapterList.submitList(result.datos.items)
                     //locationsListVM.searchList = adapterList.currentList
 
                     Snackbar.make(view, "Se han observado cambios", Snackbar.LENGTH_LONG)
@@ -186,7 +180,7 @@ class LocationsListFragment :
     // los items de la lista
     override fun onItemClick(position: Int) {
         Log.d("DEBUG-ViewHolder", "Se va a intentar navegar al fragmento")
-        val locationName: String = locationsListVM.locationsFromDB.value?.get(position)?.Nombre ?: ""
+        val locationName: String = locationsListVM.locations.value?.get(position)?.Nombre ?: ""
         if (locationName == "") return
         findNavController().navigate(
              LocationsListFragmentDirections.actionLocationsListFragmentToDetailFragment(locationName)
@@ -215,11 +209,18 @@ class LocationsListFragment :
         Log.d("DEBUG - MA", "Se han observado cambios en el searchview")
 
         if (newText != null) {
-            locationsListVM.repository.query = newText
+            val temp: List<String> = newText.chunked(1)
+            val exclude: List<String> = listOf<String>("a","e","i","o","u")
+            var query = ""
+            for (c in temp) {
+                if(exclude.contains(c)) continue // Ignoramos vocales para evitar problemas con las tildes
+                query += "%${c}"    // Insertamos un % entre cada caracter para reducir la sensibilidad
+                                    // de la búsqueda y que acepte faltas de ortografía
+            }
+            Log.d("DEBUG - DVM","Query: $query")
+            locationsListVM.query.value = query
         }
-        else locationsListVM.repository.query = ""
-        locationsListVM.loadLocationsList()
-
+        else locationsListVM.query.value = ""
         return true
     }
 
