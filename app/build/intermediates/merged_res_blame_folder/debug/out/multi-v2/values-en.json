@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "es.uniovi.espichapp-mergeDebugResources-55:/values-en/values-en.xml",
+            "outputFile": "es.uniovi.espichapp-mergeDebugResources-56:/values-en/values-en.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\tavorski\\AndroidStudioProjects\\EspichApp\\app\\src\\main\\res\\values-en\\strings.xml",
+                    "source": "C:\\Users\\uo270569\\AndroidStudioProjects\\EspichApp\\app\\src\\main\\res\\values-en\\strings.xml",
                     "from": {
                         "startLines": "2,13,3,5,4,6,12,7,9,8,10,11",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",

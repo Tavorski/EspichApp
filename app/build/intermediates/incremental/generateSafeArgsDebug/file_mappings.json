@@ -1,1 +1,1 @@
-[{"navFile":"src\\main\\res\\navigation\\nav_graph.xml","javaFiles":["es.uniovi.espichapp.ui.LocationsListFragmentDirections","es.uniovi.espichapp.ui.DetailFragmentDirections","es.uniovi.espichapp.ui.DetailFragmentArgs"]}]
+[{"navFile":"src\\main\\res\\navigation\\nav_graph.xml","javaFiles":["es.uniovi.espichapp.NavGraphArgs","es.uniovi.espichapp.ui.LocationsListFragmentDirections","es.uniovi.espichapp.ui.DetailFragmentDirections","es.uniovi.espichapp.ui.DetailFragmentArgs","es.uniovi.espichapp.ui.MapFragmentArgs"]}]

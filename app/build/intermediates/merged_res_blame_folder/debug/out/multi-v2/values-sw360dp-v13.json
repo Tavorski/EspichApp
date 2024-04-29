@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "es.uniovi.espichapp-mergeDebugResources-55:/values-sw360dp-v13/values-sw360dp-v13.xml",
+            "outputFile": "es.uniovi.espichapp-mergeDebugResources-56:/values-sw360dp-v13/values-sw360dp-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\tavorski\\.gradle\\caches\\transforms-3\\158426ebf7ef8d64c9ab38f4e258679d\\transformed\\preference-1.2.1\\res\\values-sw360dp-v13\\values-sw360dp-v13.xml",
+                    "source": "C:\\Users\\uo270569\\.gradle\\caches\\transforms-3\\158426ebf7ef8d64c9ab38f4e258679d\\transformed\\preference-1.2.1\\res\\values-sw360dp-v13\\values-sw360dp-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

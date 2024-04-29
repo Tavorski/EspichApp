@@ -1,6 +1,6 @@
-es.uniovi.espichapp.test.app-annotation-experimental-1.3.0-0 C:\Users\tavorski\.gradle\caches\transforms-3\32a7a5952ff4c6adfea373b98152b408\transformed\annotation-experimental-1.3.0\res
-es.uniovi.espichapp.test.app-core-1.5.0-1 C:\Users\tavorski\.gradle\caches\transforms-3\32bfdf84a0dfed965e1068775c85e009\transformed\core-1.5.0\res
-es.uniovi.espichapp.test.app-androidTest-2 C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\build\generated\res\resValues\androidTest\debug
-es.uniovi.espichapp.test.app-mergeDebugAndroidTestResources-3 C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
-es.uniovi.espichapp.test.app-mergeDebugAndroidTestResources-4 C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
-es.uniovi.espichapp.test.app-merged_res-5 C:\Users\tavorski\AndroidStudioProjects\EspichApp\app\build\intermediates\merged_res\debugAndroidTest
+es.uniovi.espichapp.test.app-core-1.5.0-0 C:\Users\uo270569\.gradle\caches\transforms-3\c040499e35ce660c9f21b84d6a0f79d3\transformed\core-1.5.0\res
+es.uniovi.espichapp.test.app-annotation-experimental-1.3.0-1 C:\Users\uo270569\.gradle\caches\transforms-3\f730ea9856f758968f48bda0dafc27f6\transformed\annotation-experimental-1.3.0\res
+es.uniovi.espichapp.test.app-androidTest-2 C:\Users\uo270569\AndroidStudioProjects\EspichApp\app\build\generated\res\resValues\androidTest\debug
+es.uniovi.espichapp.test.app-mergeDebugAndroidTestResources-3 C:\Users\uo270569\AndroidStudioProjects\EspichApp\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
+es.uniovi.espichapp.test.app-mergeDebugAndroidTestResources-4 C:\Users\uo270569\AndroidStudioProjects\EspichApp\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
+es.uniovi.espichapp.test.app-merged_res-5 C:\Users\uo270569\AndroidStudioProjects\EspichApp\app\build\intermediates\merged_res\debugAndroidTest

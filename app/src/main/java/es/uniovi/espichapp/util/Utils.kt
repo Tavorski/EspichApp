@@ -11,24 +11,21 @@ import es.uniovi.espichapp.model.Location
 class Utils {
 
     // Factoría de ViewModels
-    class LocationViewModelFactory(private val repository: LocationRepository) :
+
+    class ViewModelFactory(private val repository: LocationRepository) :
         ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
+
             if (modelClass.isAssignableFrom(LocationListViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
                 return LocationListViewModel(repository) as T
             }
-            throw IllegalArgumentException("Unknown ViewModel class")
-        }
-    }
 
-    class DetailViewModelFactory(private val repository: LocationRepository) :
-        ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
+            else if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
                 return DetailViewModel(repository) as T
             }
+
             throw IllegalArgumentException("Unknown ViewModel class")
         }
     }

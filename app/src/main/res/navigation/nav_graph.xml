@@ -28,16 +28,28 @@
             android:name="locationName"
             app:argType="string" />
         <action
-            android:id="@+id/action_detailFragment_to_locationsListFragment"
-            app:destination="@id/locationsListFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            android:id="@+id/action_detailFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
     <fragment
         android:id="@+id/settings"
         android:name="es.uniovi.espichapp.preferences.SettingsFragment"
         android:label="SettingsFragment"
         tools:layout="@xml/preferences"/>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="es.uniovi.espichapp.ui.MapFragment"
+        android:label="MapFragment" >
+        <argument
+            android:name="coordinates"
+            app:argType="string" />
+    </fragment>
+    <argument
+        android:name="latitude"
+        app:argType="long"
+        android:defaultValue="0L" />
+    <argument
+        android:name="longitude"
+        app:argType="long"
+        android:defaultValue="0L" />
 </navigation>

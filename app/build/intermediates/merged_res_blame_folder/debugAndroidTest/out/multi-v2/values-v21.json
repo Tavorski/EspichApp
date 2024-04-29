@@ -4,7 +4,7 @@
             "outputFile": "es.uniovi.espichapp.test.app-mergeDebugAndroidTestResources-3:/values-v21/values-v21.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\tavorski\\.gradle\\caches\\transforms-3\\32bfdf84a0dfed965e1068775c85e009\\transformed\\core-1.5.0\\res\\values-v21\\values.xml",
+                    "source": "C:\\Users\\uo270569\\.gradle\\caches\\transforms-3\\c040499e35ce660c9f21b84d6a0f79d3\\transformed\\core-1.5.0\\res\\values-v21\\values.xml",
                     "from": {
                         "startLines": "4,13",
                         "startColumns": "0,0",

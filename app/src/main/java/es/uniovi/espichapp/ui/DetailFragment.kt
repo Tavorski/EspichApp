@@ -14,6 +14,7 @@ import android.widget.SearchView
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,6 +28,7 @@ import es.uniovi.espichapp.databinding.FragmentDetailBinding
 import es.uniovi.espichapp.databinding.FragmentLocationsListBinding
 import es.uniovi.espichapp.domain.DetailViewModel
 import es.uniovi.espichapp.model.Location
+import es.uniovi.espichapp.ui.DetailFragmentDirections.Companion.actionDetailFragmentToMapFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -39,7 +41,7 @@ class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
     private val detailVM: DetailViewModel by viewModels() {
-        Utils.DetailViewModelFactory((activity?.application as EspichApp).repository)
+        Utils.ViewModelFactory((activity?.application as EspichApp).repository)
     }
     lateinit var rvSlide: RecyclerView
     lateinit var adapterSlide: SlideAdapter
@@ -75,6 +77,13 @@ class DetailFragment : Fragment() {
                 tvDetailAddress.text = location.Direccion
                 tvDetailDescp.text = location.Descripcion
                 linkCoordinates.text = location.Coordenadas
+
+                linkCoordinates.setOnClickListener {
+                    findNavController().navigate(
+                        DetailFragmentDirections.actionDetailFragmentToMapFragment(location.Coordenadas!!)
+                    )
+                }
+
                 linkEmail.text = location.Email
                 linkPhone.text = location.Telefono
                 linkWeb.text = location.Web

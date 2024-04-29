@@ -53,7 +53,7 @@ class LocationsListFragment :
     lateinit var rvlist: RecyclerView
     private val adapterList: LocationListAdapter = LocationListAdapter(this)
     private val locationsListVM: LocationListViewModel by viewModels {
-        Utils.LocationViewModelFactory((activity?.application as EspichApp).repository)
+        Utils.ViewModelFactory((activity?.application as EspichApp).repository)
     }
 
     // Para actualizar al scrollear hacia arriba

@@ -70,4 +70,5 @@ dependencies {
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("androidx.preference:preference-ktx:1.2.1")
     implementation("androidx.preference:preference-ktx:1.2.1")
+    implementation("org.osmdroid:osmdroid-android:6.1.11")
 }
