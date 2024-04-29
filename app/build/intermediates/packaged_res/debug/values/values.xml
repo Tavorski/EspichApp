@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="languages_entries"/>
+    <string-array name="languages_values"/>
+    <string-array name="reply_entries">
+        <item>Reply</item>
+        <item>Reply to all</item>
+    </string-array>
+    <string-array name="reply_values">
+        <item>reply</item>
+        <item>reply_all</item>
+    </string-array>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <dimen name="fab_margin">16dp</dimen>
+    <string name="action_search">Buscar</string>
+    <string name="action_search_hint">Escribe aquí para buscar...</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="app_name" translatable="false">EspichApp</string>
+    <string name="detail_title_contactus">Contáctanos</string>
+    <string name="detail_title_description">Descripción</string>
+    <string name="detail_title_web">Y en la web</string>
+    <string name="settings_datause">Uso de datos</string>
+    <string name="settings_language">Idioma</string>
+    <string name="settings_theme_dark">Tema oscuro</string>
+    <string name="settings_theme_default">Usar tema predeterminado</string>
+    <string name="settings_title_appearance">Apariencia</string>
+    <string name="settings_title_general">General</string>
+    <style name="Base.Theme.EspichApp" parent="Theme.Material3.DayNight.NoActionBar">
+        
+        
+    </style>
+    <style name="Theme.EspichApp" parent="Base.Theme.EspichApp"/>
+</resources>
