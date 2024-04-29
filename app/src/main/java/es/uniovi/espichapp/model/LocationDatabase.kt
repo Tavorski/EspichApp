@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 
 @Database(entities = [Location::class], version = 1)
 abstract class LocationDatabase: RoomDatabase() {
+
     abstract fun locationDao(): LocationDAO
 
     companion object {
@@ -23,10 +24,10 @@ abstract class LocationDatabase: RoomDatabase() {
                 synchronized(LocationDatabase::class) {
                     INSTANCE = Room.databaseBuilder(
                         context.applicationContext,
-                        LocationDatabase::class.java, "location.db"
+                        LocationDatabase::class.java,
+                        "location.db"
                     )
                         .addCallback(CALLBACK)
-                        .fallbackToDestructiveMigration()
                         .build()
                 }
             }
@@ -37,10 +38,9 @@ abstract class LocationDatabase: RoomDatabase() {
             INSTANCE = null
         }
 
-        private val CALLBACK = object : RoomDatabase.Callback() {
+        private val CALLBACK = object : Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
-
                 CoroutineScope(Dispatchers.IO).launch {
                     INSTANCE!!.locationDao().insertLocation(
                         Location("Ejemplo",
@@ -67,6 +67,7 @@ abstract class LocationDatabase: RoomDatabase() {
                     )
                 }
             }
+
         }
     }
 }

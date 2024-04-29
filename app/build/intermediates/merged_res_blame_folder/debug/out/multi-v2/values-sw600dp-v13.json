@@ -4,7 +4,7 @@
             "outputFile": "es.uniovi.espichapp-mergeDebugResources-55:/values-sw600dp-v13/values-sw600dp-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\uo270569\\.gradle\\caches\\transforms-3\\a9ce609268f75f3b9f74816480920745\\transformed\\appcompat-1.6.1\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
+                    "source": "C:\\Users\\tavorski\\.gradle\\caches\\transforms-3\\a9ce609268f75f3b9f74816480920745\\transformed\\appcompat-1.6.1\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\uo270569\\.gradle\\caches\\transforms-3\\8d0bbfc65a5d53994ce48629f59aa860\\transformed\\material-1.11.0\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
+                    "source": "C:\\Users\\tavorski\\.gradle\\caches\\transforms-3\\8d0bbfc65a5d53994ce48629f59aa860\\transformed\\material-1.11.0\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,10,11,12,13,14",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",

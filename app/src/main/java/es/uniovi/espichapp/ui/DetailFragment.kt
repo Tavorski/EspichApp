@@ -5,10 +5,17 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
+import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import es.uniovi.arqui.adapters.LocationListAdapter
@@ -28,7 +35,7 @@ class DetailFragment : Fragment() {
 
     // CAMPOS
     val args: DetailFragmentArgs by navArgs()
-
+    lateinit var locationName: String
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
     private val detailVM: DetailViewModel by viewModels() {
@@ -39,58 +46,80 @@ class DetailFragment : Fragment() {
 
 
     // OVERRIDES
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
-
-        val location: Location = detailVM.getLocation()
-
-        val slides: List<String>? = location.Slide?.split(",")
-        val titles: List<String>? = location.SlideTitulo?.split(",")
-
-        with(binding) {
-            tvDetailName.text = location.Nombre
-            tvDetailCouncil.text = location.Concejo
-            tvDetailAddress.text = location.Direccion
-            tvDetailDescp.text = location.Descripcion
-            linkCoordinates.text = location.Coordenadas
-            linkEmail.text = location.Email
-            linkPhone.text = location.Telefono
-            linkWeb.text = location.Web
-            linkFacebook.text = location.Facebook
-            linkInstagram.text = location.Instagram
-
-            iconEmail.isEnabled = !location.Email.isNullOrBlank()
-            iconPhone.isEnabled = !location.Telefono.isNullOrBlank()
-            iconWeb.isEnabled = !location.Web.isNullOrBlank()
-            iconFacebook.isEnabled = !location.Facebook.isNullOrBlank()
-            iconInstagram.isEnabled = !location.Instagram.isNullOrBlank()
-
-            rvSlide = rvDetailSlide
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        CoroutineScope(Dispatchers.IO).launch {
+            locationName = args.locationName
         }
-        // Asignamos un layout lineal horizontal
-        Log.d("DEBUG - DF", "Asignado LLM")
-        rvSlide.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false);
-
-        // Asignamos un adapter y cargamos las imagenes del establecimiento
-        Log.d("DEBUG - DF", "Instanciado SlideAdapter")
-        adapterSlide = SlideAdapter(slides,titles)
-        rvSlide.adapter = adapterSlide
-
-
-
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        CoroutineScope(Dispatchers.IO).launch {
-            detailVM.setLocation(args.locationName)
-        }
-
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        detailVM.setLocation(locationName)
+
+        detailVM.location.observe(viewLifecycleOwner) { location ->
+            with(binding) {
+                // Montamos toda la vista
+                tvDetailName.text = location.Nombre
+                tvDetailCouncil.text = location.Concejo
+                tvDetailAddress.text = location.Direccion
+                tvDetailDescp.text = location.Descripcion
+                linkCoordinates.text = location.Coordenadas
+                linkEmail.text = location.Email
+                linkPhone.text = location.Telefono
+                linkWeb.text = location.Web
+                linkFacebook.text = location.Facebook
+                linkInstagram.text = location.Instagram
+
+                iconEmail.isEnabled = !location.Email.isNullOrBlank()
+                iconPhone.isEnabled = !location.Telefono.isNullOrBlank()
+                iconWeb.isEnabled = !location.Web.isNullOrBlank()
+                iconFacebook.isEnabled = !location.Facebook.isNullOrBlank()
+                iconInstagram.isEnabled = !location.Instagram.isNullOrBlank()
+
+                rvSlide = rvDetailSlide
+
+                // Estos son las url de los slides y sus respetivos titulos, ambos tokenizados
+                // para mandarselos al holder y que pinte el reclycerview con Picasso
+                val slides: List<String>? = location.Slide?.split(",")
+                val titles: List<String>? = location.SlideTitulo?.split(",")
+
+                // Asignamos un layout lineal horizontal
+                Log.d("DEBUG - DF", "Asignado LLM")
+                rvSlide.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+
+                // Asignamos un adapter y cargamos las imagenes del establecimiento
+                Log.d("DEBUG - DF", "Instanciado SlideAdapter")
+                adapterSlide = SlideAdapter(slides,titles)
+                rvSlide.adapter = adapterSlide
+            }
+        }
+        
+        // Modificamos la toolbar según las necesidades de esta vista
+        val mainActivity: MainActivity = requireActivity() as MainActivity
+        mainActivity.setSupportActionBar(binding.toolbar)
+        mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true) // activa la flecha de retorno
+        mainActivity.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.menu_main, menu)
+
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return true
+            }
+
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
     }
 }

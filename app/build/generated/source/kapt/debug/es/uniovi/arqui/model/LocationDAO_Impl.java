@@ -1,7 +1,6 @@
 package es.uniovi.arqui.model;
 
 import android.database.Cursor;
-import android.os.CancellationSignal;
 import androidx.annotation.NonNull;
 import androidx.room.CoroutinesRoom;
 import androidx.room.EntityInsertionAdapter;
@@ -33,6 +32,8 @@ public final class LocationDAO_Impl implements LocationDAO {
   private final EntityInsertionAdapter<Location> __insertionAdapterOfLocation;
 
   private final SharedSQLiteStatement __preparedStmtOfDeleteLocation;
+
+  private final SharedSQLiteStatement __preparedStmtOfDeleteLocations;
 
   public LocationDAO_Impl(@NonNull final RoomDatabase __db) {
     this.__db = __db;
@@ -161,6 +162,14 @@ public final class LocationDAO_Impl implements LocationDAO {
         return _query;
       }
     };
+    this.__preparedStmtOfDeleteLocations = new SharedSQLiteStatement(__db) {
+      @Override
+      @NonNull
+      public String createQuery() {
+        final String _query = "DELETE FROM location_table";
+        return _query;
+      }
+    };
   }
 
   @Override
@@ -211,8 +220,30 @@ public final class LocationDAO_Impl implements LocationDAO {
   }
 
   @Override
-  public Object getLocationByName(final String name,
-      final Continuation<? super Location> $completion) {
+  public Object deleteLocations(final Continuation<? super Unit> $completion) {
+    return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
+      @Override
+      @NonNull
+      public Unit call() throws Exception {
+        final SupportSQLiteStatement _stmt = __preparedStmtOfDeleteLocations.acquire();
+        try {
+          __db.beginTransaction();
+          try {
+            _stmt.executeUpdateDelete();
+            __db.setTransactionSuccessful();
+            return Unit.INSTANCE;
+          } finally {
+            __db.endTransaction();
+          }
+        } finally {
+          __preparedStmtOfDeleteLocations.release(_stmt);
+        }
+      }
+    }, $completion);
+  }
+
+  @Override
+  public Flow<Location> getLocationByName(final String name) {
     final String _sql = "SELECT * FROM location_table WHERE Nombre == ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -221,8 +252,7 @@ public final class LocationDAO_Impl implements LocationDAO {
     } else {
       _statement.bindString(_argIndex, name);
     }
-    final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
-    return CoroutinesRoom.execute(__db, false, _cancellationSignal, new Callable<Location>() {
+    return CoroutinesRoom.createFlow(__db, false, new String[] {"location_table"}, new Callable<Location>() {
       @Override
       @NonNull
       public Location call() throws Exception {
@@ -384,14 +414,18 @@ public final class LocationDAO_Impl implements LocationDAO {
           return _result;
         } finally {
           _cursor.close();
-          _statement.release();
         }
       }
-    }, $completion);
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    });
   }
 
   @Override
-  public Flow<List<Location>> getLocationsFlow() {
+  public Flow<List<Location>> getLocations() {
     final String _sql = "SELECT * FROM location_table";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     return CoroutinesRoom.createFlow(__db, false, new String[] {"location_table"}, new Callable<List<Location>>() {
@@ -567,14 +601,14 @@ public final class LocationDAO_Impl implements LocationDAO {
   }
 
   @Override
-  public Flow<List<Location>> searchLocationsByName(final String name) {
-    final String _sql = "SELECT * FROM location_table WHERE Nombre LIKE ?";
+  public Flow<List<Location>> searchLocationsByName(final String search) {
+    final String _sql = "SELECT * FROM location_table WHERE Nombre LIKE '%' || ? || '%'";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
-    if (name == null) {
+    if (search == null) {
       _statement.bindNull(_argIndex);
     } else {
-      _statement.bindString(_argIndex, name);
+      _statement.bindString(_argIndex, search);
     }
     return CoroutinesRoom.createFlow(__db, false, new String[] {"location_table"}, new Callable<List<Location>>() {
       @Override

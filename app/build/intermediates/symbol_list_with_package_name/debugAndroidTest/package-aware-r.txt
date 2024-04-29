@@ -1,0 +1,3 @@
+es.uniovi.espichapp.test
+style WhiteBackgroundDialogTheme
+style WhiteBackgroundTheme

@@ -4,7 +4,7 @@
             "outputFile": "es.uniovi.espichapp-mergeDebugResources-55:/values-small-v4/values-small-v4.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\uo270569\\.gradle\\caches\\transforms-3\\8d0bbfc65a5d53994ce48629f59aa860\\transformed\\material-1.11.0\\res\\values-small-v4\\values-small-v4.xml",
+                    "source": "C:\\Users\\tavorski\\.gradle\\caches\\transforms-3\\8d0bbfc65a5d53994ce48629f59aa860\\transformed\\material-1.11.0\\res\\values-small-v4\\values-small-v4.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",

@@ -1,0 +1,39 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/settings_title_general">
+
+        <ListPreference
+            app:defaultValue="reply"
+            app:entries="@array/reply_entries"
+            app:entryValues="@array/reply_values"
+            app:key="mobile_data"
+            app:title="@string/settings_datause"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="reply"
+            app:entries="@array/languages_entries"
+            app:entryValues="@array/languages_values"
+            app:key="language"
+            app:title="@string/settings_language"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/settings_title_appearance">
+
+        <SwitchPreferenceCompat
+            app:key="system_theme"
+            app:title="@string/settings_theme_default"/>
+
+        <SwitchPreferenceCompat
+            app:key="theme"
+            app:dependency="system_theme"
+            app:disableDependentsState="true"
+            app:title="@string/settings_theme_dark" />
+
+
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
