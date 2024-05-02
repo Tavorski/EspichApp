@@ -11,5 +11,6 @@
     <string name="settings_title_appearance">Appearance</string>
     <string name="settings_title_general">General</string>
     <string name="settings_datause">Data use</string>
-    <string name="action_search_hint">Type in to search...</string>
+    <string name="action_search_hint">Type in to search…</string>
+    <string name="actionbar_title_detail">Establishment\'s Details</string>
 </resources>

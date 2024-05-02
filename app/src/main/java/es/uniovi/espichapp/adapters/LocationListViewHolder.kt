@@ -38,23 +38,19 @@ class LocationListViewHolder(
             iconCheese.isVisible = isQueseria(item)
 
             // Descargamos con Picasso el slide
-
             Picasso
                 .get()
                 .load("https://www.turismoasturias.es/${item.Slide}")
                 .placeholder(R.drawable.image_placeholder2)
                 .into(imageLocation)
 
-
-
+            // Pintamos los tablones
             Picasso
                 .get()
                 .load(R.drawable.bg_itemview_woodplank)
                 .placeholder(R.drawable.bg_itemview_woodplank)
                 .into(imageBackground)
-
         }
-
     }
 
     /*

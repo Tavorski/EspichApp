@@ -1,15 +1,12 @@
 package es.uniovi.espichapp.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import androidx.preference.PreferenceManager
-import es.uniovi.espichapp.R
-import es.uniovi.espichapp.databinding.FragmentDetailBinding
 import es.uniovi.espichapp.databinding.FragmentMapBinding
 import org.osmdroid.api.IMapController
 import org.osmdroid.config.Configuration
@@ -58,12 +55,9 @@ class MapFragment : Fragment() {
         map.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE)
         mapController = map.controller
 
-        // Procesamos el argumento string con las coordenadas
-        val coordinates: List<String> = args.coordinates.split(",")
-        val latitude: Double = coordinates[0].toDouble()
-        val longitude: Double = coordinates[1].toDouble()
-
-        Log.d("Debug - MF", "Se va a cargar el mapa en las coordenadas ${latitude},${longitude}")
+        // Tomamos los argumentos de SafeArgs
+        val latitude: Double = args.coordinates.latitude
+        val longitude: Double = args.coordinates.longitude
 
         // Nos movemos a las coordenadas del establecimiento
         locationPoint = GeoPoint(latitude, longitude)

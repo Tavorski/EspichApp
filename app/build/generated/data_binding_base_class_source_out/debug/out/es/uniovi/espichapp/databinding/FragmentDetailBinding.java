@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -51,9 +52,6 @@ public final class FragmentDetailBinding implements ViewBinding {
   public final Guideline guideline;
 
   @NonNull
-  public final Guideline guideline3;
-
-  @NonNull
   public final ImageView iconEmail;
 
   @NonNull
@@ -72,7 +70,7 @@ public final class FragmentDetailBinding implements ViewBinding {
   public final ConstraintLayout layout;
 
   @NonNull
-  public final TextView linkCoordinates;
+  public final ImageView linkCoordinates;
 
   @NonNull
   public final TextView linkEmail;
@@ -94,6 +92,9 @@ public final class FragmentDetailBinding implements ViewBinding {
 
   @NonNull
   public final ScrollView scrollView2;
+
+  @NonNull
+  public final LinearLayout scrollViewLayout;
 
   @NonNull
   public final TextView titleContact;
@@ -122,17 +123,17 @@ public final class FragmentDetailBinding implements ViewBinding {
   private FragmentDetailBinding(@NonNull ConstraintLayout rootView,
       @NonNull AppBarLayout appBarLayout, @NonNull ImageView bgDetail, @NonNull CardView cdPhone,
       @NonNull CardView cvEmail, @NonNull CardView cvFacebook, @NonNull CardView cvInstagram,
-      @NonNull CardView cvWeb, @NonNull Guideline guideline, @NonNull Guideline guideline3,
-      @NonNull ImageView iconEmail, @NonNull ImageView iconFacebook,
-      @NonNull ImageView iconInstagram, @NonNull ImageView iconPhone, @NonNull ImageView iconWeb,
-      @NonNull ConstraintLayout layout, @NonNull TextView linkCoordinates,
-      @NonNull TextView linkEmail, @NonNull TextView linkFacebook, @NonNull TextView linkInstagram,
-      @NonNull TextView linkPhone, @NonNull TextView linkWeb, @NonNull RecyclerView rvDetailSlide,
-      @NonNull ScrollView scrollView2, @NonNull TextView titleContact,
-      @NonNull TextView titleDescription, @NonNull TextView titleWebLinks,
-      @NonNull MaterialToolbar toolbar, @NonNull TextView tvDetailAddress,
-      @NonNull TextView tvDetailCouncil, @NonNull TextView tvDetailDescp,
-      @NonNull TextView tvDetailName) {
+      @NonNull CardView cvWeb, @NonNull Guideline guideline, @NonNull ImageView iconEmail,
+      @NonNull ImageView iconFacebook, @NonNull ImageView iconInstagram,
+      @NonNull ImageView iconPhone, @NonNull ImageView iconWeb, @NonNull ConstraintLayout layout,
+      @NonNull ImageView linkCoordinates, @NonNull TextView linkEmail,
+      @NonNull TextView linkFacebook, @NonNull TextView linkInstagram, @NonNull TextView linkPhone,
+      @NonNull TextView linkWeb, @NonNull RecyclerView rvDetailSlide,
+      @NonNull ScrollView scrollView2, @NonNull LinearLayout scrollViewLayout,
+      @NonNull TextView titleContact, @NonNull TextView titleDescription,
+      @NonNull TextView titleWebLinks, @NonNull MaterialToolbar toolbar,
+      @NonNull TextView tvDetailAddress, @NonNull TextView tvDetailCouncil,
+      @NonNull TextView tvDetailDescp, @NonNull TextView tvDetailName) {
     this.rootView = rootView;
     this.appBarLayout = appBarLayout;
     this.bgDetail = bgDetail;
@@ -142,7 +143,6 @@ public final class FragmentDetailBinding implements ViewBinding {
     this.cvInstagram = cvInstagram;
     this.cvWeb = cvWeb;
     this.guideline = guideline;
-    this.guideline3 = guideline3;
     this.iconEmail = iconEmail;
     this.iconFacebook = iconFacebook;
     this.iconInstagram = iconInstagram;
@@ -157,6 +157,7 @@ public final class FragmentDetailBinding implements ViewBinding {
     this.linkWeb = linkWeb;
     this.rvDetailSlide = rvDetailSlide;
     this.scrollView2 = scrollView2;
+    this.scrollViewLayout = scrollViewLayout;
     this.titleContact = titleContact;
     this.titleDescription = titleDescription;
     this.titleWebLinks = titleWebLinks;
@@ -242,12 +243,6 @@ public final class FragmentDetailBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.guideline3;
-      Guideline guideline3 = ViewBindings.findChildViewById(rootView, id);
-      if (guideline3 == null) {
-        break missingId;
-      }
-
       id = R.id.iconEmail;
       ImageView iconEmail = ViewBindings.findChildViewById(rootView, id);
       if (iconEmail == null) {
@@ -281,7 +276,7 @@ public final class FragmentDetailBinding implements ViewBinding {
       ConstraintLayout layout = (ConstraintLayout) rootView;
 
       id = R.id.linkCoordinates;
-      TextView linkCoordinates = ViewBindings.findChildViewById(rootView, id);
+      ImageView linkCoordinates = ViewBindings.findChildViewById(rootView, id);
       if (linkCoordinates == null) {
         break missingId;
       }
@@ -325,6 +320,12 @@ public final class FragmentDetailBinding implements ViewBinding {
       id = R.id.scrollView2;
       ScrollView scrollView2 = ViewBindings.findChildViewById(rootView, id);
       if (scrollView2 == null) {
+        break missingId;
+      }
+
+      id = R.id.scrollViewLayout;
+      LinearLayout scrollViewLayout = ViewBindings.findChildViewById(rootView, id);
+      if (scrollViewLayout == null) {
         break missingId;
       }
 
@@ -377,11 +378,11 @@ public final class FragmentDetailBinding implements ViewBinding {
       }
 
       return new FragmentDetailBinding((ConstraintLayout) rootView, appBarLayout, bgDetail, cdPhone,
-          cvEmail, cvFacebook, cvInstagram, cvWeb, guideline, guideline3, iconEmail, iconFacebook,
+          cvEmail, cvFacebook, cvInstagram, cvWeb, guideline, iconEmail, iconFacebook,
           iconInstagram, iconPhone, iconWeb, layout, linkCoordinates, linkEmail, linkFacebook,
-          linkInstagram, linkPhone, linkWeb, rvDetailSlide, scrollView2, titleContact,
-          titleDescription, titleWebLinks, toolbar, tvDetailAddress, tvDetailCouncil, tvDetailDescp,
-          tvDetailName);
+          linkInstagram, linkPhone, linkWeb, rvDetailSlide, scrollView2, scrollViewLayout,
+          titleContact, titleDescription, titleWebLinks, toolbar, tvDetailAddress, tvDetailCouncil,
+          tvDetailDescp, tvDetailName);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

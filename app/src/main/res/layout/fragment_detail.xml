@@ -33,18 +33,17 @@
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
         <LinearLayout
+            android:id="@+id/scrollViewLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_detail_woodpost_2"
+            android:background="@drawable/bg_detail_woodwithropes_cropped"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="100dp"
-                android:layout_marginBottom="100dp"
-                android:background="#E43409"
-                android:backgroundTint="#61782F12">
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp">
 
                 <ImageView
                     android:id="@+id/bgDetail"
@@ -84,7 +83,7 @@
                     android:layout_height="wrap_content"
                     android:text="Nombre"
                     android:textAlignment="center"
-                    android:textColor="#FFFFFF"
+                    android:textColor="#9F000000"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/guideline"
@@ -98,33 +97,31 @@
                     android:id="@+id/tvDetailCouncil"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginBottom="56dp"
                     android:text="Concejo"
-                    android:textColor="#FFFFFF"
+                    android:textColor="#9F000000"
                     android:textSize="16sp"
                     android:textStyle="bold|italic"
                     app:layout_constraintBottom_toTopOf="@+id/guideline"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintEnd_toStartOf="@+id/linkCoordinates"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rvDetailSlide"
-                    app:layout_constraintVertical_bias="0.615" />
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
                     android:id="@+id/tvDetailAddress"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
                     android:layout_marginBottom="4dp"
                     android:text="Dirección"
-                    android:textColor="#FFFFFF"
+                    android:textColor="#9F000000"
                     app:layout_constraintBottom_toTopOf="@+id/guideline"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintEnd_toStartOf="@+id/linkCoordinates"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvDetailCouncil"
                     app:layout_constraintVertical_bias="0.0" />
@@ -133,11 +130,11 @@
                     android:id="@+id/tvDetailDescp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="4dp"
                     android:layout_marginTop="4dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="4dp"
                     android:text="Descripción"
-                    android:textColor="#FFFFFF"
+                    android:textColor="#9F000000"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -149,27 +146,30 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
                     android:text="@string/detail_title_contactus"
-                    android:textColor="#FFFFFF"
+                    android:textColor="#9F000000"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.026"
+                    app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvDetailDescp"
                     app:layout_constraintVertical_bias="0.0" />
 
-                <TextView
+                <ImageView
                     android:id="@+id/linkCoordinates"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:autoLink="map"
+                    android:layout_width="36dp"
+                    android:layout_height="19dp"
+                    android:layout_marginTop="8dp"
+                    android:scaleX="1.35"
+                    android:scaleY="1.35"
                     app:layout_constraintBottom_toTopOf="@+id/guideline"
-                    app:layout_constraintHorizontal_bias="0.038"
-                    app:layout_constraintStart_toStartOf="@+id/guideline3"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.957"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rvDetailSlide"
-                    app:layout_constraintVertical_bias="0.205" />
+                    app:layout_constraintVertical_bias="0.416"
+                    app:srcCompat="@android:drawable/ic_dialog_map"
+                    app:tint="#9F000000" />
 
                 <TextView
                     android:id="@+id/titleDescription"
@@ -177,11 +177,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="@string/detail_title_description"
-                    android:textColor="#FFFFFF"
+                    android:textColor="#9F000000"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.028"
+                    app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/guideline"
                     app:layout_constraintVertical_bias="0.018" />
@@ -192,34 +192,30 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="80dp"
                     android:text="@string/detail_title_web"
-                    android:textColor="#FFFFFF"
+                    android:textColor="#9F000000"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.041"
+                    app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/titleContact"
                     app:layout_constraintVertical_bias="0.0" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_begin="220dp" />
-
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvEmail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
                     app:cardBackgroundColor="#00FFFFFF"
+                    app:cardElevation="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.047"
+                    app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/titleContact"
-                    app:layout_constraintVertical_bias="0.009">
+                    app:layout_constraintVertical_bias="0">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -230,6 +226,9 @@
                             android:id="@+id/iconEmail"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
+                            android:scaleX="0.9"
+                            android:scaleY="0.9"
+                            android:translationX="-3dp"
                             app:srcCompat="@drawable/icon_email" />
 
                         <TextView
@@ -237,19 +236,63 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:autoLink="email" />
+                            android:autoLink="email"
+                            android:textColorLink="#5E35B1" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cdPhone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    app:cardBackgroundColor="#00FFFFFF"
+                    app:cardElevation="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cvEmail"
+                    app:layout_constraintVertical_bias="0">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/iconPhone"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="4dp"
+                            android:scaleX="1.5"
+                            android:scaleY="1.5"
+                            app:srcCompat="@drawable/icon_phone" />
+
+                        <TextView
+                            android:id="@+id/linkPhone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:autoLink="phone"
+                            android:textColorLink="#5E35B1" />
+
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvWeb"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
                     app:cardBackgroundColor="#00FFFFFF"
+                    app:cardElevation="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.047"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/titleWebLinks"
                     app:layout_constraintVertical_bias="0.0">
@@ -270,20 +313,24 @@
                             android:id="@+id/linkWeb"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:autoLink="web" />
+                            android:autoLink="web"
+                            android:textColorLink="#5E35B1" />
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvFacebook"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
                     app:cardBackgroundColor="#00FFFFFF"
+                    app:cardElevation="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.044"
+                    app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cvWeb"
                     app:layout_constraintVertical_bias="0.0">
@@ -306,23 +353,27 @@
                             android:id="@+id/linkFacebook"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:autoLink="web" />
+                            android:autoLink="web"
+                            android:textColorLink="#5E35B1" />
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvInstagram"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
                     app:cardBackgroundColor="#00FFFFFF"
+                    app:cardElevation="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.045"
+                    app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cvFacebook"
-                    app:layout_constraintVertical_bias="0.024">
+                    app:layout_constraintVertical_bias="0">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -340,49 +391,12 @@
                             android:id="@+id/linkInstagram"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:autoLink="web" />
+                            android:autoLink="web"
+                            android:textColorLink="#5E35B1" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"></LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cdPhone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:cardBackgroundColor="#00FFFFFF"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.049"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cvEmail"
-                    app:layout_constraintVertical_bias="0.022">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:id="@+id/iconPhone"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_marginEnd="4dp"
-                            android:scaleX="1.5"
-                            android:scaleY="1.5"
-                            app:srcCompat="@drawable/icon_phone" />
-
-                        <TextView
-                            android:id="@+id/linkPhone"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:autoLink="phone" />
-
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

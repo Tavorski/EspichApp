@@ -22,19 +22,19 @@ public final class ToolbarFragmentBinding implements ViewBinding {
   private final ConstraintLayout rootView;
 
   @NonNull
-  public final ImageView imageView;
+  public final Toolbar detailToolbar;
 
   @NonNull
-  public final Toolbar toolbar2;
+  public final ImageView imageView;
 
   @NonNull
   public final TextView tvDetailToolbar;
 
-  private ToolbarFragmentBinding(@NonNull ConstraintLayout rootView, @NonNull ImageView imageView,
-      @NonNull Toolbar toolbar2, @NonNull TextView tvDetailToolbar) {
+  private ToolbarFragmentBinding(@NonNull ConstraintLayout rootView, @NonNull Toolbar detailToolbar,
+      @NonNull ImageView imageView, @NonNull TextView tvDetailToolbar) {
     this.rootView = rootView;
+    this.detailToolbar = detailToolbar;
     this.imageView = imageView;
-    this.toolbar2 = toolbar2;
     this.tvDetailToolbar = tvDetailToolbar;
   }
 
@@ -65,15 +65,15 @@ public final class ToolbarFragmentBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.imageView;
-      ImageView imageView = ViewBindings.findChildViewById(rootView, id);
-      if (imageView == null) {
+      id = R.id.detailToolbar;
+      Toolbar detailToolbar = ViewBindings.findChildViewById(rootView, id);
+      if (detailToolbar == null) {
         break missingId;
       }
 
-      id = R.id.toolbar2;
-      Toolbar toolbar2 = ViewBindings.findChildViewById(rootView, id);
-      if (toolbar2 == null) {
+      id = R.id.imageView;
+      ImageView imageView = ViewBindings.findChildViewById(rootView, id);
+      if (imageView == null) {
         break missingId;
       }
 
@@ -83,7 +83,7 @@ public final class ToolbarFragmentBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ToolbarFragmentBinding((ConstraintLayout) rootView, imageView, toolbar2,
+      return new ToolbarFragmentBinding((ConstraintLayout) rootView, detailToolbar, imageView,
           tvDetailToolbar);
     }
     String missingId = rootView.getResources().getResourceName(id);

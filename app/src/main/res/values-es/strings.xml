@@ -12,4 +12,5 @@
     <string name="settings_title_general">General</string>
     <string name="settings_datause">Uso de datos</string>
     <string name="action_search_hint">Escribe aquí para buscar...</string>
+    <string name="actionbar_title_detail">Detalle del establecimiento</string>
 </resources>

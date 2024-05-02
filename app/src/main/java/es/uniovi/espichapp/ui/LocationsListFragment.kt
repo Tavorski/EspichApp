@@ -62,19 +62,21 @@ class LocationsListFragment :
     lateinit var sharedPreferences: SharedPreferences
 
 
+    // OVERRIDES
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         // init de las referencias al navHostFragment
         navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.mainNavHostFragment) as NavHostFragment
         navController = navHostFragment.navController
     }
-    // OVERRIDES
     override fun onPause() {
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
         super.onPause()
     }
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -84,36 +86,11 @@ class LocationsListFragment :
         Log.d("DEBUG - LLF","Se ha creado el binding del listfragment")
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // Modificamos la toolbar según las necesidades de esta vista
-        val mainActivity: MainActivity = requireActivity() as MainActivity
-        mainActivity.setSupportActionBar(binding.toolbar)
-        mainActivity.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                // Add menu items here
-                menuInflater.inflate(R.menu.menu_main, menu)
-                var mi: MenuItem? = menu.findItem(R.id.searchView)
-                var sv: SearchView = mi?.actionView as SearchView
-                sv.queryHint = getString(R.string.action_search_hint)
-
-                // La idea es usar MainActivity como listener para que cada vez que se escriba
-                // o se modifique la busqueda en el searchview, se modifiquen las preferencias
-                // y que LocationListFragment capture el evento de cambio en las preferencias
-                sv.setOnQueryTextListener(this@LocationsListFragment)
-            }
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                // Handle the menu selection
-                return when (menuItem.itemId) {
-                    R.id.settings -> {
-                        NavigationUI.onNavDestinationSelected(menuItem, navController)
-                    }
-                    else -> false
-                }
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        initMenu()
 
         // Asignamos un LayoutManager al recyclerView
         rvlist = binding.rvLocationList
@@ -146,15 +123,10 @@ class LocationsListFragment :
         locationsListVM.locationsUIStateObservable.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is LocationsUIState.Success -> {
-
-                    //adapterList.submitList(result.datos.items)
-                    //locationsListVM.searchList = adapterList.currentList
-
                     Snackbar.make(view, "Se han observado cambios", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show()
                 }
                 is LocationsUIState.Error -> {
-
                     Snackbar.make(view, result.message, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show()
                 }
@@ -162,36 +134,16 @@ class LocationsListFragment :
             // hacemos que se quite la animacion circular de carga
             swipeRefreshLayout.isRefreshing = false
         }
-
-
-
-        /*binding.btActualizar.setOnClickListener {
-            locationVM.getLocationsList()
-        }*/
-
-
-    }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
-    // Esta funcion se llama desde LocationListViewHolder para implementar el evento onClick de
-    // los items de la lista
-    override fun onItemClick(position: Int) {
-        Log.d("DEBUG-ViewHolder", "Se va a intentar navegar al fragmento")
-        val locationName: String = locationsListVM.locations.value?.get(position)?.Nombre ?: ""
-        if (locationName == "") return
-        findNavController().navigate(
-             LocationsListFragmentDirections.actionLocationsListFragmentToDetailFragment(locationName)
-        )
 
-    }
-
+    // IMPLEMENTACION DE INTERFAZ: OnRefreshListener
+    //
     // Esta función implementa la recarga de los datos al scrollear hacia arriba (un swipe refresh)
     override fun onRefresh() = locationsListVM.getLocationsList()
 
-
+    // IMPLEMENTACION DE INTERFAZ: OnSharedPreferenceChangeListener
+    //
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
         Log.d("DEBUG - LLF", "Se han cambiado las preferencias '${key}'")
         when (key) {
@@ -200,6 +152,8 @@ class LocationsListFragment :
     }
 
 
+    // IMPLEMENTACION DE INTERFAZ: OnQueryTextListener
+    //
     // no queremos que haga falta hacer submit de la busqueda
     override fun onQueryTextSubmit(query: String?): Boolean {
         return false
@@ -225,7 +179,46 @@ class LocationsListFragment :
     }
 
 
+    // IMPLEMENTACION DE INTERFAZ: LocationListEvent
+    //
+    // Esta funcion se llama desde LocationListViewHolder para implementar el evento onClick de
+    // los items de la lista
+    override fun onItemClick(position: Int) {
+        Log.d("DEBUG-ViewHolder", "Se va a intentar navegar al fragmento")
+        val locationName: String = locationsListVM.locations.value?.get(position)?.Nombre ?: ""
+        if (locationName == "") return
+        findNavController().navigate(
+            LocationsListFragmentDirections.actionLocationsListFragmentToDetailFragment(locationName)
+        )
+    }
 
 
+    // inicializa la appbar
+    private fun initMenu() {
+        val mainActivity: MainActivity = requireActivity() as MainActivity
+        mainActivity.setSupportActionBar(binding.toolbar)
+        mainActivity.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                // Add menu items here
+                menuInflater.inflate(R.menu.menu_main, menu)
+                val mi: MenuItem? = menu.findItem(R.id.searchView)
+                val sv: SearchView = mi?.actionView as SearchView
+                sv.queryHint = getString(R.string.action_search_hint)
 
+                // La idea es usar MainActivity como listener para que cada vez que se escriba
+                // o se modifique la busqueda en el searchview, se modifiquen las preferencias
+                // y que LocationListFragment capture el evento de cambio en las preferencias
+                sv.setOnQueryTextListener(this@LocationsListFragment)
+            }
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                // Handle the menu selection
+                return when (menuItem.itemId) {
+                    R.id.settings -> {
+                        NavigationUI.onNavDestinationSelected(menuItem, navController)
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
 }
