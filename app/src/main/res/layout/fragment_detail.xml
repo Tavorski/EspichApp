@@ -45,18 +45,6 @@
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="0dp">
 
-                <ImageView
-                    android:id="@+id/bgDetail"
-                    android:layout_width="1dp"
-                    android:layout_height="1dp"
-                    android:translationX="2dp"
-                    android:translationY="135dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/bg_detail_woodpost_2" />
-
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline"
                     android:layout_width="wrap_content"
