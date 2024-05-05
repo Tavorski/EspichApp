@@ -36,7 +36,8 @@
             android:id="@+id/scrollViewLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_detail_woodwithropes_cropped"
+            android:background="@drawable/bg_detail_woodwithropes_cropped_filter1"
+            android:backgroundTintMode="src_atop"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,18 +45,6 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="0dp">
-
-                <ImageView
-                    android:id="@+id/bgDetail"
-                    android:layout_width="1dp"
-                    android:layout_height="1dp"
-                    android:translationX="2dp"
-                    android:translationY="135dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/bg_detail_woodpost_2" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline"
@@ -132,7 +121,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_marginTop="4dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="4dp"
                     android:text="Descripción"
                     android:textColor="#9F000000"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -169,7 +158,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/rvDetailSlide"
                     app:layout_constraintVertical_bias="0.416"
                     app:srcCompat="@android:drawable/ic_dialog_map"
-                    app:tint="#9F000000" />
+                    app:tint="#5E35B1" />
 
                 <TextView
                     android:id="@+id/titleDescription"
@@ -190,7 +179,6 @@
                     android:id="@+id/titleWebLinks"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="80dp"
                     android:text="@string/detail_title_web"
                     android:textColor="#9F000000"
@@ -314,7 +302,8 @@
                             android:id="@+id/linkWeb"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:autoLink="web" />
+                            android:autoLink="web"
+                            android:textColorLink="#5E35B1" />
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>

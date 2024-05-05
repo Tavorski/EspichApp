@@ -31,9 +31,6 @@ public final class FragmentDetailBinding implements ViewBinding {
   public final AppBarLayout appBarLayout;
 
   @NonNull
-  public final ImageView bgDetail;
-
-  @NonNull
   public final CardView cdPhone;
 
   @NonNull
@@ -121,14 +118,13 @@ public final class FragmentDetailBinding implements ViewBinding {
   public final TextView tvDetailName;
 
   private FragmentDetailBinding(@NonNull ConstraintLayout rootView,
-      @NonNull AppBarLayout appBarLayout, @NonNull ImageView bgDetail, @NonNull CardView cdPhone,
-      @NonNull CardView cvEmail, @NonNull CardView cvFacebook, @NonNull CardView cvInstagram,
-      @NonNull CardView cvWeb, @NonNull Guideline guideline, @NonNull ImageView iconEmail,
-      @NonNull ImageView iconFacebook, @NonNull ImageView iconInstagram,
-      @NonNull ImageView iconPhone, @NonNull ImageView iconWeb, @NonNull ConstraintLayout layout,
-      @NonNull ImageView linkCoordinates, @NonNull TextView linkEmail,
-      @NonNull TextView linkFacebook, @NonNull TextView linkInstagram, @NonNull TextView linkPhone,
-      @NonNull TextView linkWeb, @NonNull RecyclerView rvDetailSlide,
+      @NonNull AppBarLayout appBarLayout, @NonNull CardView cdPhone, @NonNull CardView cvEmail,
+      @NonNull CardView cvFacebook, @NonNull CardView cvInstagram, @NonNull CardView cvWeb,
+      @NonNull Guideline guideline, @NonNull ImageView iconEmail, @NonNull ImageView iconFacebook,
+      @NonNull ImageView iconInstagram, @NonNull ImageView iconPhone, @NonNull ImageView iconWeb,
+      @NonNull ConstraintLayout layout, @NonNull ImageView linkCoordinates,
+      @NonNull TextView linkEmail, @NonNull TextView linkFacebook, @NonNull TextView linkInstagram,
+      @NonNull TextView linkPhone, @NonNull TextView linkWeb, @NonNull RecyclerView rvDetailSlide,
       @NonNull ScrollView scrollView2, @NonNull LinearLayout scrollViewLayout,
       @NonNull TextView titleContact, @NonNull TextView titleDescription,
       @NonNull TextView titleWebLinks, @NonNull MaterialToolbar toolbar,
@@ -136,7 +132,6 @@ public final class FragmentDetailBinding implements ViewBinding {
       @NonNull TextView tvDetailDescp, @NonNull TextView tvDetailName) {
     this.rootView = rootView;
     this.appBarLayout = appBarLayout;
-    this.bgDetail = bgDetail;
     this.cdPhone = cdPhone;
     this.cvEmail = cvEmail;
     this.cvFacebook = cvFacebook;
@@ -198,12 +193,6 @@ public final class FragmentDetailBinding implements ViewBinding {
       id = R.id.appBarLayout;
       AppBarLayout appBarLayout = ViewBindings.findChildViewById(rootView, id);
       if (appBarLayout == null) {
-        break missingId;
-      }
-
-      id = R.id.bgDetail;
-      ImageView bgDetail = ViewBindings.findChildViewById(rootView, id);
-      if (bgDetail == null) {
         break missingId;
       }
 
@@ -377,12 +366,12 @@ public final class FragmentDetailBinding implements ViewBinding {
         break missingId;
       }
 
-      return new FragmentDetailBinding((ConstraintLayout) rootView, appBarLayout, bgDetail, cdPhone,
-          cvEmail, cvFacebook, cvInstagram, cvWeb, guideline, iconEmail, iconFacebook,
-          iconInstagram, iconPhone, iconWeb, layout, linkCoordinates, linkEmail, linkFacebook,
-          linkInstagram, linkPhone, linkWeb, rvDetailSlide, scrollView2, scrollViewLayout,
-          titleContact, titleDescription, titleWebLinks, toolbar, tvDetailAddress, tvDetailCouncil,
-          tvDetailDescp, tvDetailName);
+      return new FragmentDetailBinding((ConstraintLayout) rootView, appBarLayout, cdPhone, cvEmail,
+          cvFacebook, cvInstagram, cvWeb, guideline, iconEmail, iconFacebook, iconInstagram,
+          iconPhone, iconWeb, layout, linkCoordinates, linkEmail, linkFacebook, linkInstagram,
+          linkPhone, linkWeb, rvDetailSlide, scrollView2, scrollViewLayout, titleContact,
+          titleDescription, titleWebLinks, toolbar, tvDetailAddress, tvDetailCouncil, tvDetailDescp,
+          tvDetailName);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

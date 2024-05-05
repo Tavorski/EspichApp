@@ -13,11 +13,15 @@
 
     <!-- Preferences -->
     <string name="settings_language">Idioma</string>
+    <string name="settings_language_es">Español</string>
+    <string name="settings_language_en">Inglés</string>
     <string name="settings_theme_default">Usar tema predeterminado</string>
     <string name="settings_theme_dark">Tema oscuro</string>
     <string name="settings_title_appearance">Apariencia</string>
     <string name="settings_title_general">General</string>
     <string name="settings_datause">Uso de datos</string>
+    <string name="settings_datause_any">Wifi y datos</string>
+    <string name="settings_datause_onlywifi">Sólo wifi</string>
 
     <!-- AppBar Titles -->
     <string name="actionbar_title_detail">Detalle del establecimiento</string>

@@ -13,4 +13,8 @@
     <string name="settings_datause">Uso de datos</string>
     <string name="action_search_hint">Escribe aquí para buscar...</string>
     <string name="actionbar_title_detail">Detalle del establecimiento</string>
+    <string name="settings_language_es">Español</string>
+    <string name="settings_language_en">Inglés</string>
+    <string name="settings_datause_any">Wifi y datos</string>
+    <string name="settings_datause_onlywifi">Sólo wifi</string>
 </resources>
