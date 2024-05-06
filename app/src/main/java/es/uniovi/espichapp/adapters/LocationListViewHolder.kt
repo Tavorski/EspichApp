@@ -1,7 +1,12 @@
 package es.uniovi.arqui.adapters
 
+import android.graphics.text.LineBreaker
+import android.os.Build
 import android.view.View
+import android.view.ViewGroup.MarginLayoutParams
 import androidx.core.view.isVisible
+import androidx.core.view.marginRight
+import androidx.core.view.setMargins
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import es.uniovi.espichapp.R
@@ -28,14 +33,44 @@ class LocationListViewHolder(
         with(itemViewBinding) {
             tvName.text = item.Nombre
             tvCouncil.text = item.Concejo
+            tvShortDescp.text = item.BreveDescripcion
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                tvShortDescp.justificationMode = LineBreaker.JUSTIFICATION_MODE_INTER_WORD
+            }
 
             /*
             Las categorías "Bodega", "Llagar" y "Quesería" no son excluyentes, se considera que podría
             ocurrir que un establecimiento produzca o venda más de un tipo de producto
              */
+            /*
+            Estos lets se hacen para que cambien los margenes derechos de los iconos en funcion de cuales
+            son visibles
+             */
+            isQueseria(item).let {
+                iconCheese.isVisible = it
+                val p: MarginLayoutParams = iconCider.layoutParams as MarginLayoutParams
+                if(!it) {
+                    p.setMargins(0,0,32,0)
+                    iconCider.layoutParams = p
+                }
+                else {
+                    p.setMargins(0,0,0,0)
+                    iconCider.layoutParams = p
+                }
+            }
+            isLlagar(item).let {
+                iconCider.isVisible = it
+                val p: MarginLayoutParams = iconCask.layoutParams as MarginLayoutParams
+                if(!it) {
+                    p.setMargins(0,0,32,0)
+                    iconCask.layoutParams = p
+                }
+                else {
+                    p.setMargins(0,0,0,0)
+                    iconCask.layoutParams = p
+                }
+            }
             iconCask.isVisible = isBodega(item)
-            iconCider.isVisible = isLlagar(item)
-            iconCheese.isVisible = isQueseria(item)
 
             // Descargamos con Picasso el slide
             Picasso
@@ -45,11 +80,11 @@ class LocationListViewHolder(
                 .into(imageLocation)
 
             // Pintamos los tablones
-            Picasso
+            /*Picasso
                 .get()
                 .load(R.drawable.bg_itemview_woodplank)
                 .placeholder(R.drawable.bg_itemview_woodplank)
-                .into(imageBackground)
+                .into(imageBackground)*/
         }
     }
 

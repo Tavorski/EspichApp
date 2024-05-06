@@ -15,12 +15,13 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="111dp">
+            android:layout_height="130dp">
 
             <ImageView
                 android:id="@+id/imageBackground"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:background="@drawable/bg_itemview_woodplank_bright"
                 android:scaleType="fitXY"
                 android:scaleX="1.125"
                 android:scaleY="1.7"
@@ -30,47 +31,66 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
-                tools:srcCompat="@drawable/bg_itemview_woodplank" />
+                tools:srcCompat="@drawable/bg_itemview_woodplank_bright2" />
 
             <TextView
                 android:id="@+id/tvName"
-                android:layout_width="248dp"
-                android:layout_height="49dp"
-                android:text="TextView"
-                android:textAlignment="viewStart"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp"
+                android:layout_width="267dp"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:textColor="@color/list_text"
+                android:textSize="16sp"
                 android:textStyle="bold"
+                android:typeface="serif"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.106"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imageLocation"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.258"
+                app:layout_constraintVertical_bias="0.074"
                 tools:text="Nombre" />
 
             <TextView
-                android:id="@+id/tvCouncil"
-                android:layout_width="160dp"
-                android:layout_height="37dp"
-                android:text="Concejo"
+                android:id="@+id/tvShortDescp"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="5"
+                android:text=""
                 android:textAlignment="viewStart"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
+                android:textColor="@color/list_text"
+                android:textSize="12sp"
                 android:textStyle="italic"
+                android:typeface="serif"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.085"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imageLocation"
                 app:layout_constraintTop_toBottomOf="@+id/tvName"
                 app:layout_constraintVertical_bias="0.0"
-                tools:text="Concejo
-" />
+                tools:text="Descripción breve" />
+
+            <TextView
+                android:id="@+id/tvCouncil"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:textAlignment="viewStart"
+                android:textColor="@color/list_text"
+                android:textSize="14sp"
+                android:textStyle="bold|italic"
+                android:typeface="serif"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/iconCask"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/imageLocation"
+                app:layout_constraintTop_toBottomOf="@+id/tvShortDescp"
+                app:layout_constraintVertical_bias="0.933"
+                tools:text="Concejo" />
 
             <ImageView
                 android:id="@+id/imageLocation"
                 android:layout_width="120dp"
-                android:layout_height="98dp"
+                android:layout_height="115dp"
                 android:elevation="5dp"
                 android:scaleType="center"
                 android:scaleX="0.95"
@@ -87,11 +107,11 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.673"
-                app:layout_constraintStart_toEndOf="@+id/imageLocation"
+                app:layout_constraintEnd_toStartOf="@+id/iconCider"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.888"
+                app:layout_constraintVertical_bias="0.964"
                 app:srcCompat="@drawable/icon_cask" />
 
             <ImageView
@@ -101,25 +121,26 @@
                 android:scaleX="1.2"
                 android:scaleY="1.2"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/iconCask"
+                app:layout_constraintEnd_toStartOf="@+id/iconCheese"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.888"
+                app:layout_constraintVertical_bias="0.964"
                 app:srcCompat="@drawable/icon_cider" />
 
             <ImageView
                 android:id="@+id/iconCheese"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_marginEnd="16dp"
                 android:scaleX="1.2"
                 android:scaleY="1.2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/iconCider"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.888"
+                app:layout_constraintVertical_bias="0.965"
                 app:srcCompat="@drawable/icon_cheese" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

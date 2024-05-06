@@ -7,6 +7,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import es.uniovi.arqui.model.LocationDAO
+import es.uniovi.espichapp.data.ApiResult
+import es.uniovi.espichapp.network.RestApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,7 +44,16 @@ abstract class LocationDatabase: RoomDatabase() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
                 CoroutineScope(Dispatchers.IO).launch {
-                    INSTANCE!!.locationDao().insertLocation(
+                    try {// Respuesta correcta
+                        // Petición al servicio
+                        val locations = RestApi.retrofitService.getLocationsInfo()
+
+                        // Se guardan los nuevos datos en la base de datos recién creada
+                        locations.items.map { INSTANCE!!.locationDao().insertLocation(it) }
+
+                    } catch (_: Exception) { /*si no se pudieron tomar los datos, ya se hará más tarde*/ }
+
+                    /*INSTANCE!!.locationDao().insertLocation(
                         Location("Ejemplo",
                             "Ejemplo",
                             "Ejemplo",
@@ -64,10 +75,9 @@ abstract class LocationDatabase: RoomDatabase() {
                             "Ejemplo",
                             "Ejemplo",
                             "Ejemplo")
-                    )
+                    )*/
                 }
             }
-
         }
     }
 }

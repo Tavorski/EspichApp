@@ -70,7 +70,11 @@ class DetailFragment : Fragment() {
                 tvDetailName.text = location.Nombre
                 tvDetailCouncil.text = location.Concejo
                 tvDetailAddress.text = location.Direccion
-                tvDetailDescp.text = location.Descripcion
+                tvDetailDescp.text = buildString {
+                    append(location.BreveDescripcion)
+                    append("\n\n")
+                    append(location.Descripcion)
+                }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                     tvDetailDescp.justificationMode = JUSTIFICATION_MODE_INTER_WORD
                 }
