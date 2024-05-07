@@ -62,7 +62,7 @@
                 android:textSize="12sp"
                 android:textStyle="italic"
                 android:typeface="serif"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/guideline2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imageLocation"
@@ -74,7 +74,6 @@
                 android:id="@+id/tvCouncil"
                 android:layout_width="0dp"
                 android:layout_height="25dp"
-                android:textAlignment="viewStart"
                 android:textColor="@color/list_text"
                 android:textSize="14sp"
                 android:textStyle="bold|italic"
@@ -83,8 +82,8 @@
                 app:layout_constraintEnd_toStartOf="@+id/iconCask"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imageLocation"
-                app:layout_constraintTop_toBottomOf="@+id/tvShortDescp"
-                app:layout_constraintVertical_bias="0.933"
+                app:layout_constraintTop_toTopOf="@+id/guideline2"
+                app:layout_constraintVertical_bias="1"
                 tools:text="Concejo" />
 
             <ImageView
@@ -110,8 +109,8 @@
                 app:layout_constraintEnd_toStartOf="@+id/iconCider"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.964"
+                app:layout_constraintTop_toTopOf="@+id/guideline2"
+                app:layout_constraintVertical_bias="0"
                 app:srcCompat="@drawable/icon_cask" />
 
             <ImageView
@@ -124,8 +123,8 @@
                 app:layout_constraintEnd_toStartOf="@+id/iconCheese"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.964"
+                app:layout_constraintTop_toTopOf="@+id/guideline2"
+                app:layout_constraintVertical_bias="0"
                 app:srcCompat="@drawable/icon_cider" />
 
             <ImageView
@@ -139,9 +138,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.965"
+                app:layout_constraintTop_toTopOf="@+id/guideline2"
+                app:layout_constraintVertical_bias="0"
                 app:srcCompat="@drawable/icon_cheese" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="96dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

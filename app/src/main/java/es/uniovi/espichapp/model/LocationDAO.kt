@@ -22,7 +22,9 @@ interface LocationDAO {
     @Query("SELECT * FROM location_table")
     fun getLocations(): Flow<List<Location>>
 
-    @Query("SELECT * FROM location_table WHERE Nombre LIKE '%' || :search || '%'")
+    @Query("SELECT * FROM location_table WHERE " +
+            "Nombre LIKE '%' || :search || '%' OR " +
+            "Concejo LIKE '%' || :search || '%'") // tambien permite buscar por localidad
     fun searchLocationsByName(search: String): Flow<List<Location>>
 
     @Query("DELETE FROM location_table")

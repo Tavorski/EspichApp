@@ -46,7 +46,7 @@ class LocationListViewHolder(
             Estos lets se hacen para que cambien los margenes derechos de los iconos en funcion de cuales
             son visibles
              */
-            isQueseria(item).let {
+            item.isQueseria().let {
                 iconCheese.isVisible = it
                 val p: MarginLayoutParams = iconCider.layoutParams as MarginLayoutParams
                 if(!it) {
@@ -58,7 +58,7 @@ class LocationListViewHolder(
                     iconCider.layoutParams = p
                 }
             }
-            isLlagar(item).let {
+            item.isLlagar().let {
                 iconCider.isVisible = it
                 val p: MarginLayoutParams = iconCask.layoutParams as MarginLayoutParams
                 if(!it) {
@@ -70,7 +70,7 @@ class LocationListViewHolder(
                     iconCask.layoutParams = p
                 }
             }
-            iconCask.isVisible = isBodega(item)
+            iconCask.isVisible = item.isBodega()
 
             // Descargamos con Picasso el slide
             Picasso
@@ -87,7 +87,7 @@ class LocationListViewHolder(
                 .into(imageBackground)*/
         }
     }
-
+/*
     /*
    isBodega() hace un barrido rápido de los datos del establecimiento para determinar si puede ser
    un lugar dedicado a la elaboración de vinos
@@ -161,7 +161,7 @@ class LocationListViewHolder(
         }
         return ret;
     }
-
+*/
 }
 
 

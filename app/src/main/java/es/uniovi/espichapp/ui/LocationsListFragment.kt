@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.core.view.MenuProvider
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
@@ -90,7 +91,7 @@ class LocationsListFragment :
         super.onViewCreated(view, savedInstanceState)
 
         // Modificamos la toolbar según las necesidades de esta vista
-        initMenu()
+        initToolbar()
 
         // Asignamos un LayoutManager al recyclerView
         rvlist = binding.rvLocationList
@@ -108,13 +109,13 @@ class LocationsListFragment :
         sharedPreferences.registerOnSharedPreferenceChangeListener(this)
 
         // Hacemos que se observen elementos en la base de datos que se puedan presentar, se cargen en el adapter
-        locationsListVM.locations.observe(viewLifecycleOwner) { locList ->
+        locationsListVM.locationsFromDB.observe(viewLifecycleOwner) { locList ->
             Log.d("DEBUG - LLF", "Se han observado cambios en locations")
             adapterList.submitList(locList)
 
         }
-        locationsListVM.locationsByName.observe(viewLifecycleOwner) { locList ->
-            Log.d("DEBUG - LLF", "Se han observado cambios en locationsByName")
+        locationsListVM.locationsFilteredSearch.observe(viewLifecycleOwner) { locList ->
+            Log.d("DEBUG - LLF", "Se han observado cambios en locationsFilteredSearch")
             adapterList.submitList(locList)
         }
 
@@ -164,11 +165,11 @@ class LocationsListFragment :
 
         if (newText != null) {
             val temp: List<String> = newText.chunked(1)
-            val exclude: List<String> = listOf<String>("a","e","i","o","u")
+            val exclude: List<String> = listOf<String>("a","e","i","o","u","á","é","í","ó","ú")
             var query = ""
             for (c in temp) {
-                if(exclude.contains(c)) continue // Ignoramos vocales para evitar problemas con las tildes
-                query += "%${c}"    // Insertamos un % entre cada caracter para reducir la sensibilidad
+                query += if(exclude.contains(c)) "_"  // Wildcard en vocales para evitar problemas con las tildes
+                else c    // Insertamos un _ entre cada caracter para reducir la sensibilidad
                                     // de la búsqueda y que acepte faltas de ortografía
             }
             Log.d("DEBUG - DVM","Query: $query")
@@ -185,7 +186,7 @@ class LocationsListFragment :
     // los items de la lista
     override fun onItemClick(position: Int) {
         Log.d("DEBUG-ViewHolder", "Se va a intentar navegar al fragmento")
-        val locationName: String = locationsListVM.locations.value?.get(position)?.Nombre ?: ""
+        val locationName: String = locationsListVM.locationsFromDB.value?.get(position)?.Nombre ?: ""
         if (locationName == "") return
         findNavController().navigate(
             LocationsListFragmentDirections.actionLocationsListFragmentToDetailFragment(locationName)
@@ -193,15 +194,15 @@ class LocationsListFragment :
     }
 
 
-    // inicializa la appbar
-    private fun initMenu() {
+    // inicializa la appbar y elementos asociados (searchview, filterview)
+    private fun initToolbar() {
         val mainActivity: MainActivity = requireActivity() as MainActivity
         mainActivity.setSupportActionBar(binding.toolbar)
         mainActivity.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 // Add menu items here
                 menuInflater.inflate(R.menu.menu_main, menu)
-                val mi: MenuItem? = menu.findItem(R.id.searchView)
+                val mi: MenuItem? = menu.findItem(R.id.searchActionView)
                 val sv: SearchView = mi?.actionView as SearchView
                 sv.queryHint = getString(R.string.action_search_hint)
 
@@ -216,9 +217,47 @@ class LocationsListFragment :
                     R.id.settings -> {
                         NavigationUI.onNavDestinationSelected(menuItem, navController)
                     }
+                    R.id.filterActionView -> {
+                        binding.filterlayout.isVisible = binding.filterlayout.isVisible.not()
+                        true
+                    }
                     else -> false
                 }
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
+        // aquí se hace invisible el despegable con los filtros y se crean los listeners
+        binding.filterlayout.isVisible = false
+        binding.cbCellars.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                locationsListVM.filter[0] = true
+                locationsListVM.query.value = locationsListVM.query.value
+            }
+            else {
+                locationsListVM.filter[0] = false
+                locationsListVM.query.value = locationsListVM.query.value
+            }
+        }
+        binding.cbCidermills.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                locationsListVM.filter[1] = true
+                locationsListVM.query.value = locationsListVM.query.value
+            }
+            else {
+                locationsListVM.filter[1] = false
+                locationsListVM.query.value = locationsListVM.query.value
+            }
+        }
+        binding.cbDairies.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                locationsListVM.filter[2] = true
+                locationsListVM.query.value = locationsListVM.query.value
+            }
+            else {
+                locationsListVM.filter[2] = false
+                locationsListVM.query.value = locationsListVM.query.value
+            }
+        }
+
     }
 }

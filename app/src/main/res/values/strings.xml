@@ -3,7 +3,7 @@
 
     <!-- Menu -->
     <string name="action_search">Buscar</string>
-    <string name="action_search_hint">Escribe aquí para buscar...</string>
+    <string name="action_search_hint">Buscar por nombre o concejo...</string>
     <string name="action_settings">Ajustes</string>
 
     <!-- Detail -->
@@ -25,4 +25,7 @@
 
     <!-- AppBar Titles -->
     <string name="actionbar_title_detail">Detalle del establecimiento</string>
+    <string name="filter_checkbox_cellars">Bodegas</string>
+    <string name="filter_checkbox_cidermills">Llagares</string>
+    <string name="filter_checkbox_dairies">Quesería</string>
 </resources>

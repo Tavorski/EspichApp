@@ -11,10 +11,13 @@
     <string name="settings_title_appearance">Appearance</string>
     <string name="settings_title_general">General</string>
     <string name="settings_datause">Data use</string>
-    <string name="action_search_hint">Type in to search…</string>
+    <string name="action_search_hint">Search by name or council...</string>
     <string name="actionbar_title_detail">Establishment\'s Details</string>
     <string name="settings_language_es">Spanish</string>
     <string name="settings_language_en">English</string>
     <string name="settings_datause_any">Wi-Fi and data</string>
     <string name="settings_datause_onlywifi">Only Wi-FI</string>
+    <string name="filter_checkbox_cellars">Cellars</string>
+    <string name="filter_checkbox_cidermills">Cider Mills</string>
+    <string name="filter_checkbox_dairies">Dairies</string>
 </resources>
