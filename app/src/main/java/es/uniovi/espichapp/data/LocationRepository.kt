@@ -1,6 +1,7 @@
 package es.uniovi.espichapp.data
 
 import android.content.Context
+import android.net.ConnectivityManager
 import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -12,6 +13,9 @@ import es.uniovi.espichapp.model.Location
 import es.uniovi.espichapp.network.RestApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.flow.cancel
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -23,9 +27,6 @@ import kotlin.properties.ReadOnlyProperty
 class LocationRepository(private val locationDAO: LocationDAO,
                          private val dataStore: DataStore<Preferences>) {
 
-    private object PreferencesKeys {
-
-    }
 
     // Funciones de acceso a la base de datos ROOM
     fun getLocations() = locationDAO.getLocations()
@@ -44,8 +45,8 @@ class LocationRepository(private val locationDAO: LocationDAO,
         Log.d("DEBUG-Repo","INSERT '${location.Nombre}'")
     }
 
-    fun getDatausePreference() = dataStore.data.map {
-
+    fun getDatausePreference() = dataStore.data.map { preferences ->
+        preferences[booleanPreferencesKey("mobile_data")] ?: false
     }
 
     // Función de acceso al servicio REST
@@ -54,8 +55,12 @@ class LocationRepository(private val locationDAO: LocationDAO,
         flow {
             // Se realiza la petición al servicio
             try {
-                dataStore.data.map {
-
+                //val connectivityManager: ConnectivityManager =
+                getDatausePreference().collect { isDatauseAllowed ->
+                    if (!isDatauseAllowed){
+                        Log.d("Debug - LRepo", "Se va a cancelar la peticion a la api por no permitir uso de datos")
+                        currentCoroutineContext().cancel(null)
+                    }
                 }
                 // Petición al servicio
                 val locations = RestApi.retrofitService.getLocationsInfo()
