@@ -9,9 +9,11 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.preference.PreferenceFragmentCompat
 import es.uniovi.espichapp.R
 import es.uniovi.espichapp.ui.dataStore
+import java.util.prefs.PreferenceChangeEvent
+import java.util.prefs.PreferenceChangeListener
 
 
-class SettingsFragment : PreferenceFragmentCompat() {
+class SettingsFragment : PreferenceFragmentCompat(), PreferenceChangeListener {
 
     // CAMPOS
 
@@ -20,6 +22,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
         setPreferencesFromResource(R.xml.preferences, rootKey)
     }
 
+    override fun preferenceChange(evt: PreferenceChangeEvent?) {
+        if (evt != null) {
+            with(evt.key) {
+                is "mobile_data"
 
-
+                is
+            }
+        }
+    }
 }

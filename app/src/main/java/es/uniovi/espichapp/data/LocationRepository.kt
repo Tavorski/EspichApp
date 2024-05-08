@@ -1,6 +1,11 @@
 package es.uniovi.espichapp.data
 
+import android.content.Context
 import android.util.Log
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.asLiveData
 import es.uniovi.arqui.model.LocationDAO
 import es.uniovi.espichapp.model.Location
@@ -9,9 +14,18 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlin.coroutines.coroutineContext
+import kotlin.properties.ReadOnlyProperty
 
-class LocationRepository(private val locationDAO: LocationDAO) {
+
+class LocationRepository(private val locationDAO: LocationDAO,
+                         private val dataStore: DataStore<Preferences>) {
+
+    private object PreferencesKeys {
+
+    }
 
     // Funciones de acceso a la base de datos ROOM
     fun getLocations() = locationDAO.getLocations()
@@ -30,13 +44,19 @@ class LocationRepository(private val locationDAO: LocationDAO) {
         Log.d("DEBUG-Repo","INSERT '${location.Nombre}'")
     }
 
+    fun getDatausePreference() = dataStore.data.map {
+
+    }
+
     // Función de acceso al servicio REST
     fun updateLocationsData() =
         // Se crea un flujo
         flow {
             // Se realiza la petición al servicio
-            try {// Respuesta correcta
+            try {
+                dataStore.data.map {
 
+                }
                 // Petición al servicio
                 val locations = RestApi.retrofitService.getLocationsInfo()
 

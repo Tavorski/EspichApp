@@ -26,5 +26,4 @@ class SlideViewHolder(private val slideViewBinding: SlideViewBinding) : Recycler
             tvSlideTitle.text = title
         }
     }
-
 }

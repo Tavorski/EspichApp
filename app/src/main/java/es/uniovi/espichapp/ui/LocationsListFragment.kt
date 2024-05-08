@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.core.view.MenuProvider
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -218,7 +219,7 @@ class LocationsListFragment :
                         NavigationUI.onNavDestinationSelected(menuItem, navController)
                     }
                     R.id.filterActionView -> {
-                        binding.filterlayout.isVisible = binding.filterlayout.isVisible.not()
+                        binding.filterlayout.isGone = binding.filterlayout.isGone.not()
                         true
                     }
                     else -> false
@@ -227,7 +228,7 @@ class LocationsListFragment :
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         // aquí se hace invisible el despegable con los filtros y se crean los listeners
-        binding.filterlayout.isVisible = false
+        binding.filterlayout.isGone = true
         binding.cbCellars.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 locationsListVM.filter[0] = true

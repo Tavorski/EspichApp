@@ -44,7 +44,6 @@ class DetailFragment : Fragment() {
     lateinit var rvSlide: RecyclerView
     lateinit var adapterSlide: SlideAdapter
 
-
     // OVERRIDES
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +62,6 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         detailVM.setLocation(locationName)
-
         detailVM.location.observe(viewLifecycleOwner) { location ->
             with(binding) {
                 // Montamos toda la vista
