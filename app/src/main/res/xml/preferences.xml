@@ -1,4 +1,5 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:key="pref_root">
 
     <PreferenceCategory app:title="@string/settings_title_general">
 
@@ -30,6 +31,7 @@
 
         <SwitchPreferenceCompat
             app:key="theme"
+            app:defaultValue="true"
             app:dependency="system_theme"
             app:title="@string/settings_theme_dark" />
 
