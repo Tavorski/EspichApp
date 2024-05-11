@@ -3,6 +3,7 @@ package es.uniovi.espichapp.preferences
 
 import android.os.Bundle
 import android.util.Log
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -19,8 +20,7 @@ class SettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChan
 
     // OVERRIDES
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        preferenceManager.preferenceDataStore = SettingsDataStore((activity?.application as EspichApp).dataStore)
-
+        preferenceManager.preferenceDataStore = SettingsDataStore((activity?.application as EspichApp).repository)
         setPreferencesFromResource(R.xml.preferences, rootKey)
         //findPreference<ListPreference>("mobile_data")?.onPreferenceChangeListener = this
     }

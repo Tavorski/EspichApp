@@ -11,5 +11,5 @@ interface LocationListEvent {
     // como argumento el nombre del establecimiento en el que se ha clickado.
 
     fun onItemClick(position: Int)
-
+    fun arePictureDownloadsAllowed(): Boolean
 }

@@ -1,5 +1,6 @@
 package es.uniovi.arqui.adapters
 
+import android.content.Context
 import android.graphics.text.LineBreaker
 import android.os.Build
 import android.view.View
@@ -9,7 +10,9 @@ import androidx.core.view.marginRight
 import androidx.core.view.setMargins
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import es.uniovi.arqui.util.Utils
 import es.uniovi.espichapp.R
+import es.uniovi.espichapp.dataStore
 import es.uniovi.espichapp.databinding.ItemViewBinding
 import es.uniovi.espichapp.interfaces.LocationListEvent
 import es.uniovi.espichapp.model.Location
@@ -71,13 +74,23 @@ class LocationListViewHolder(
                 }
             }
             iconCask.isVisible = item.isBodega()
-
             // Descargamos con Picasso el slide
-            Picasso
-                .get()
-                .load("https://www.turismoasturias.es/${item.Slide}")
-                .placeholder(R.drawable.image_placeholder2)
-                .into(imageLocation)
+            if (listener.arePictureDownloadsAllowed()) {
+                Picasso
+                    .get()
+                    .load("https://www.turismoasturias.es/${item.Slide}")
+                    .placeholder(R.drawable.image_placeholder2)
+                    .fit()
+                    .into(imageLocation)
+            }
+            else {
+                Picasso
+                    .get()
+                    .load(R.drawable.image_placeholder_nowifi)
+                    .fit()
+                    .placeholder(R.drawable.image_placeholder2)
+                    .into(imageLocation)
+            }
 
             // Pintamos los tablones
             /*Picasso
@@ -87,81 +100,6 @@ class LocationListViewHolder(
                 .into(imageBackground)*/
         }
     }
-/*
-    /*
-   isBodega() hace un barrido rápido de los datos del establecimiento para determinar si puede ser
-   un lugar dedicado a la elaboración de vinos
-    */
-    fun isBodega(item: Location): Boolean {
-        var ret: Boolean
-        with(item.Nombre) {
-            ret = contains("bodega",true)
-                    || contains("vino",true)
-        }
-        with(item.BreveDescripcion) {
-            ret = ret || this?.contains("bodega",true) ?: false
-                    || this?.contains("vino",true) ?: false
-        }
-        with(item.Descripcion) {
-            ret = ret || this?.contains("vino",true) ?: false
-        }
-        with(item.Productos) {
-            ret = ret || this?.contains("vino",true) ?: false
-        }
-        return ret;
-    }
-
-    /*
-    isLlagar() hace un barrido rápido de los datos del establecimiento para determinar si puede ser
-    un lugar dedicado a la elaboración de sidra
-     */
-    fun isLlagar(item: Location): Boolean {
-        var ret: Boolean
-        with(item.Nombre) {
-            ret = contains("sidra",true)
-                    || contains("llagar",true)
-                    || contains("pomarada",true)
-        }
-        with(item.BreveDescripcion) {
-            ret = ret || this?.contains("sidra",true) ?: false
-                    || this?.contains("llagar",true) ?: false
-                    || this?.contains("pomarada",true) ?: false
-        }
-        with(item.Descripcion) {
-            ret = ret || this?.contains("sidra",true) ?: false
-                    || this?.contains("llagar",true) ?: false
-                    || this?.contains("pomarada",true) ?: false
-        }
-        with(item.Productos) {
-            ret = ret || this?.contains("sidra",true) ?: false
-        }
-        return ret;
-    }
-
-    /*
-    isQueseria() hace un barrido rápido de los datos del establecimiento para determinar si puede ser
-    un lugar dedicado a la elaboración de queso
-     */
-    fun isQueseria(item: Location): Boolean {
-        var ret: Boolean
-        with(item.Nombre) {
-            ret = contains("queso",true)
-                    || contains("quesería",true)
-        }
-        with(item.BreveDescripcion) {
-            ret = ret || this?.contains("queso",true) ?: false
-                    || this?.contains("quesería",true) ?: false
-        }
-        with(item.Descripcion) {
-            ret = ret || this?.contains("queso",true) ?: false
-                    || this?.contains("quesería",true) ?: false
-        }
-        with(item.Productos) {
-            ret = ret || this?.contains("queso",true) ?: false
-        }
-        return ret;
-    }
-*/
 }
 
 

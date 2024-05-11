@@ -10,17 +10,18 @@ import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import es.uniovi.espichapp.data.ApiResult
 import es.uniovi.espichapp.data.LocationRepository
+import es.uniovi.espichapp.data.UseMobileData
 import es.uniovi.espichapp.model.Location
 import es.uniovi.espichapp.ui.LocationsUIState
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class LocationListViewModel(val repository: LocationRepository): ViewModel() {
 
 
     // CAMPOS
-
     val locationsFromDB: LiveData<List<Location>> = repository.getLocations().asLiveData()
     val locationsUIStateObservable: LiveData<LocationsUIState> get() = _locationsUIStateObservable
     private val _locationsUIStateObservable = MutableLiveData<LocationsUIState>()
@@ -30,8 +31,13 @@ class LocationListViewModel(val repository: LocationRepository): ViewModel() {
         name -> repository.searchLocationsByName(name).asLiveData()
     }
 
+    // Este MediatorLiveData está pensado para que escuche el livedata de las búsquedas, le aplique
+    // un filtro cuando detecte cambios y luego ser observado en el fragmento
     var filter: BooleanArray = booleanArrayOf(false,false,false)
     val locationsFilteredSearch: MediatorLiveData<List<Location>> = MediatorLiveData()
+
+
+    // Inicializacion del viewmodel
     init {
         query.value = ""
         locationsFilteredSearch.addSource(locationsByName) { list ->
@@ -45,6 +51,16 @@ class LocationListViewModel(val repository: LocationRepository): ViewModel() {
 
     // MÉTODOS
 
+    // Para cargar imagenes en funcion de las preferencias del uso de datos
+    fun isDatauseAllowed(): Boolean {
+        val res = runBlocking {
+            repository.fetchParameters().useMobileData == UseMobileData.ANY.name
+        }
+        Log.d("DEBUG - LLVM", "datause allowed: $res")
+        return res
+    }
+
+
     fun getLocationsList() {
         viewModelScope.launch {
             try {
@@ -57,7 +73,7 @@ class LocationListViewModel(val repository: LocationRepository): ViewModel() {
 
                         is ApiResult.Error -> {
                             Log.d("DEBUG - LLVM", result.message!!)
-                            LocationsUIState.Error("Error en la petición a la API")
+                            LocationsUIState.Error(result.message)
                         }
                     }
                 }.collect {

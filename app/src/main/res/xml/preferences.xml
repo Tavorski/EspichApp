@@ -1,10 +1,9 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:key="pref_root">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory app:title="@string/settings_title_general">
 
         <ListPreference
-            app:defaultValue="any"
+            app:defaultValue="ANY"
             app:entries="@array/datause_entries"
             app:entryValues="@array/datause_values"
             app:key="mobile_data"
@@ -12,7 +11,7 @@
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
-            app:defaultValue="es"
+            app:defaultValue="ES"
             app:entries="@array/languages_entries"
             app:entryValues="@array/languages_values"
             app:key="language"
@@ -27,13 +26,15 @@
             app:key="system_theme"
             app:defaultValue="true"
             app:title="@string/settings_theme_default"
-            app:disableDependentsState="true"/>
+            app:disableDependentsState="true"
+            app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
-            app:key="theme"
+            app:key="night_theme"
             app:defaultValue="true"
             app:dependency="system_theme"
-            app:title="@string/settings_theme_dark" />
+            app:title="@string/settings_theme_dark"
+            app:useSimpleSummaryProvider="true"  />
 
 
 

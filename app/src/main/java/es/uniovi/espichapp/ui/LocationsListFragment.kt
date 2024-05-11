@@ -37,7 +37,6 @@ import es.uniovi.espichapp.interfaces.LocationListEvent
 class LocationsListFragment :
     Fragment(),
     LocationListEvent,
-    SharedPreferences.OnSharedPreferenceChangeListener,
     SwipeRefreshLayout.OnRefreshListener,
     SearchView.OnQueryTextListener {
 
@@ -53,7 +52,7 @@ class LocationsListFragment :
 
     // RecyclerView, Adapter, ViewModel
     lateinit var rvlist: RecyclerView
-    private val adapterList: LocationListAdapter = LocationListAdapter(this)
+    lateinit var adapterList: LocationListAdapter
     private val locationsListVM: LocationListViewModel by viewModels {
         Utils.ViewModelFactory((activity?.application as EspichApp).repository)
     }
@@ -70,10 +69,6 @@ class LocationsListFragment :
         // init de las referencias al navHostFragment
         navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.mainNavHostFragment) as NavHostFragment
         navController = navHostFragment.navController
-    }
-    override fun onPause() {
-        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
-        super.onPause()
     }
     override fun onDestroyView() {
         super.onDestroyView()
@@ -98,6 +93,7 @@ class LocationsListFragment :
         rvlist = binding.rvLocationList
         rvlist.layoutManager = LinearLayoutManager(this.context)
         // Inicializacion del combo adapter-recyclerview
+        adapterList = LocationListAdapter(this)
         rvlist.adapter = adapterList
         // El recycler tiene tamaño fijo, luego activamos esta propiedad
         rvlist.setHasFixedSize(true)
@@ -105,16 +101,12 @@ class LocationsListFragment :
         swipeRefreshLayout = binding.swipeRefreshLayout
         swipeRefreshLayout.setOnRefreshListener(this)
 
-        // CONFIGURACION DE LAS PREFERENCIAS Y REGISTRO DEL LISTENER
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(binding.root.context)
-        sharedPreferences.registerOnSharedPreferenceChangeListener(this)
-
         // Hacemos que se observen elementos en la base de datos que se puedan presentar, se cargen en el adapter
-        locationsListVM.locationsFromDB.observe(viewLifecycleOwner) { locList ->
+        /*locationsListVM.locationsFromDB.observe(viewLifecycleOwner) { locList ->
             Log.d("DEBUG - LLF", "Se han observado cambios en locations")
             adapterList.submitList(locList)
 
-        }
+        }*/
         locationsListVM.locationsFilteredSearch.observe(viewLifecycleOwner) { locList ->
             Log.d("DEBUG - LLF", "Se han observado cambios en locationsFilteredSearch")
             adapterList.submitList(locList)
@@ -138,21 +130,15 @@ class LocationsListFragment :
         }
     }
 
+    fun observeLocations() {
+
+    }
+
 
     // IMPLEMENTACION DE INTERFAZ: OnRefreshListener
     //
     // Esta función implementa la recarga de los datos al scrollear hacia arriba (un swipe refresh)
     override fun onRefresh() = locationsListVM.getLocationsList()
-
-    // IMPLEMENTACION DE INTERFAZ: OnSharedPreferenceChangeListener
-    //
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-        Log.d("DEBUG - LLF", "Se han cambiado las preferencias '${key}'")
-        when (key) {
-
-        }
-    }
-
 
     // IMPLEMENTACION DE INTERFAZ: OnQueryTextListener
     //
@@ -180,20 +166,25 @@ class LocationsListFragment :
         return true
     }
 
-
     // IMPLEMENTACION DE INTERFAZ: LocationListEvent
     //
     // Esta funcion se llama desde LocationListViewHolder para implementar el evento onClick de
     // los items de la lista
     override fun onItemClick(position: Int) {
-        Log.d("DEBUG-ViewHolder", "Se va a intentar navegar al fragmento")
+        Log.d("DEBUG-LLF", "Se va a intentar navegar al fragmento")
         val locationName: String = locationsListVM.locationsFromDB.value?.get(position)?.Nombre ?: ""
         if (locationName == "") return
         findNavController().navigate(
             LocationsListFragmentDirections.actionLocationsListFragmentToDetailFragment(locationName)
         )
     }
-
+    // Esta funcion se llama desde LocationListViewHolder para indicar al ViewHolder si puede
+    // descargar imagenes
+    override fun arePictureDownloadsAllowed(): Boolean {
+        val res = !(!Utils.isWifiConnected(requireContext()) && !locationsListVM.isDatauseAllowed())
+        Log.d("DEBUG-LLF", "permiso para pintar imagenes de la lista: $res")
+        return res
+    }
 
     // inicializa la appbar y elementos asociados (searchview, filterview)
     private fun initToolbar() {
