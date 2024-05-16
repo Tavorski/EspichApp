@@ -3,16 +3,12 @@ package es.uniovi.arqui.util
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.util.Log
-import androidx.datastore.core.DataStoreFactory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DiffUtil
 import es.uniovi.arqui.domain.LocationListViewModel
 import es.uniovi.espichapp.data.LocationRepository
 import es.uniovi.espichapp.domain.DetailViewModel
-import es.uniovi.espichapp.domain.MainActivityViewModel
-import es.uniovi.espichapp.model.Location
+import es.uniovi.espichapp.domain.PreferencesViewModel
 
 class Utils {
 
@@ -32,7 +28,7 @@ class Utils {
         }
     }
 
-    // Factorías de ViewModels
+    // Factoría de ViewModels
 
     class ViewModelFactory(private val repository: LocationRepository) :
         ViewModelProvider.Factory {
@@ -48,9 +44,9 @@ class Utils {
                 return DetailViewModel(repository) as T
             }
 
-            else if (modelClass.isAssignableFrom(MainActivityViewModel::class.java)) {
+            else if (modelClass.isAssignableFrom(PreferencesViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return MainActivityViewModel(repository) as T
+                return PreferencesViewModel(repository) as T
             }
 
             throw IllegalArgumentException("Unknown ViewModel class")

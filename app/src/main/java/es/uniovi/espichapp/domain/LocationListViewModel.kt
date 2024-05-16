@@ -51,16 +51,6 @@ class LocationListViewModel(val repository: LocationRepository): ViewModel() {
 
     // MÉTODOS
 
-    // Para cargar imagenes en funcion de las preferencias del uso de datos
-    fun isDatauseAllowed(): Boolean {
-        val res = runBlocking {
-            repository.fetchParameters().useMobileData == UseMobileData.ANY.name
-        }
-        Log.d("DEBUG - LLVM", "datause allowed: $res")
-        return res
-    }
-
-
     fun getLocationsList() {
         viewModelScope.launch {
             try {

@@ -13,14 +13,12 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.core.view.MenuProvider
 import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -31,12 +29,17 @@ import es.uniovi.arqui.util.Utils
 import es.uniovi.espichapp.EspichApp
 import es.uniovi.espichapp.R
 import es.uniovi.espichapp.databinding.FragmentLocationsListBinding
-import es.uniovi.espichapp.interfaces.LocationListEvent
+import es.uniovi.espichapp.domain.PreferencesViewModel
+import es.uniovi.espichapp.interfaces.NetworkUseController
+import es.uniovi.espichapp.interfaces.OnListItemClickListener
 
+
+private const val TAG = "DEBUG - LLF"
 
 class LocationsListFragment :
     Fragment(),
-    LocationListEvent,
+    NetworkUseController,
+    OnListItemClickListener,
     SwipeRefreshLayout.OnRefreshListener,
     SearchView.OnQueryTextListener {
 
@@ -51,9 +54,12 @@ class LocationsListFragment :
     private lateinit var navController: NavController
 
     // RecyclerView, Adapter, ViewModel
-    lateinit var rvlist: RecyclerView
-    lateinit var adapterList: LocationListAdapter
+    private lateinit var rvlist: RecyclerView
+    private lateinit var adapterList: LocationListAdapter
     private val locationsListVM: LocationListViewModel by viewModels {
+        Utils.ViewModelFactory((activity?.application as EspichApp).repository)
+    }
+    private val preferencesVM: PreferencesViewModel by viewModels {
         Utils.ViewModelFactory((activity?.application as EspichApp).repository)
     }
 
@@ -80,7 +86,7 @@ class LocationsListFragment :
     ): View {
 
         _binding = FragmentLocationsListBinding.inflate(inflater, container, false)
-        Log.d("DEBUG - LLF","Se ha creado el binding del listfragment")
+        Log.d(TAG,"Se ha creado el binding del listfragment")
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -93,7 +99,7 @@ class LocationsListFragment :
         rvlist = binding.rvLocationList
         rvlist.layoutManager = LinearLayoutManager(this.context)
         // Inicializacion del combo adapter-recyclerview
-        adapterList = LocationListAdapter(this)
+        adapterList = LocationListAdapter(this,this)
         rvlist.adapter = adapterList
         // El recycler tiene tamaño fijo, luego activamos esta propiedad
         rvlist.setHasFixedSize(true)
@@ -107,33 +113,9 @@ class LocationsListFragment :
             adapterList.submitList(locList)
 
         }*/
-        locationsListVM.locationsFilteredSearch.observe(viewLifecycleOwner) { locList ->
-            Log.d("DEBUG - LLF", "Se han observado cambios en locationsFilteredSearch")
-            adapterList.submitList(locList)
-        }
-
-        // Una vez inicializada por primera vez la lista de establecimientos, será este observable
-        // el que indique la llegada de nuevos datos
-        locationsListVM.locationsUIStateObservable.observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is LocationsUIState.Success -> {
-                    Snackbar.make(view, "Se han observado cambios", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show()
-                }
-                is LocationsUIState.Error -> {
-                    Snackbar.make(view, result.message, Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show()
-                }
-            }
-            // hacemos que se quite la animacion circular de carga
-            swipeRefreshLayout.isRefreshing = false
-        }
+        observeFilteredSearchList()
+        observeUIStateList(view)
     }
-
-    fun observeLocations() {
-
-    }
-
 
     // IMPLEMENTACION DE INTERFAZ: OnRefreshListener
     //
@@ -148,7 +130,7 @@ class LocationsListFragment :
     }
     // con escribir en el searchview es suficiente
     override fun onQueryTextChange(newText: String?): Boolean {
-        Log.d("DEBUG - MA", "Se han observado cambios en el searchview")
+        Log.d(TAG, "Se han observado cambios en el searchview")
 
         if (newText != null) {
             val temp: List<String> = newText.chunked(1)
@@ -159,7 +141,7 @@ class LocationsListFragment :
                 else c    // Insertamos un _ entre cada caracter para reducir la sensibilidad
                                     // de la búsqueda y que acepte faltas de ortografía
             }
-            Log.d("DEBUG - DVM","Query: $query")
+            Log.d(TAG,"Query: $query")
             locationsListVM.query.value = query
         }
         else locationsListVM.query.value = ""
@@ -171,19 +153,46 @@ class LocationsListFragment :
     // Esta funcion se llama desde LocationListViewHolder para implementar el evento onClick de
     // los items de la lista
     override fun onItemClick(position: Int) {
-        Log.d("DEBUG-LLF", "Se va a intentar navegar al fragmento")
-        val locationName: String = locationsListVM.locationsFromDB.value?.get(position)?.Nombre ?: ""
+        Log.d(TAG, "Se va a intentar navegar al fragmento")
+        val locationName: String = locationsListVM.locationsFilteredSearch.value?.get(position)?.Nombre ?: ""
         if (locationName == "") return
         findNavController().navigate(
             LocationsListFragmentDirections.actionLocationsListFragmentToDetailFragment(locationName)
         )
     }
+
+    // IMPLEMENTACION DE INTERFAZ: LocationListEvent
+    //
     // Esta funcion se llama desde LocationListViewHolder para indicar al ViewHolder si puede
     // descargar imagenes
-    override fun arePictureDownloadsAllowed(): Boolean {
-        val res = !(!Utils.isWifiConnected(requireContext()) && !locationsListVM.isDatauseAllowed())
-        Log.d("DEBUG-LLF", "permiso para pintar imagenes de la lista: $res")
-        return res
+    override fun areDownloadsAllowed() = preferencesVM.areDownloadsAllowed(requireContext())
+
+
+
+    // FUNCIONES PRIVADAS (INICIALIZACIONES)
+    //
+    // Inicializacion de los observadores de los livedata del modelo
+    private fun observeFilteredSearchList() {
+        locationsListVM.locationsFilteredSearch.observe(viewLifecycleOwner) { locList ->
+            Log.d(TAG, "Se han observado cambios en locationsFilteredSearch")
+            adapterList.submitList(locList)
+        }
+    }
+    private fun observeUIStateList(view: View) {
+        locationsListVM.locationsUIStateObservable.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is LocationsUIState.Success -> {
+                    Snackbar.make(view, "Se han observado cambios", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show()
+                }
+                is LocationsUIState.Error -> {
+                    Snackbar.make(view, result.message, Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show()
+                }
+            }
+            // hacemos que se quite la animacion circular de carga
+            swipeRefreshLayout.isRefreshing = false
+        }
     }
 
     // inicializa la appbar y elementos asociados (searchview, filterview)

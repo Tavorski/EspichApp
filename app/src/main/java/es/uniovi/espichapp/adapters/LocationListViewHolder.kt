@@ -1,25 +1,22 @@
 package es.uniovi.arqui.adapters
 
-import android.content.Context
 import android.graphics.text.LineBreaker
 import android.os.Build
 import android.view.View
 import android.view.ViewGroup.MarginLayoutParams
 import androidx.core.view.isVisible
-import androidx.core.view.marginRight
-import androidx.core.view.setMargins
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import es.uniovi.arqui.util.Utils
 import es.uniovi.espichapp.R
-import es.uniovi.espichapp.dataStore
 import es.uniovi.espichapp.databinding.ItemViewBinding
-import es.uniovi.espichapp.interfaces.LocationListEvent
+import es.uniovi.espichapp.interfaces.NetworkUseController
+import es.uniovi.espichapp.interfaces.OnListItemClickListener
 import es.uniovi.espichapp.model.Location
 
 class LocationListViewHolder(
-    val itemViewBinding: ItemViewBinding,
-    val listener: LocationListEvent
+    private val itemViewBinding: ItemViewBinding,
+    private val clickListener: OnListItemClickListener,
+    private val netController: NetworkUseController
 ) : RecyclerView.ViewHolder(itemViewBinding.root), View.OnClickListener{
 
     init {
@@ -28,7 +25,7 @@ class LocationListViewHolder(
     override fun onClick(v: View?) {
         val position = adapterPosition
         if (position != RecyclerView.NO_POSITION) {
-            listener.onItemClick(position)
+            clickListener.onItemClick(position)
         }
     }
 
@@ -75,19 +72,18 @@ class LocationListViewHolder(
             }
             iconCask.isVisible = item.isBodega()
             // Descargamos con Picasso el slide
-            if (listener.arePictureDownloadsAllowed()) {
+            if (netController.areDownloadsAllowed()) {
                 Picasso
                     .get()
                     .load("https://www.turismoasturias.es/${item.Slide}")
                     .placeholder(R.drawable.image_placeholder2)
-                    .fit()
                     .into(imageLocation)
             }
             else {
                 Picasso
                     .get()
                     .load(R.drawable.image_placeholder_nowifi)
-                    .fit()
+                    .centerInside().resize(200,200)
                     .placeholder(R.drawable.image_placeholder2)
                     .into(imageLocation)
             }

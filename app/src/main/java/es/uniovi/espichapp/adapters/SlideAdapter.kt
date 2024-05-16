@@ -9,15 +9,18 @@ import androidx.recyclerview.widget.RecyclerView
 import es.uniovi.arqui.util.Utils
 import es.uniovi.espichapp.databinding.FragmentDetailBinding
 import es.uniovi.espichapp.databinding.SlideViewBinding
+import es.uniovi.espichapp.interfaces.NetworkUseController
 import es.uniovi.espichapp.model.Location
 
 class SlideAdapter(private val slides: List<String>?,
-                   private val titles: List<String>?) : RecyclerView.Adapter<SlideViewHolder>() {
+                   private val titles: List<String>?,
+                   private val netController: NetworkUseController
+) : RecyclerView.Adapter<SlideViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SlideViewHolder {
         Log.d("DEBUG - SA", "onCreateVH")
         val slideViewBinding = SlideViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return SlideViewHolder(slideViewBinding)
+        return SlideViewHolder(slideViewBinding, netController)
     }
 
     override fun getItemCount(): Int = slides?.size ?: 0

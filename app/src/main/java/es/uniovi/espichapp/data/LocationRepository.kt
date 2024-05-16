@@ -1,7 +1,5 @@
 package es.uniovi.espichapp.data
 
-import android.accounts.NetworkErrorException
-import android.content.res.Resources
 import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.IOException
@@ -15,8 +13,6 @@ import es.uniovi.espichapp.model.Location
 import es.uniovi.espichapp.network.RestApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
@@ -24,8 +20,6 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import java.net.UnknownHostException
 
 
 class LocationRepository(private val locationDAO: LocationDAO,
@@ -72,7 +66,7 @@ class LocationRepository(private val locationDAO: LocationDAO,
         Pair("system_theme","true"),
         Pair("theme","true"))
 
-    val userParametersFlow: Flow<SettingsParameters> = dataStore.data
+    val settingsParametersFlow: Flow<SettingsParameters> = dataStore.data
         .catch { exception ->
             if (exception is IOException) {
                 Log.e("DEBUG - LRepo", "Error reading preferences.", exception)

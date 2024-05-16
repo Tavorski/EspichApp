@@ -1,5 +1,6 @@
 package es.uniovi.espichapp.ui
 
+import android.graphics.text.LineBreaker
 import android.graphics.text.LineBreaker.JUSTIFICATION_MODE_INTER_WORD
 import android.os.Build
 import androidx.fragment.app.viewModels
@@ -26,11 +27,14 @@ import es.uniovi.espichapp.R
 import es.uniovi.espichapp.data.Coordinates
 import es.uniovi.espichapp.databinding.FragmentDetailBinding
 import es.uniovi.espichapp.domain.DetailViewModel
+import es.uniovi.espichapp.domain.PreferencesViewModel
+import es.uniovi.espichapp.interfaces.NetworkUseController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class DetailFragment : Fragment() {
+class DetailFragment : Fragment(),
+    NetworkUseController {
 
     // CAMPOS
     val args: DetailFragmentArgs by navArgs()
@@ -39,6 +43,9 @@ class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
     private val detailVM: DetailViewModel by viewModels() {
+        Utils.ViewModelFactory((activity?.application as EspichApp).repository)
+    }
+    private val preferencesVM: PreferencesViewModel by viewModels {
         Utils.ViewModelFactory((activity?.application as EspichApp).repository)
     }
     lateinit var rvSlide: RecyclerView
@@ -62,6 +69,15 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         detailVM.setLocation(locationName)
+
+        // Hacemos que se observe el livedata del viewmodel que contiene el establecimiento a mostrar
+        observeLocation()
+        
+        // Modificamos la toolbar según las necesidades de esta vista
+        initToolbar()
+    }
+
+    fun observeLocation() {
         detailVM.location.observe(viewLifecycleOwner) { location ->
             with(binding) {
                 // Montamos toda la vista
@@ -73,8 +89,9 @@ class DetailFragment : Fragment() {
                     append("\n\n")
                     append(location.Descripcion)
                 }
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    tvDetailDescp.justificationMode = JUSTIFICATION_MODE_INTER_WORD
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+                    tvDetailDescp.justificationMode =
+                        android.graphics.text.LineBreaker.JUSTIFICATION_MODE_INTER_WORD
                 }
 
                 // Es necesario envolver el parseo de las coordenadas en un trycatch
@@ -92,7 +109,9 @@ class DetailFragment : Fragment() {
                 // Añadimos el manejador que cambia la vista al MapFragment
                 linkCoordinates.setOnClickListener {
                     findNavController().navigate(
-                        DetailFragmentDirections.actionDetailFragmentToMapFragment(coordinates)
+                        es.uniovi.espichapp.ui.DetailFragmentDirections.actionDetailFragmentToMapFragment(
+                            coordinates
+                        )
                     )
                 }
 
@@ -116,17 +135,22 @@ class DetailFragment : Fragment() {
                 val titles: List<String>? = location.SlideTitulo?.split(",")
 
                 // Asignamos un layout lineal horizontal
-                Log.d("DEBUG - DF", "Asignado LLM")
-                rvSlide.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+                android.util.Log.d("DEBUG - DF", "Asignado LLM")
+                rvSlide.layoutManager = LinearLayoutManager(
+                    context,
+                    androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL,
+                    false
+                );
 
                 // Asignamos un adapter y cargamos las imagenes del establecimiento
-                Log.d("DEBUG - DF", "Instanciado SlideAdapter")
-                adapterSlide = SlideAdapter(slides,titles)
+                android.util.Log.d("DEBUG - DF", "Instanciado SlideAdapter")
+                adapterSlide = SlideAdapter(slides, titles, this@DetailFragment)
                 rvSlide.adapter = adapterSlide
             }
         }
-        
-        // Modificamos la toolbar según las necesidades de esta vista
+    }
+
+    private fun initToolbar() {
         val mainActivity: MainActivity = requireActivity() as MainActivity
         mainActivity.setSupportActionBar(binding.toolbar)
 
@@ -149,4 +173,6 @@ class DetailFragment : Fragment() {
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
+
+    override fun areDownloadsAllowed(): Boolean = preferencesVM.areDownloadsAllowed(requireContext())
 }
