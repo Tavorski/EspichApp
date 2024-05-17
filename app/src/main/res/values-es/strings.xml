@@ -11,7 +11,7 @@
     <string name="settings_title_appearance">Apariencia</string>
     <string name="settings_title_general">General</string>
     <string name="settings_datause">Uso de datos</string>
-    <string name="action_search_hint">Buscar por nombre o concejo...</string>
+    <string name="action_search_hint">Nombre o concejo...</string>
     <string name="actionbar_title_detail">Detalle del establecimiento</string>
     <string name="settings_language_es">Español</string>
     <string name="settings_language_en">Inglés</string>
@@ -20,4 +20,5 @@
     <string name="filter_checkbox_cellars">Bodegas</string>
     <string name="filter_checkbox_cidermills">Llagares</string>
     <string name="filter_checkbox_dairies">Queserías</string>
+    <string name="action_filter">Filtrar</string>
 </resources>

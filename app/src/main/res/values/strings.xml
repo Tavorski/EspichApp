@@ -3,7 +3,7 @@
 
     <!-- Menu -->
     <string name="action_search">Buscar</string>
-    <string name="action_search_hint">Buscar por nombre o concejo...</string>
+    <string name="action_search_hint">Nombre o concejo...</string>
     <string name="action_settings">Ajustes</string>
 
     <!-- Detail -->
@@ -34,4 +34,5 @@
     <string name="filter_checkbox_cellars">Bodegas</string>
     <string name="filter_checkbox_cidermills">Llagares</string>
     <string name="filter_checkbox_dairies">Quesería</string>
+    <string name="action_filter">Filtrar</string>
 </resources>
