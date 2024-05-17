@@ -28,6 +28,7 @@ import es.uniovi.arqui.domain.LocationListViewModel
 import es.uniovi.arqui.util.Utils
 import es.uniovi.espichapp.EspichApp
 import es.uniovi.espichapp.R
+import es.uniovi.espichapp.data.Filter
 import es.uniovi.espichapp.databinding.FragmentLocationsListBinding
 import es.uniovi.espichapp.domain.PreferencesViewModel
 import es.uniovi.espichapp.interfaces.NetworkUseController
@@ -65,8 +66,6 @@ class LocationsListFragment :
 
     // Para actualizar al scrollear hacia arriba
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
-    // Para las preferencias
-    lateinit var sharedPreferences: SharedPreferences
 
 
     // OVERRIDES
@@ -107,14 +106,13 @@ class LocationsListFragment :
         swipeRefreshLayout = binding.swipeRefreshLayout
         swipeRefreshLayout.setOnRefreshListener(this)
 
-        // Hacemos que se observen elementos en la base de datos que se puedan presentar, se cargen en el adapter
-        /*locationsListVM.locationsFromDB.observe(viewLifecycleOwner) { locList ->
-            Log.d("DEBUG - LLF", "Se han observado cambios en locations")
-            adapterList.submitList(locList)
+        // que se observen las preferencias de usuario
+        observeUserPreferences()
 
-        }*/
+        // que se observen los livedata del modelo
         observeFilteredSearchList()
         observeUIStateList(view)
+
     }
 
     // IMPLEMENTACION DE INTERFAZ: OnRefreshListener
@@ -172,18 +170,60 @@ class LocationsListFragment :
     // FUNCIONES PRIVADAS (INICIALIZACIONES)
     //
     // Inicializacion de los observadores de los livedata del modelo
+   /* private fun observeFilter() {
+        locationsListVM.filter.observe(viewLifecycleOwner) { array ->
+            Log.d(TAG, "Se han observado cambios en filter")
+            // en caso de que se marcasen en una ejecución anterior, las checkboxes del filtro se
+            // guardan en UserPreferences dentro del Datastore para que el filtro sea reestablecido
+            // al iniciarse MainActivity ( observeUserPreferences() )
+            binding.cbCellars.isChecked = array[0]
+            binding.cbCidermills.isChecked = array[1]
+            binding.cbDairies.isChecked = array[2]
+
+        }
+    }*/
+    /**
+     * Inicializa aquellos componentes de esta vista afectados por PREFERENCIAS DE USUARIO,
+     * como el filtro de la lista por tipo de establecimiento (bodega, llagar, quesería)
+     */
+    private fun observeUserPreferences() {
+        preferencesVM.userPreferences.observe(viewLifecycleOwner) { preferences ->
+            Log.d(TAG,"Se han detectado cambios en las preferencias de usuario")
+
+            with(preferences.filterByCellars) {
+                locationsListVM.filter[0] = this
+                binding.cbCellars.isChecked = this
+            }
+            with(preferences.filterByCidermills) {
+                locationsListVM.filter[1] = this
+                binding.cbCidermills.isChecked = this
+            }
+            with(preferences.filterByDairies) {
+                locationsListVM.filter[2] = this
+                binding.cbDairies.isChecked = this
+            }
+
+            // activamos el trigger
+            // locationsListVM.query.value = locationsListVM.query.value
+        }
+    }
     private fun observeFilteredSearchList() {
         locationsListVM.locationsFilteredSearch.observe(viewLifecycleOwner) { locList ->
             Log.d(TAG, "Se han observado cambios en locationsFilteredSearch")
             adapterList.submitList(locList)
         }
     }
+
+    /**
+     * Este observer solo se usa para mostrar el snackbar con el mensaje de error en el acceso
+     * al servicio REST mediante Retrofit si se diese la situación, pero no se submitea al adapter
+     * desde aquí.
+     */
     private fun observeUIStateList(view: View) {
         locationsListVM.locationsUIStateObservable.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is LocationsUIState.Success -> {
-                    Snackbar.make(view, "Se han observado cambios", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show()
+                    Log.d(TAG,"Se han observado cambios en locationsUIStateObservable")
                 }
                 is LocationsUIState.Error -> {
                     Snackbar.make(view, result.message, Snackbar.LENGTH_LONG)
@@ -195,7 +235,9 @@ class LocationsListFragment :
         }
     }
 
-    // inicializa la appbar y elementos asociados (searchview, filterview)
+    /**
+     * inicializa la appbar y elementos asociados (searchview, filterview)
+     */
     private fun initToolbar() {
         val mainActivity: MainActivity = requireActivity() as MainActivity
         mainActivity.setSupportActionBar(binding.toolbar)
@@ -229,34 +271,42 @@ class LocationsListFragment :
 
         // aquí se hace invisible el despegable con los filtros y se crean los listeners
         binding.filterlayout.isGone = true
+
+
         binding.cbCellars.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 locationsListVM.filter[0] = true
                 locationsListVM.query.value = locationsListVM.query.value
+                preferencesVM.updateFilterPreferences(Filter.BY_CELLARS, true)
             }
             else {
                 locationsListVM.filter[0] = false
                 locationsListVM.query.value = locationsListVM.query.value
+                preferencesVM.updateFilterPreferences(Filter.BY_CELLARS, false)
             }
         }
         binding.cbCidermills.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 locationsListVM.filter[1] = true
                 locationsListVM.query.value = locationsListVM.query.value
+                preferencesVM.updateFilterPreferences(Filter.BY_CIDERMILLS, true)
             }
             else {
                 locationsListVM.filter[1] = false
                 locationsListVM.query.value = locationsListVM.query.value
+                preferencesVM.updateFilterPreferences(Filter.BY_CIDERMILLS, false)
             }
         }
         binding.cbDairies.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 locationsListVM.filter[2] = true
                 locationsListVM.query.value = locationsListVM.query.value
+                preferencesVM.updateFilterPreferences(Filter.BY_DAIRIES, true)
             }
             else {
                 locationsListVM.filter[2] = false
                 locationsListVM.query.value = locationsListVM.query.value
+                preferencesVM.updateFilterPreferences(Filter.BY_DAIRIES, false)
             }
         }
 

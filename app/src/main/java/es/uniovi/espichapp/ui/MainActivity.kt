@@ -7,16 +7,20 @@ import android.app.LocaleManager
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
+import es.uniovi.arqui.domain.LocationListViewModel
 import es.uniovi.arqui.util.Utils
 import es.uniovi.espichapp.EspichApp
 import es.uniovi.espichapp.data.UseMobileData
 import es.uniovi.espichapp.databinding.ActivityMainBinding
 import es.uniovi.espichapp.domain.PreferencesViewModel
+import kotlinx.coroutines.runBlocking
 import java.util.Locale
 
 private const val TAG = "DEBUG - MainAct"
@@ -28,28 +32,49 @@ class MainActivity : AppCompatActivity() {
     private val preferencesVM: PreferencesViewModel by viewModels {
         Utils.ViewModelFactory((application as EspichApp).repository)
     }
+    private val locationsListVM: LocationListViewModel by viewModels {
+        Utils.ViewModelFactory((application as EspichApp).repository)
+    }
 
     // OVERRIDES
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         // hacemos que se observe el subconjunto del datastore que contiene los parámetros de la app
-        preferencesVM.settingsParameters.observe(this) { parameters ->
-            Log.d("DEBUG - Main","Se han detectado cambios en dataStore")
-            if (parameters.useMobileData != UseMobileData.ANY.name) {
-                setWifiStatus()
-            }
-
-            // Cambiamos el idioma
-            setLanguage(parameters.language)
-
-            // Cambiamos el tema
-            setAppTheme(parameters.useDefaultSystemTheme,parameters.nightTheme)
-
-        }
+        // para que se produzcan los cambios pertinentes en la aplicacion
+        observeSettingsParameters()
+        // y lo mismo con las preferencias de usuario (no lo hacemos porque solo existen como preferencias
+        // de usuario los tipos de establecimiento elegidos en el filtro
+        //observeUserPreferences()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+    }
+    /**
+     * Inicializa aquellos componentes de la aplicacion afectados por PARAMETROS DE AJUSTE,
+     * como el uso de datos moviles, el modo noche y el idioma
+     */
+    private fun observeSettingsParameters() {
+        preferencesVM.settingsParameters.observe(this) { parameters ->
+            Log.d("DEBUG - Main","Se han detectado cambios en los ajustes")
+            // Si el uso de datos móviles está restringido, lo indicamos en el repositorio
+            // para evitar descargas de datos
+            if (parameters.useMobileData != UseMobileData.ANY.name) {
+                setWifiStatus()
+            }
+            // Cambiamos el idioma
+            setLanguage(parameters.language)
+            // Cambiamos el tema
+            setAppTheme(parameters.useDefaultSystemTheme,parameters.nightTheme)
+        }
+    }
+    /**
+     * Inicializa aquellos componentes de la aplicacion afectados por PREFERENCIAS DE USUARIO,
+     * como el filtro de la lista por tipo de establecimiento (bodega, llagar, quesería)
+     */
+    private fun observeUserPreferences() {
+        //preferencesVM.userPreferences.observe(this) {        }
     }
 
     /**
@@ -64,6 +89,9 @@ class MainActivity : AppCompatActivity() {
         Log.d(TAG,"Se ha cambiado el idioma a $lang")
     }
 
+    /**
+     * Cambia el tema en el que se muestra la aplicacion
+     */
     private fun setAppTheme(systemTheme: Boolean, nightMode: Boolean) {
         if (systemTheme)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)

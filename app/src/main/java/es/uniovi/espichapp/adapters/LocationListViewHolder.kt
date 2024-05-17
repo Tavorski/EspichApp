@@ -76,6 +76,7 @@ class LocationListViewHolder(
                 Picasso
                     .get()
                     .load("https://www.turismoasturias.es/${item.Slide}")
+                    .centerCrop().resize(150,150)
                     .placeholder(R.drawable.image_placeholder2)
                     .into(imageLocation)
             }

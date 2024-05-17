@@ -12,6 +12,10 @@ import es.uniovi.espichapp.databinding.SlideViewBinding
 import es.uniovi.espichapp.interfaces.NetworkUseController
 import es.uniovi.espichapp.model.Location
 
+/**
+ * Este Adapter y su respectivo ViewHolder se utilizan para mostrar las imagenes de un establecimiento
+ * en la pantalla del detalle
+ */
 class SlideAdapter(private val slides: List<String>?,
                    private val titles: List<String>?,
                    private val netController: NetworkUseController

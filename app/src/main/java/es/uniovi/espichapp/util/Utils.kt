@@ -12,21 +12,6 @@ import es.uniovi.espichapp.domain.PreferencesViewModel
 
 class Utils {
 
-    // Funciones
-
-    companion object {
-        fun isWifiConnected(context: Context): Boolean{
-            var isWifiConnected = false
-            val connectivityManager =
-                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val capabilities =
-                connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-            if (capabilities != null) {
-                isWifiConnected = capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
-            }
-            return isWifiConnected
-        }
-    }
 
     // Factoría de ViewModels
 

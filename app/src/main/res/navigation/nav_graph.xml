@@ -29,7 +29,10 @@
             app:argType="string" />
         <action
             android:id="@+id/action_detailFragment_to_mapFragment"
-            app:destination="@id/mapFragment" />
+            app:destination="@id/mapFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@animator/nav_default_exit_anim"
+            app:popUpTo="@id/locationsListFragment" />
     </fragment>
     <fragment
         android:id="@+id/settings"
@@ -42,7 +45,7 @@
         android:label="MapFragment" >
         <argument
             android:name="coordinates"
-            app:argType="es.uniovi.espichapp.data.Coordinates" />
+            app:argType="es.uniovi.espichapp.data.LocationCoordinates" />
     </fragment>
     <argument
         android:name="latitude"

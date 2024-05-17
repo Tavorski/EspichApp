@@ -1,8 +1,5 @@
 package es.uniovi.espichapp.ui
 
-import android.graphics.text.LineBreaker
-import android.graphics.text.LineBreaker.JUSTIFICATION_MODE_INTER_WORD
-import android.os.Build
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.util.Log
@@ -24,7 +21,7 @@ import es.uniovi.arqui.adapters.SlideAdapter
 import es.uniovi.arqui.util.Utils
 import es.uniovi.espichapp.EspichApp
 import es.uniovi.espichapp.R
-import es.uniovi.espichapp.data.Coordinates
+import es.uniovi.espichapp.data.LocationCoordinates
 import es.uniovi.espichapp.databinding.FragmentDetailBinding
 import es.uniovi.espichapp.domain.DetailViewModel
 import es.uniovi.espichapp.domain.PreferencesViewModel
@@ -33,13 +30,15 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+private const val TAG = "DEBUG - DetailFrag"
+
 class DetailFragment : Fragment(),
     NetworkUseController {
 
     // CAMPOS
     val args: DetailFragmentArgs by navArgs()
     lateinit var locationName: String
-    lateinit var coordinates: Coordinates
+    lateinit var locationCoordinates: LocationCoordinates
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
     private val detailVM: DetailViewModel by viewModels() {
@@ -77,6 +76,11 @@ class DetailFragment : Fragment(),
         initToolbar()
     }
 
+    /**
+     * El observer del objeto Location (el cual se activa con el trigger locationName) pinta
+     * la pantalla del detalle cada vez que se entra en el detalle de un establecimiento o cada
+     * vez que se modifican sus datos una vez ya se ha entrado en dicha pantalla
+     */
     fun observeLocation() {
         detailVM.location.observe(viewLifecycleOwner) { location ->
             with(binding) {
@@ -98,7 +102,7 @@ class DetailFragment : Fragment(),
                 try {
                     // Procesamos el argumento string con las coordenadas
                     val tokens: List<String> = location.Coordenadas!!.split(",")
-                    coordinates = Coordinates(tokens[0].toDouble(), tokens[1].toDouble())
+                    locationCoordinates = LocationCoordinates(location.Nombre,location.Direccion.orEmpty(),tokens[0].toDouble(), tokens[1].toDouble())
                 } catch (_: Exception) {
                     // Se puede dar una excepcion cuando el contenido de las coordenadas
                     // retornado por Rest es nulo o no es parseable a Double
@@ -110,7 +114,7 @@ class DetailFragment : Fragment(),
                 linkCoordinates.setOnClickListener {
                     findNavController().navigate(
                         es.uniovi.espichapp.ui.DetailFragmentDirections.actionDetailFragmentToMapFragment(
-                            coordinates
+                            locationCoordinates
                         )
                     )
                 }
@@ -135,7 +139,7 @@ class DetailFragment : Fragment(),
                 val titles: List<String>? = location.SlideTitulo?.split(",")
 
                 // Asignamos un layout lineal horizontal
-                android.util.Log.d("DEBUG - DF", "Asignado LLM")
+                android.util.Log.d(TAG, "Asignado LLM")
                 rvSlide.layoutManager = LinearLayoutManager(
                     context,
                     androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL,
@@ -150,6 +154,9 @@ class DetailFragment : Fragment(),
         }
     }
 
+    /**
+     * Inicializa una toolbar muy sencilla con una flecha de retorno a la lista de establecimientos
+     */
     private fun initToolbar() {
         val mainActivity: MainActivity = requireActivity() as MainActivity
         mainActivity.setSupportActionBar(binding.toolbar)
@@ -161,10 +168,12 @@ class DetailFragment : Fragment(),
 
         mainActivity.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                //menuInflater.inflate(R.menu.menu_main, menu)
+                menuInflater.inflate(R.menu.menu_detail, menu)
+
             }
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                Log.d("Debug - DF", "Se ha pulsado ${menuItem.javaClass},${menuItem.itemId}")
+                Log.d("Debug - DF", "Se ha pulsado ${menuItem.javaClass},${menuItem.itemId}," +
+                        "${menuItem}")
 
                 // Solo hay un botón en este menú, no es necesario identificar el menuitem
                 findNavController().popBackStack()

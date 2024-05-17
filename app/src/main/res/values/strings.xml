@@ -3,8 +3,9 @@
 
     <!-- Menu -->
     <string name="action_search">Buscar</string>
-    <string name="action_search_hint">Nombre o concejo...</string>
+    <string name="action_search_hint">Nombre o concejo…</string>
     <string name="action_settings">Ajustes</string>
+    <string name="action_filter">Filtrar</string>
 
     <!-- Detail -->
     <string name="detail_title_description">Descripción</string>
@@ -30,9 +31,11 @@
     <string name="settings_datause_onlywifi_value" translatable="false">ONLYWIFI</string>
 
     <!-- AppBar Titles -->
-    <string name="actionbar_title_detail">Detalle del establecimiento</string>
+    <string name="actionbar_title_detail">Detalles del establecimiento</string>
+    <string name="actionbar_title_map">Ubicación del establecimiento</string>
+
+    <!-- Filter View -->
     <string name="filter_checkbox_cellars">Bodegas</string>
     <string name="filter_checkbox_cidermills">Llagares</string>
     <string name="filter_checkbox_dairies">Quesería</string>
-    <string name="action_filter">Filtrar</string>
 </resources>

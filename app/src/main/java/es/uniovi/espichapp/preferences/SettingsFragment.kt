@@ -14,7 +14,9 @@ import es.uniovi.espichapp.dataStore
 import java.util.Locale
 
 
-class SettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener {
+private const val TAG = "DEBUG - SF"
+
+class SettingsFragment : PreferenceFragmentCompat() {
 
     // CAMPOS
 
@@ -22,27 +24,6 @@ class SettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChan
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.preferenceDataStore = SettingsDataStore((activity?.application as EspichApp).repository)
         setPreferencesFromResource(R.xml.preferences, rootKey)
-        //findPreference<ListPreference>("mobile_data")?.onPreferenceChangeListener = this
     }
 
-    override fun onPreferenceChange(preference: Preference, newValue: Any?): Boolean {
-        Log.d("DEBUG - SF","Se han cambiado preferencias")
-        val key = preference.key
-        val new = newValue.toString()
-        when(preference.key) {
-            "mobile_data" -> {
-                Log.d("DEBUG - SF","Se ha cambiado el valor 'mobile_data'")
-            }
-            "language" -> {
-                Log.d("DEBUG - SF","Se ha cambiado el valor 'language'")
-                val config = resources.configuration
-                val lang: String = new // your language code
-                val locale = Locale(lang)
-                Locale.setDefault(locale)
-                config.setLocale(locale)
-            }
-            else -> preferenceManager.preferenceDataStore?.putString(key,new)
-        }
-        return true
-    }
 }

@@ -22,9 +22,8 @@ class LocationListViewModel(val repository: LocationRepository): ViewModel() {
 
 
     // CAMPOS
-    val locationsFromDB: LiveData<List<Location>> = repository.getLocations().asLiveData()
-    val locationsUIStateObservable: LiveData<LocationsUIState> get() = _locationsUIStateObservable
     private val _locationsUIStateObservable = MutableLiveData<LocationsUIState>()
+    val locationsUIStateObservable: LiveData<LocationsUIState> get() = _locationsUIStateObservable
 
     val query = MutableLiveData<String>()
     private val locationsByName: LiveData<List<Location>> = query.switchMap {
@@ -33,18 +32,24 @@ class LocationListViewModel(val repository: LocationRepository): ViewModel() {
 
     // Este MediatorLiveData está pensado para que escuche el livedata de las búsquedas, le aplique
     // un filtro cuando detecte cambios y luego ser observado en el fragmento
-    var filter: BooleanArray = booleanArrayOf(false,false,false)
+    val filter: BooleanArray = booleanArrayOf(false,false,false) // "por bodegas", "por llagares", "por queserias"
     val locationsFilteredSearch: MediatorLiveData<List<Location>> = MediatorLiveData()
 
 
     // Inicializacion del viewmodel
     init {
         query.value = ""
+        // En este observador se indica que:
+        // -Si no hay ninguna checkbox marcada en el filtro la lista se muestra entera
+        // -Si hay alguna checkbox marcada, se muestra solo parte de la lista en funcion de los tipos
+        //  de establecimiento
         locationsFilteredSearch.addSource(locationsByName) { list ->
             if (!filter.contains(true)) locationsFilteredSearch.value = list
             else
                 locationsFilteredSearch.value = list.filter {
-                    it.isBodega() && filter[0] || it.isLlagar() && filter[1] || it.isQueseria() && filter[2]
+                    it.isBodega() && filter[0]
+                            || it.isLlagar() && filter[1]
+                            || it.isQueseria() && filter[2]
                 }
         }
     }

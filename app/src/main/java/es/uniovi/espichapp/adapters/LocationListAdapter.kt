@@ -9,6 +9,10 @@ import es.uniovi.espichapp.interfaces.NetworkUseController
 import es.uniovi.espichapp.interfaces.OnListItemClickListener
 import es.uniovi.espichapp.model.Location
 
+/**
+ * Este Adapter y su respectivo ViewHolder se utilizan para inflar las vistas (ItemView) de cada elemento
+ * del RecyclerView que se muestra en la pantalla principal de la aplicación (LocationListFragment)
+ */
 class LocationListAdapter(
     private val clickListener: OnListItemClickListener,
     private val netController: NetworkUseController
