@@ -202,9 +202,8 @@ class LocationsListFragment :
                 locationsListVM.filter[2] = this
                 binding.cbDairies.isChecked = this
             }
-
             // activamos el trigger
-            // locationsListVM.query.value = locationsListVM.query.value
+            locationsListVM.query.value = locationsListVM.query.value
         }
     }
     private fun observeFilteredSearchList() {
@@ -272,9 +271,11 @@ class LocationsListFragment :
         // aquí se hace invisible el despegable con los filtros y se crean los listeners
         binding.filterlayout.isGone = true
 
-
-        binding.cbCellars.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
+        // Aqui usamos el evento onClick en vez de onChecked porque queremos que estos manejadores
+        // se ejecuten solo cuando el usuario marca las casillas y no cuando las casillas se marcan
+        // de forma programática (como en el observador del filtro observeUserPreferences() )
+        binding.cbCellars.setOnClickListener {
+            if (binding.cbCellars.isChecked) {
                 locationsListVM.filter[0] = true
                 locationsListVM.query.value = locationsListVM.query.value
                 preferencesVM.updateFilterPreferences(Filter.BY_CELLARS, true)
@@ -285,8 +286,8 @@ class LocationsListFragment :
                 preferencesVM.updateFilterPreferences(Filter.BY_CELLARS, false)
             }
         }
-        binding.cbCidermills.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
+        binding.cbCidermills.setOnClickListener {
+            if (binding.cbCidermills.isChecked) {
                 locationsListVM.filter[1] = true
                 locationsListVM.query.value = locationsListVM.query.value
                 preferencesVM.updateFilterPreferences(Filter.BY_CIDERMILLS, true)
@@ -297,8 +298,8 @@ class LocationsListFragment :
                 preferencesVM.updateFilterPreferences(Filter.BY_CIDERMILLS, false)
             }
         }
-        binding.cbDairies.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
+        binding.cbDairies.setOnClickListener {
+            if (binding.cbDairies.isChecked) {
                 locationsListVM.filter[2] = true
                 locationsListVM.query.value = locationsListVM.query.value
                 preferencesVM.updateFilterPreferences(Filter.BY_DAIRIES, true)

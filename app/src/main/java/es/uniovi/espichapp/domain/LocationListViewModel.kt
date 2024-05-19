@@ -39,6 +39,9 @@ class LocationListViewModel(val repository: LocationRepository): ViewModel() {
     // Inicializacion del viewmodel
     init {
         query.value = ""
+        // A continuacion, se implementa un observador que filtra la lista resultado de la búsqueda
+        // y que retorna una lista en el MediatorLiveData que será la lista observada por la UI
+        //
         // En este observador se indica que:
         // -Si no hay ninguna checkbox marcada en el filtro la lista se muestra entera
         // -Si hay alguna checkbox marcada, se muestra solo parte de la lista en funcion de los tipos
