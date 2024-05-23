@@ -1,15 +1,14 @@
 package es.uniovi.espichapp.domain
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.switchMap
-import es.uniovi.espichapp.data.LocationRepository
+import es.uniovi.espichapp.data.Repository
 import es.uniovi.espichapp.model.Location
 
-class DetailViewModel(val repository: LocationRepository) : ViewModel() {
+class DetailViewModel(val repository: Repository) : ViewModel() {
 
     // CAMPOS
     private val locationName = MutableLiveData<String>()

@@ -1,4 +1,4 @@
-package es.uniovi.arqui.domain
+package es.uniovi.espichapp.domain
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -9,16 +9,16 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import es.uniovi.espichapp.data.ApiResult
-import es.uniovi.espichapp.data.LocationRepository
-import es.uniovi.espichapp.data.UseMobileData
+import es.uniovi.espichapp.data.Repository
 import es.uniovi.espichapp.model.Location
 import es.uniovi.espichapp.ui.LocationsUIState
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
-class LocationListViewModel(val repository: LocationRepository): ViewModel() {
+private const val TAG = "DEBUG - LLVM"
+
+class LocationsListViewModel(val repository: Repository): ViewModel() {
 
 
     // CAMPOS
@@ -26,8 +26,17 @@ class LocationListViewModel(val repository: LocationRepository): ViewModel() {
     val locationsUIStateObservable: LiveData<LocationsUIState> get() = _locationsUIStateObservable
 
     val query = MutableLiveData<String>()
-    private val locationsByName: LiveData<List<Location>> = query.switchMap {
-        name -> repository.searchLocationsByName(name).asLiveData()
+    private val locationsByName: LiveData<List<Location>> = query.switchMap { query ->
+        val temp: List<String> = query.chunked(1)
+        val exclude: List<String> = listOf("a","e","i","o","u","á","é","í","ó","ú")
+        var name = ""
+        for (c in temp) {
+            name += if(exclude.contains(c)) "_"  // Wildcard en vocales para evitar problemas con las tildes
+            else c    // Insertamos un _ entre cada caracter para reducir la sensibilidad
+            // de la búsqueda y que acepte faltas de ortografía
+        }
+        Log.d(TAG,"Query: $query -> $name")
+        repository.searchLocationsByName(name).asLiveData()
     }
 
     // Este MediatorLiveData está pensado para que escuche el livedata de las búsquedas, le aplique
@@ -65,12 +74,12 @@ class LocationListViewModel(val repository: LocationRepository): ViewModel() {
                 repository.updateLocationsData().map { result ->
                     when (result) {
                         is ApiResult.Success -> {
-                            Log.d("DEBUG - LLVM", "ApiResult es Success")
+                            Log.d(TAG, "ApiResult es Success")
                             LocationsUIState.Success(result.data!!)
                         }
 
                         is ApiResult.Error -> {
-                            Log.d("DEBUG - LLVM", result.message!!)
+                            Log.d(TAG, result.message!!)
                             LocationsUIState.Error(result.message)
                         }
                     }

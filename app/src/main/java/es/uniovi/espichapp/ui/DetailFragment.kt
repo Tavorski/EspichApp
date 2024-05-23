@@ -36,9 +36,9 @@ class DetailFragment : Fragment(),
     NetworkUseController {
 
     // CAMPOS
-    val args: DetailFragmentArgs by navArgs()
-    lateinit var locationName: String
-    lateinit var locationCoordinates: LocationCoordinates
+    private val args: DetailFragmentArgs by navArgs()
+    private lateinit var locationName: String
+    private lateinit var locationCoordinates: LocationCoordinates
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
     private val detailVM: DetailViewModel by viewModels() {
@@ -47,8 +47,8 @@ class DetailFragment : Fragment(),
     private val preferencesVM: PreferencesViewModel by viewModels {
         Utils.ViewModelFactory((activity?.application as EspichApp).repository)
     }
-    lateinit var rvSlide: RecyclerView
-    lateinit var adapterSlide: SlideAdapter
+    private lateinit var rvSlide: RecyclerView
+    private lateinit var adapterSlide: SlideAdapter
 
     // OVERRIDES
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,7 +81,7 @@ class DetailFragment : Fragment(),
      * la pantalla del detalle cada vez que se entra en el detalle de un establecimiento o cada
      * vez que se modifican sus datos una vez ya se ha entrado en dicha pantalla
      */
-    fun observeLocation() {
+    private fun observeLocation() {
         detailVM.location.observe(viewLifecycleOwner) { location ->
             with(binding) {
                 // Montamos toda la vista

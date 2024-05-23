@@ -1,6 +1,5 @@
 package es.uniovi.espichapp.ui
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -24,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 import es.uniovi.arqui.adapters.LocationListAdapter
-import es.uniovi.arqui.domain.LocationListViewModel
+import es.uniovi.espichapp.domain.LocationsListViewModel
 import es.uniovi.arqui.util.Utils
 import es.uniovi.espichapp.EspichApp
 import es.uniovi.espichapp.R
@@ -57,7 +56,7 @@ class LocationsListFragment :
     // RecyclerView, Adapter, ViewModel
     private lateinit var rvlist: RecyclerView
     private lateinit var adapterList: LocationListAdapter
-    private val locationsListVM: LocationListViewModel by viewModels {
+    private val locationsListVM: LocationsListViewModel by viewModels {
         Utils.ViewModelFactory((activity?.application as EspichApp).repository)
     }
     private val preferencesVM: PreferencesViewModel by viewModels {
@@ -74,10 +73,6 @@ class LocationsListFragment :
         // init de las referencias al navHostFragment
         navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.mainNavHostFragment) as NavHostFragment
         navController = navHostFragment.navController
-    }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -115,6 +110,16 @@ class LocationsListFragment :
 
     }
 
+    /*override fun onStart() {
+        super.onStart()
+        // Forzamos que se resetée la lista cuando se retorna a esta pantalla
+        locationsListVM.query.value = ""
+    }*/
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     // IMPLEMENTACION DE INTERFAZ: OnRefreshListener
     //
     // Esta función implementa la recarga de los datos al scrollear hacia arriba (un swipe refresh)
@@ -122,27 +127,19 @@ class LocationsListFragment :
 
     // IMPLEMENTACION DE INTERFAZ: OnQueryTextListener
     //
-    // no queremos que haga falta hacer submit de la busqueda
+    // No queremos que haga falta hacer submit de la busqueda
     override fun onQueryTextSubmit(query: String?): Boolean {
         return false
     }
-    // con escribir en el searchview es suficiente
+    // Con escribir en el searchview es suficiente
     override fun onQueryTextChange(newText: String?): Boolean {
         Log.d(TAG, "Se han observado cambios en el searchview")
 
-        if (newText != null) {
-            val temp: List<String> = newText.chunked(1)
-            val exclude: List<String> = listOf<String>("a","e","i","o","u","á","é","í","ó","ú")
-            var query = ""
-            for (c in temp) {
-                query += if(exclude.contains(c)) "_"  // Wildcard en vocales para evitar problemas con las tildes
-                else c    // Insertamos un _ entre cada caracter para reducir la sensibilidad
-                                    // de la búsqueda y que acepte faltas de ortografía
-            }
-            Log.d(TAG,"Query: $query")
-            locationsListVM.query.value = query
-        }
-        else locationsListVM.query.value = ""
+        if (newText != null)
+            locationsListVM.query.value = newText
+        else
+            locationsListVM.query.value = ""
+
         return true
     }
 
@@ -168,20 +165,6 @@ class LocationsListFragment :
 
 
     // FUNCIONES PRIVADAS (INICIALIZACIONES)
-    //
-    // Inicializacion de los observadores de los livedata del modelo
-   /* private fun observeFilter() {
-        locationsListVM.filter.observe(viewLifecycleOwner) { array ->
-            Log.d(TAG, "Se han observado cambios en filter")
-            // en caso de que se marcasen en una ejecución anterior, las checkboxes del filtro se
-            // guardan en UserPreferences dentro del Datastore para que el filtro sea reestablecido
-            // al iniciarse MainActivity ( observeUserPreferences() )
-            binding.cbCellars.isChecked = array[0]
-            binding.cbCidermills.isChecked = array[1]
-            binding.cbDairies.isChecked = array[2]
-
-        }
-    }*/
     /**
      * Inicializa aquellos componentes de esta vista afectados por PREFERENCIAS DE USUARIO,
      * como el filtro de la lista por tipo de establecimiento (bodega, llagar, quesería)
@@ -247,6 +230,8 @@ class LocationsListFragment :
                 val mi: MenuItem? = menu.findItem(R.id.searchActionView)
                 val sv: SearchView = mi?.actionView as SearchView
                 sv.queryHint = getString(R.string.action_search_hint)
+                // que se vuelva a poner la query en la view desde el modelo
+                sv.setQuery(locationsListVM.query.value, false)
 
                 // La idea es usar MainActivity como listener para que cada vez que se escriba
                 // o se modifique la busqueda en el searchview, se modifiquen las preferencias

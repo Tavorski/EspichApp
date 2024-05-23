@@ -7,16 +7,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import es.uniovi.espichapp.data.Filter
-import es.uniovi.espichapp.data.LocationRepository
+import es.uniovi.espichapp.data.Repository
 import es.uniovi.espichapp.data.SettingsParameters
 import es.uniovi.espichapp.data.UseMobileData
 import es.uniovi.espichapp.data.UserPreferences
 import es.uniovi.espichapp.data.UserPreferencesKeyStrings
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -29,7 +27,7 @@ private const val TAG = "DEBUG - PrefVM"
  * LocationsListFragment y DetailFragment para conocer la configuracion sobre el uso de datos moviles
  * y regular el uso que hacen sus vistas (ViewHolders en estos casos) de la red
  */
-class PreferencesViewModel(val repository: LocationRepository): ViewModel() {
+class PreferencesViewModel(val repository: Repository): ViewModel() {
 
     private val _settingsParameters  = MutableLiveData<SettingsParameters>()
     val settingsParameters: LiveData<SettingsParameters> get() = _settingsParameters
@@ -99,7 +97,7 @@ class PreferencesViewModel(val repository: LocationRepository): ViewModel() {
 //
 //    Consultas al datastore
 //
-    fun isWifiConnected(context: Context): Boolean {
+    private fun isWifiConnected(context: Context): Boolean {
         var ret = false
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

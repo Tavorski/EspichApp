@@ -2,26 +2,17 @@ package es.uniovi.espichapp.ui
 
 
 
-import android.app.LocaleConfig
-import android.app.LocaleManager
-import android.content.Context
-import android.os.Build
 import android.os.Bundle
-import android.util.AttributeSet
 import android.util.Log
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
-import es.uniovi.arqui.domain.LocationListViewModel
 import es.uniovi.arqui.util.Utils
 import es.uniovi.espichapp.EspichApp
 import es.uniovi.espichapp.data.UseMobileData
 import es.uniovi.espichapp.databinding.ActivityMainBinding
 import es.uniovi.espichapp.domain.PreferencesViewModel
-import kotlinx.coroutines.runBlocking
-import java.util.Locale
 
 private const val TAG = "DEBUG - MainAct"
 
@@ -30,9 +21,6 @@ class MainActivity : AppCompatActivity() {
     // CAMPOS
     private lateinit var binding: ActivityMainBinding
     private val preferencesVM: PreferencesViewModel by viewModels {
-        Utils.ViewModelFactory((application as EspichApp).repository)
-    }
-    private val locationsListVM: LocationListViewModel by viewModels {
         Utils.ViewModelFactory((application as EspichApp).repository)
     }
 

@@ -30,8 +30,8 @@ private const val TAG = "DEBUG - Repository"
  *
  * El Datastore se encuentra instanciado en la clase EspichApp.kt que hereda de Application
  */
-class LocationRepository(private val locationDAO: LocationDAO,
-                         private val dataStore: DataStore<Preferences>) {
+class Repository(private val locationDAO: LocationDAO,
+                 private val dataStore: DataStore<Preferences>) {
 
 
 //
@@ -185,9 +185,9 @@ class LocationRepository(private val locationDAO: LocationDAO,
                 // Verificacion de si se ha permitido la descarga de datos con datos moviles en
                 // los parametros de la app
                 val isDataUseAllowed = fetchSettingsParameters().useMobileData
-                Log.d("Debug - LRepo", "usMobileData: $isDataUseAllowed")
+                Log.d(TAG, "usMobileData: $isDataUseAllowed")
                 if (isDataUseAllowed=="ONLYWIFI" && !isWifiConnected){
-                    Log.d("Debug - LRepo", "Se va a cancelar la peticion a la api por no permitir uso de datos")
+                    Log.d(TAG, "Se va a cancelar la peticion a la api por no permitir uso de datos")
                     val exception = object : PreferencesException() {
                         override val message: String = "Uso de datos móviles no permitido"
                     }

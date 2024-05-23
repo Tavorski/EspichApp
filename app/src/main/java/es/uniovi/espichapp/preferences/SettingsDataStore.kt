@@ -1,23 +1,14 @@
 package es.uniovi.espichapp.preferences
 
-import android.net.ConnectivityManager
 import android.util.Log
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.preference.PreferenceDataStore
-import es.uniovi.espichapp.data.LocationRepository
+import es.uniovi.espichapp.data.Repository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-class SettingsDataStore(private val repository: LocationRepository): PreferenceDataStore() {
+class SettingsDataStore(private val repository: Repository): PreferenceDataStore() {
 
 
     override fun putString(key: String, value: String?) {
