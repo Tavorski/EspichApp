@@ -22,13 +22,6 @@ class SettingsDataStore(private val repository: Repository): PreferenceDataStore
         return runBlocking {
             repository.getString(key,defValue)
         }
-        /*return runBlocking {
-            dataStore.data.map { preferences ->
-                preferences[stringPreferencesKey(key)] ?: defValues[key]!!
-            }.catch {
-                emit(defValue!!)
-            }.first()
-        }*/
     }
     override fun putBoolean(key: String, value: Boolean) {
         Log.d("DEBUG - SDS","Se va a guardar un boolean '$key:$value'")

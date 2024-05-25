@@ -29,12 +29,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
 
-        // hacemos que se observe el subconjunto del datastore que contiene los parámetros de la app
+        // Hacemos que se observe el subconjunto del datastore que contiene los parámetros de la app
         // para que se produzcan los cambios pertinentes en la aplicacion
         observeSettingsParameters()
-        // y lo mismo con las preferencias de usuario (no lo hacemos porque solo existen como preferencias
-        // de usuario los tipos de establecimiento elegidos en el filtro
-        //observeUserPreferences()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -56,13 +53,6 @@ class MainActivity : AppCompatActivity() {
             // Cambiamos el tema
             setAppTheme(parameters.useDefaultSystemTheme,parameters.nightTheme)
         }
-    }
-    /**
-     * Inicializa aquellos componentes de la aplicacion afectados por PREFERENCIAS DE USUARIO,
-     * como el filtro de la lista por tipo de establecimiento (bodega, llagar, quesería)
-     */
-    private fun observeUserPreferences() {
-        //preferencesVM.userPreferences.observe(this) {        }
     }
 
     /**
